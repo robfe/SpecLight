@@ -15,6 +15,7 @@ namespace SpecLight
 
         public Spec(string description)
         {
+            //delete any leading whitespace from each line in description
             Description = Regex.Replace(description.Trim(), @"^\s+", "", RegexOptions.Multiline);
             Steps = new List<Step>();
             SpecTags = new List<string>();
@@ -39,7 +40,7 @@ namespace SpecLight
             //run me
             CallingMethod = CallingMethod ?? new StackFrame(1, false).GetMethod();
             TestMethodNameOverride = testMethodNameOverride;
-            RunOutcomes();
+            Outcomes = RunOutcomes(Steps);
 
             if (_finalActions != null)
             {
@@ -59,14 +60,14 @@ namespace SpecLight
             }
         }
 
-        void RunOutcomes()
+        static List<StepOutcome> RunOutcomes(IEnumerable<Step> steps)
         {
             var skip = false;
-            Outcomes = new List<StepOutcome>();
-            foreach (var step in Steps)
+            var outcomes = new List<StepOutcome>();
+            foreach (var step in steps)
             {
                 var o = step.Execute(skip);
-                Outcomes.Add(o);
+                outcomes.Add(o);
                 switch (o.Status)
                 {
                     case Status.Failed:
@@ -75,6 +76,7 @@ namespace SpecLight
                         break;
                 }
             }
+            return outcomes;
         }
 
         void AddStep(ScenarioBlock block, string text, Action action = null)
