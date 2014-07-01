@@ -12,9 +12,9 @@ namespace SpecLight.Tests
         public void Pending()
         {
             new Spec(@"
-					In order to know how much money I can save
-					As a Math Idiot
-					I want to add two numbers").Tag("Pending")
+                    In order to know how much money I can save
+                    As a Math Idiot
+                    I want to add two numbers").Tag("Pending")
                 .Given(IEnter_, 5)
                 .And(IEnter_, 6)
                 .When(IPressAddPending).Tag("NotImplemented")
@@ -26,9 +26,9 @@ namespace SpecLight.Tests
         public void Passing()
         {
             new Spec(@"
-					In order to know how much money I can save
-					As a Math Idiot
-					I want to add two numbers").Tag("Money")
+                    In order to know how much money I can save
+                    As a Math Idiot
+                    I want to add two numbers").Tag("Money")
                 .Given(IEnter_, 5)
                 .And(IEnter_, 6)
                 .When(IPressAdd)
@@ -43,9 +43,9 @@ namespace SpecLight.Tests
         public void Theory(int i1, int i2, int sum)
         {
             new Spec(@"
-					In order to know how much money I can save
-					As a Math Idiot
-					I want to add two numbers").Tag("Money")
+                    In order to know how much money I can save
+                    As a Math Idiot
+                    I want to add two numbers").Tag("Money")
                 .Given(IEnter_, i1)
                 .And(IEnter_, i2)
                 .When(IPressAdd)
@@ -57,13 +57,15 @@ namespace SpecLight.Tests
         public void Failing()
         {
             new Spec(@"
-					In order to know how much money I can save
-					As a Math Idiot
-					I want to add two numbers")
+                    In order to know how much money I can save
+                    As a Math Idiot
+                    I want to add two numbers").Tag("DemonstrateFinally")
                 .Given(IEnter_, 5)
+                .Finally(() => Console.WriteLine("Cleanup 1/2"))
                 .And(IEnter_, 6)
                 .When(IPressAdd).Tag("NotImplemented")
                 .Then(TheResultShouldBe_, -12013)
+                .Finally(() => Console.WriteLine("Cleanup 2/2"))
                 .Execute();
         }
 

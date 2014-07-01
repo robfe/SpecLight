@@ -11,6 +11,8 @@ namespace SpecLight
 {
     public partial class Spec
     {
+        Action _finalActions;
+
         public Spec(string description)
         {
             Description = Regex.Replace(description.Trim(), @"^\s+", "", RegexOptions.Multiline);
@@ -38,6 +40,12 @@ namespace SpecLight
             CallingMethod = CallingMethod ?? new StackFrame(1, false).GetMethod();
             TestMethodNameOverride = testMethodNameOverride;
             RunOutcomes();
+
+            if (_finalActions != null)
+            {
+                //we're doing this here because if it throws, the test is actually invalid, and all the user should see is the exception from cleanup
+                _finalActions();
+            }
             SpecReporter.Add(this);
 
             //print it all
@@ -79,6 +87,17 @@ namespace SpecLight
             var step = Steps.LastOrDefault();
             var list = step == null ? SpecTags : step.Tags;
             list.AddRange(tags);
+            return this;
+        }
+
+        public Spec Finally(IDisposable disposable)
+        {
+            return Finally(disposable.Dispose);
+        }
+
+        public Spec Finally(Action finalAction)
+        {
+            _finalActions += finalAction;
             return this;
         }
     }
