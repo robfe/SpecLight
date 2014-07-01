@@ -1,0 +1,106 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(TargetPath)" #>
+<#@ import namespace="SpecLight" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ output extension=".designer.cs" #>
+<#
+    var descriptions = new Dictionary<ScenarioBlock, string>
+    {
+        {ScenarioBlock.Given, "The given part describes the state of the world before you begin the behavior you're specifying in this scenario (like Arrange in AAA). The purpose of givens is to put the system in a known state before the user (or external system) starts interacting with the system (in the When steps). Avoid talking about user interaction in givens. If you had worked with usecases, you would call this preconditions."},
+        {ScenarioBlock.When, "What are the behaviours that happen to the SUT that we want to specify (Act). The purpose of When steps is to describe the key action the user performs (or, using Robert C. Martin’s metaphor, the state transition)."},
+        {ScenarioBlock.Then, "The then section describes the changes you expect due to the specified behavior (Assert). The purpose of Then steps is to observe outcomes. The observations should be related to the business value/benefit in your feature description. The observations should also be on some kind of output – that is something that comes out of the system (report, user interface, message) and not something that is deeply buried inside it (that has no business value)."},
+        {ScenarioBlock.And, "Add an additional Given, When or Then clause"},
+    };
+#>
+using System;
+using System.Linq.Expressions;
+
+namespace SpecLight
+{
+#pragma warning disable 1573
+	public partial class Spec
+	{
+<#
+	foreach (var kvp in descriptions)
+	{
+	    var b = kvp.Key;
+	    var desc = kvp.Value;
+#>
+//		public Spec <#=b #>(string text)
+//		{
+//			AddStep(ScenarioBlock.<#=b #>, text);
+//			return this;
+//		}
+
+		/// <summary>
+        /// <#=desc #>
+        /// 
+        /// </summary>
+        /// <remarks>
+		/// Be sure to describe the behaviour not the implementation.
+		/// This overload infers its text from the name of the parameter <paramref name="action"/>
+		/// </remarks>
+        /// <param name="action">
+        /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+        /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
+        /// Do not use a lambda or anonymous method here, as the name will not be human readable
+        /// </param>
+		public Spec <#=b #>(Action action)
+		{
+			AddStep(ScenarioBlock.<#=b #>, StringHelpers.UnCamel(action.Method.Name), action);
+			return this;
+		}		
+				
+//		public Spec <#=b #>(string text, Action action)
+//		{
+//			AddStep(ScenarioBlock.<#=b #>, text, action);
+//			return this;
+//		}		
+
+<#
+		foreach (var i in Enumerable.Range(1, 8))
+		{
+		    var all = Enumerable.Range(1, i);
+		    var tdec = string.Join(", ", all.Select(x => "T" + x));
+		    var tpar = string.Join(", ", all.Select(x => string.Format("T{0} p{0}", x)));
+		    var tvals = string.Join(", ", all.Select(x => "p" + x));
+#>
+//		public Spec <#=b #><<#=tdec #>>(string text, Action<<#=tdec #>> action, <#= tpar #>)
+//		{
+//			AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(text, <#=tvals #>), () => action(<#=tvals #>));
+//			return this;
+//		}
+
+		/// <summary>
+        /// <#=desc #>
+        /// 
+        /// </summary>
+        /// <remarks>
+		/// Be sure to describe the behaviour not the implementation.
+		/// This overload infers its text from the name of the parameter <paramref name="action"/>
+		/// </remarks>
+        /// <param name="action">
+        /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+        /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
+        /// Do not use a lambda or anonymous method here, as the name will not be human readable
+        /// </param>
+		public Spec <#=b #><<#=tdec #>>(Action<<#=tdec #>> action, <#= tpar #>)
+		{
+			AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method.Name, <#=tvals #>), () => action(<#=tvals #>));
+			return this;
+		}
+
+<#
+		}
+#>
+
+<#
+	}
+#>
+	}
+#pragma warning restore 1573
+
+}
+

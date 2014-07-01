@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9A24DAAE-05A9-468F-BAED-3A3CBBDD73B0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpecLight</RootNamespace>
+    <AssemblyName>SpecLight</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Output\SinglePageRazorTemplate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SinglePageRazorTemplate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Output\Style.less" />
+    <None Include="Spec.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Spec.designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConsoleOutcomePrinter.cs" />
+    <Compile Include="Output\ViewModel\FolderViewModel.cs" />
+    <Compile Include="Output\ViewModel\RootViewModel.cs" />
+    <Compile Include="Output\SinglePageRazorTemplate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SinglePageRazorTemplate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Output\RazorTemplateBase.cs" />
+    <Compile Include="Output\ViewModel\SpecViewModel.cs" />
+    <Compile Include="Output\ViewModel\TagViewModel.cs" />
+    <Compile Include="Output\ViewModel\TestClassViewModel.cs" />
+    <Compile Include="ScenarioBlock.cs" />
+    <Compile Include="Spec.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spec.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Spec.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpecReporter.cs" />
+    <Compile Include="Step.cs" />
+    <Compile Include="StepOutcome.cs" />
+    <Compile Include="Status.cs" />
+    <Compile Include="StringHelpers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Output\images\cross.png" />
+    <Content Include="Output\images\error.png" />
+    <Content Include="Output\images\pencil.png" />
+    <Content Include="Output\images\tick.png" />
+    <EmbeddedResource Include="Output\jquery-1.10.2.min.js" />
+    <Content Include="Output\Style.css">
+      <DependentUpon>Style.less</DependentUpon>
+    </Content>
+    <EmbeddedResource Include="Output\Style.min.css">
+      <DependentUpon>Style.less</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

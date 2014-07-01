@@ -1,0 +1,24 @@
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SpecLight.Output.ViewModel
+{
+    public class SpecViewModel
+    {
+        public SpecViewModel(Spec spec)
+        {
+            Spec = spec;
+            Status = spec.Outcomes.Max(x => x.Status);
+            MethodName = Spec.TestMethodNameOverride;
+        }
+
+        public Status Status { get; set; }
+        public Spec Spec { get; set; }
+        public string MethodName { get; set; }
+
+        public IEnumerable<string> EffectiveTags()
+        {
+            return Spec.Steps.SelectMany(x => x.Tags).Concat(Spec.SpecTags);
+        }
+    }
+}
