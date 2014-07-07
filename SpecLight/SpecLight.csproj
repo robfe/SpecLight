@@ -46,6 +46,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Spec.designer.cs</LastGenOutput>
     </None>
+    <None Include="SpecLight.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleOutcomePrinter.cs" />
@@ -78,6 +79,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LICENSE.txt" />
     <Content Include="Output\images\cross.png" />
     <Content Include="Output\images\error.png" />
     <Content Include="Output\images\pencil.png" />
