@@ -19,6 +19,7 @@ namespace SpecLight
             Description = Regex.Replace(description.Trim(), @"^\s+", "", RegexOptions.Multiline);
             Steps = new List<Step>();
             SpecTags = new List<string>();
+            Fixtures = new List<ISpecFixture>();
         }
 
         public string Description { get; private set; }
@@ -27,6 +28,7 @@ namespace SpecLight
         public List<Step> Steps { get; private set; }
         internal List<StepOutcome> Outcomes { get; private set; }
         internal List<string> SpecTags { get; private set; }
+        internal List<ISpecFixture> Fixtures { get; private set; }
 
 
         /// <summary>
@@ -60,13 +62,16 @@ namespace SpecLight
             }
         }
 
-        static List<StepOutcome> RunOutcomes(IEnumerable<Step> steps)
+        List<StepOutcome> RunOutcomes(IEnumerable<Step> steps)
         {
+            Fixtures.ForEach(x => x.SpecSetup(this));
             var skip = false;
             var outcomes = new List<StepOutcome>();
             foreach (var step in steps)
             {
+                Fixtures.ForEach(x => x.StepSetup(step));
                 var o = step.Execute(skip);
+                Fixtures.ForEach(x => x.StepTeardown(step));
                 outcomes.Add(o);
                 switch (o.Status)
                 {
@@ -76,6 +81,7 @@ namespace SpecLight
                         break;
                 }
             }
+            Fixtures.ForEach(x => x.SpecTeardown(this));
             return outcomes;
         }
 
@@ -102,5 +108,13 @@ namespace SpecLight
             _finalActions += finalAction;
             return this;
         }
+
+        public Spec WithFixture<T>() where T : ISpecFixture, new()
+        {
+            Fixtures.Add(SpecFixtureRepository<T>.Fixture);
+            SpecTags.Add("fixture:"+typeof(T).Name);
+            return this;
+        }
+
     }
 }

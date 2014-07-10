@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Xunit;
 using Xunit.Extensions;
 
@@ -59,7 +60,9 @@ namespace SpecLight.Tests
             new Spec(@"
                     In order to know how much money I can save
                     As a Math Idiot
-                    I want to add two numbers").Tag("DemonstrateFinally")
+                    I want to add two numbers")
+                .Tag("DemonstrateFinally")
+                .WithFixture<PrintingFixture>()
                 .Given(IEnter_, 5)
                 .Finally(() => Console.WriteLine("Cleanup 1/2"))
                 .And(IEnter_, 6)
@@ -68,6 +71,7 @@ namespace SpecLight.Tests
                 .Finally(() => Console.WriteLine("Cleanup 2/2"))
                 .Execute();
         }
+
 
         void IPressAdd()
         {
@@ -88,4 +92,42 @@ namespace SpecLight.Tests
             total += obj;
         }
     }
+
+    public class PrintingFixture : ISpecFixture
+    {
+        void Print([CallerMemberName] string s = null)
+        {
+            Console.Out.WriteLine("PrintingFixture: " + s);
+        }
+        public void GlobalSetup()
+        {
+            Print();
+        }
+
+        public void GlobalTeardown()
+        {
+            Print();
+        }
+
+        public void SpecSetup(Spec spec)
+        {
+            Print();
+        }
+
+        public void SpecTeardown(Spec spec)
+        {
+            Print();
+        }
+
+        public void StepSetup(Step step)
+        {
+            Print();
+        }
+
+        public void StepTeardown(Step step)
+        {
+            Print();
+        }
+    }
+
 }

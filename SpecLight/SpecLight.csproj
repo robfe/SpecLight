@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleOutcomePrinter.cs" />
+    <Compile Include="ISpecFixture.cs" />
     <Compile Include="Output\ViewModel\FolderViewModel.cs" />
     <Compile Include="Output\ViewModel\RootViewModel.cs" />
     <Compile Include="Output\SinglePageRazorTemplate.generated.cs">
@@ -69,6 +70,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Spec.tt</DependentUpon>
     </Compile>
+    <Compile Include="SpecFixtureBase.cs" />
+    <Compile Include="SpecFixtureRepository.cs" />
     <Compile Include="SpecReporter.cs" />
     <Compile Include="Step.cs" />
     <Compile Include="StepOutcome.cs" />
