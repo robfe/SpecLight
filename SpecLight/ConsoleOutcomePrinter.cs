@@ -9,6 +9,8 @@ namespace SpecLight
 
         public static void PrintOutcomes(Spec spec)
         {
+            Console.WriteLine("> SpecLight results:");
+            Console.WriteLine();
             if (spec.SpecTags.Any())
             {
                 Console.WriteLine(String.Join(", ", spec.SpecTags.Select(x => "@" + x)));

@@ -70,6 +70,7 @@ namespace SpecLight
             foreach (var step in steps)
             {
                 Fixtures.ForEach(x => x.StepSetup(step));
+                Console.WriteLine("> SpecLight {2} step: {0} {1}", step.Type, step.Description, skip?"skipping":"executing");
                 var o = step.Execute(skip);
                 Fixtures.ForEach(x => x.StepTeardown(step));
                 outcomes.Add(o);
