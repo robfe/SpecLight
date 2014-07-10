@@ -26,5 +26,10 @@ using System.Resources;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion(SpeclightVersion.Version)]
+[assembly: AssemblyFileVersion(SpeclightVersion.Version)]
+
+static class SpeclightVersion
+{
+	internal const string Version = "1.0.1.0";
+}
