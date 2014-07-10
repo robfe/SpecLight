@@ -6,7 +6,7 @@ using SpecLight.Output.ViewModel;
 
 namespace SpecLight
 {
-    public static class SpecReporter
+    internal static class SpecReporter
     {
         static readonly ConcurrentBag<Spec> ExecutedSpecs = new ConcurrentBag<Spec>();
 

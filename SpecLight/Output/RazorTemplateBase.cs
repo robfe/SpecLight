@@ -8,7 +8,7 @@ using SpecLight.Output.ViewModel;
 
 namespace SpecLight.Output
 {
-    public class RazorTemplateBase
+    internal class RazorTemplateBase
     {
         readonly StringBuilder _stringBuilder = new StringBuilder();
         string _content;

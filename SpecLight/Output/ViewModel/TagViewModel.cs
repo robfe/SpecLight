@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace SpecLight.Output.ViewModel
 {
-    public class TagViewModel
+    internal class TagViewModel
     {
         public TagViewModel(string name, IEnumerable<Status> statuses)
         {

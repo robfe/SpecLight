@@ -21,12 +21,12 @@ namespace SpecLight
             SpecTags = new List<string>();
         }
 
-        public string Description { get; set; }
+        public string Description { get; private set; }
         public MethodBase CallingMethod { get; set; }
         public string TestMethodNameOverride { get; set; }
         public List<Step> Steps { get; private set; }
-        public List<StepOutcome> Outcomes { get; private set; }
-        public List<string> SpecTags { get; private set; }
+        internal List<StepOutcome> Outcomes { get; private set; }
+        internal List<string> SpecTags { get; private set; }
 
 
         /// <summary>

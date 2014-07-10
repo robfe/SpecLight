@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace SpecLight.Output.ViewModel
 {
-    public class FolderViewModel
+    internal class FolderViewModel
     {
         public FolderViewModel(string name)
         {

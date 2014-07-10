@@ -12,9 +12,9 @@ namespace SpecLight
             Tags = new List<string>();
         }
 
-        public ScenarioBlock Type { get; set; }
-        public string Description { get; set; }
-        public Action Action { get; set; }
+        public ScenarioBlock Type { get; internal set; }
+        public string Description { get; internal set; }
+        public Action Action { get; internal set; }
         public List<string> Tags { get; private set; }
 
         internal string FormattedType
@@ -22,7 +22,7 @@ namespace SpecLight
             get { return (Type == ScenarioBlock.And ? "  " : "") + Type; }
         }
 
-        public StepOutcome Execute(bool shouldSkip)
+        internal StepOutcome Execute(bool shouldSkip)
         {
             var outcome = new StepOutcome {Step = this};
             if (shouldSkip)

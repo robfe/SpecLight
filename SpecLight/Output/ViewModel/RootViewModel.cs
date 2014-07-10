@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace SpecLight.Output.ViewModel
 {
-    public class RootViewModel
+    internal class RootViewModel
     {
         public RootViewModel(IEnumerable<Spec> specs)
         {

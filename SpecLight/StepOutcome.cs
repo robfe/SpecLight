@@ -2,7 +2,7 @@ using System;
 
 namespace SpecLight
 {
-    public class StepOutcome
+    internal class StepOutcome
     {
         public Step Step { get; set; }
         public Status Status { get; set; }

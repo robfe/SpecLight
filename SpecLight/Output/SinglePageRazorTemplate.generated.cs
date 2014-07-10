@@ -39,7 +39,7 @@ namespace SpecLight.Output
     #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    public partial class SinglePageRazorTemplate : SpecLight.Output.RazorTemplateBase
+    internal partial class SinglePageRazorTemplate : SpecLight.Output.RazorTemplateBase
     {
 #line hidden
 #line hidden
@@ -49,21 +49,21 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 
-#line 123 "..\..\Output\SinglePageRazorTemplate.cshtml"
+#line 124 "..\..\Output\SinglePageRazorTemplate.cshtml"
  
-    if (tags == null || !tags.Any())
-    {
-        return;
-    }
+	if (tags == null || !tags.Any())
+	{
+		return;
+	}
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "    <span class=\"tags\">");
+WriteLiteralTo(@__razor_helper_writer, "\t<span class=\"tags\">");
 
 
 
-#line 128 "..\..\Output\SinglePageRazorTemplate.cshtml"
+#line 129 "..\..\Output\SinglePageRazorTemplate.cshtml"
 WriteTo(@__razor_helper_writer, string.Join(", ", tags.Select(x => "@" + x)));
 
 #line default
@@ -73,7 +73,7 @@ WriteLiteralTo(@__razor_helper_writer, "</span>\r\n");
 
 
 
-#line 129 "..\..\Output\SinglePageRazorTemplate.cshtml"
+#line 130 "..\..\Output\SinglePageRazorTemplate.cshtml"
 
 #line default
 #line hidden
@@ -89,32 +89,32 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 
-#line 132 "..\..\Output\SinglePageRazorTemplate.cshtml"
+#line 133 "..\..\Output\SinglePageRazorTemplate.cshtml"
  
-    if (!string.IsNullOrWhiteSpace(folder.Name))
-    {
-        List<Status> statusCounts = folder.DescendantClasses().SelectMany(y => y.Specs.Select(x => x.Status)).ToList();
+	if (!string.IsNullOrWhiteSpace(folder.Name))
+	{
+		var statusCounts = folder.DescendantClasses().SelectMany(y => y.Specs.Select(x => x.Status)).ToList();
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "        <span class=\"folderName\">\r\n            <span class=\"folderGlyph\"></span>\r" +
-"\n            <span class=\"folderNameText\">");
-
-
-
-#line 138 "..\..\Output\SinglePageRazorTemplate.cshtml"
-          WriteTo(@__razor_helper_writer, folder.Name);
-
-#line default
-#line hidden
-
-WriteLiteralTo(@__razor_helper_writer, "</span>\r\n            <span class=\"graph\" style=\"");
+WriteLiteralTo(@__razor_helper_writer, "\t\t<span class=\"folderName\">\r\n\t\t\t<span class=\"folderGlyph\"></span>\r\n\t\t\t<span class" +
+"=\"folderNameText\">");
 
 
 
 #line 139 "..\..\Output\SinglePageRazorTemplate.cshtml"
-        WriteTo(@__razor_helper_writer, Gradient(statusCounts));
+ WriteTo(@__razor_helper_writer, folder.Name);
+
+#line default
+#line hidden
+
+WriteLiteralTo(@__razor_helper_writer, "</span>\r\n\t\t\t<span class=\"graph\" style=\"");
+
+
+
+#line 140 "..\..\Output\SinglePageRazorTemplate.cshtml"
+WriteTo(@__razor_helper_writer, Gradient(statusCounts));
 
 #line default
 #line hidden
@@ -123,8 +123,8 @@ WriteLiteralTo(@__razor_helper_writer, "\" title=\"");
 
 
 
-#line 139 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                        WriteTo(@__razor_helper_writer, Title(statusCounts));
+#line 140 "..\..\Output\SinglePageRazorTemplate.cshtml"
+                               WriteTo(@__razor_helper_writer, Title(statusCounts));
 
 #line default
 #line hidden
@@ -133,27 +133,27 @@ WriteLiteralTo(@__razor_helper_writer, " in folder \'");
 
 
 
-#line 139 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                        WriteTo(@__razor_helper_writer, folder.Name);
+#line 140 "..\..\Output\SinglePageRazorTemplate.cshtml"
+                                                               WriteTo(@__razor_helper_writer, folder.Name);
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "\'\"></span>\r\n        </span>\r\n");
-
-
-
-#line 141 "..\..\Output\SinglePageRazorTemplate.cshtml"
-    }
-
-#line default
-#line hidden
-
-WriteLiteralTo(@__razor_helper_writer, "    <ul data-tags=\"");
+WriteLiteralTo(@__razor_helper_writer, "\'\"></span>\r\n\t\t</span>\r\n");
 
 
 
 #line 142 "..\..\Output\SinglePageRazorTemplate.cshtml"
+	}
+
+#line default
+#line hidden
+
+WriteLiteralTo(@__razor_helper_writer, "\t<ul data-tags=\"");
+
+
+
+#line 143 "..\..\Output\SinglePageRazorTemplate.cshtml"
 WriteTo(@__razor_helper_writer, string.Join(" ", folder.DescendantClasses().SelectMany(x => x.Specs).SelectMany(x => x.EffectiveTags()).Distinct()));
 
 #line default
@@ -163,60 +163,60 @@ WriteLiteralTo(@__razor_helper_writer, "\">\r\n");
 
 
 
-#line 143 "..\..\Output\SinglePageRazorTemplate.cshtml"
-         foreach (FolderViewModel child in folder.SubFolders.OrderBy(x => x.Name))
-        {
-            string featureClass = folder.DescendantClasses().SelectMany(x => x.Specs).Select(x => x.Status).DefaultIfEmpty(Status.Pending).Max().ToString().ToLowerInvariant();
+#line 144 "..\..\Output\SinglePageRazorTemplate.cshtml"
+ 		foreach (var child in folder.SubFolders.OrderBy(x => x.Name))
+		{
+			var featureClass = folder.DescendantClasses().SelectMany(x => x.Specs).Select(x => x.Status).DefaultIfEmpty(Status.Pending).Max().ToString().ToLowerInvariant();
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "            <li class=\"folder ");
+WriteLiteralTo(@__razor_helper_writer, "\t\t\t<li class=\"folder ");
 
 
 
-#line 146 "..\..\Output\SinglePageRazorTemplate.cshtml"
+#line 147 "..\..\Output\SinglePageRazorTemplate.cshtml"
 WriteTo(@__razor_helper_writer, featureClass);
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "\">\r\n\r\n                ");
+WriteLiteralTo(@__razor_helper_writer, "\">\r\n\r\n\t\t\t\t");
 
 
 
-#line 148 "..\..\Output\SinglePageRazorTemplate.cshtml"
+#line 149 "..\..\Output\SinglePageRazorTemplate.cshtml"
 WriteTo(@__razor_helper_writer, FolderToc(child));
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "\r\n            </li>\r\n");
-
-
-
-#line 150 "..\..\Output\SinglePageRazorTemplate.cshtml"
-        }
-
-#line default
-#line hidden
+WriteLiteralTo(@__razor_helper_writer, "\r\n\t\t\t</li>\r\n");
 
 
 
 #line 151 "..\..\Output\SinglePageRazorTemplate.cshtml"
-         foreach (TestClassViewModel feature in folder.Classes.OrderBy(x => x.Name))
-        {
-            var maxStatus = feature.Specs.Select(x => x.Status).DefaultIfEmpty(Status.Pending).Max();
-            string featureClass = maxStatus.ToString().ToLowerInvariant();
+		}
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "            <li class=\"feature ");
+
+
+#line 152 "..\..\Output\SinglePageRazorTemplate.cshtml"
+ 		foreach (var feature in folder.Classes.OrderBy(x => x.Name))
+		{
+			var maxStatus = feature.Specs.Select(x => x.Status).DefaultIfEmpty(Status.Pending).Max();
+			var featureClass = maxStatus.ToString().ToLowerInvariant();
+
+#line default
+#line hidden
+
+WriteLiteralTo(@__razor_helper_writer, "\t\t\t<li class=\"feature ");
 
 
 
-#line 155 "..\..\Output\SinglePageRazorTemplate.cshtml"
+#line 156 "..\..\Output\SinglePageRazorTemplate.cshtml"
 WriteTo(@__razor_helper_writer, featureClass);
 
 #line default
@@ -226,8 +226,8 @@ WriteLiteralTo(@__razor_helper_writer, "\" title=\"Feature: ");
 
 
 
-#line 155 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                               WriteTo(@__razor_helper_writer, feature.Name);
+#line 156 "..\..\Output\SinglePageRazorTemplate.cshtml"
+                      WriteTo(@__razor_helper_writer, feature.Name);
 
 #line default
 #line hidden
@@ -236,8 +236,8 @@ WriteLiteralTo(@__razor_helper_writer, " (");
 
 
 
-#line 155 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                              WriteTo(@__razor_helper_writer, maxStatus);
+#line 156 "..\..\Output\SinglePageRazorTemplate.cshtml"
+                                     WriteTo(@__razor_helper_writer, maxStatus);
 
 #line default
 #line hidden
@@ -246,18 +246,18 @@ WriteLiteralTo(@__razor_helper_writer, ")\" data-tags=\"");
 
 
 
-#line 155 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                      WriteTo(@__razor_helper_writer, string.Join(" ", feature.Specs.SelectMany(x => x.EffectiveTags()).Distinct()));
+#line 156 "..\..\Output\SinglePageRazorTemplate.cshtml"
+                                                             WriteTo(@__razor_helper_writer, string.Join(" ", feature.Specs.SelectMany(x => x.EffectiveTags()).Distinct()));
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "\">\r\n                <a class=\"featureLink\" href=\"#");
+WriteLiteralTo(@__razor_helper_writer, "\">\r\n\t\t\t\t<a class=\"featureLink\" href=\"#");
 
 
 
-#line 156 "..\..\Output\SinglePageRazorTemplate.cshtml"
-               WriteTo(@__razor_helper_writer, AnchorName(feature));
+#line 157 "..\..\Output\SinglePageRazorTemplate.cshtml"
+   WriteTo(@__razor_helper_writer, AnchorName(feature));
 
 #line default
 #line hidden
@@ -266,30 +266,30 @@ WriteLiteralTo(@__razor_helper_writer, "\">");
 
 
 
-#line 156 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                     WriteTo(@__razor_helper_writer, feature.Name);
+#line 157 "..\..\Output\SinglePageRazorTemplate.cshtml"
+                         WriteTo(@__razor_helper_writer, feature.Name);
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "</a>\r\n                <ul class=\"scenarios\">\r\n");
+WriteLiteralTo(@__razor_helper_writer, "</a>\r\n\t\t\t\t<ul class=\"scenarios\">\r\n");
 
 
 
-#line 158 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                     foreach (SpecViewModel spec in feature.Specs.OrderBy(x => x.MethodName))
-                    {
-                        string scenarioClass = spec.Status.ToString().ToLowerInvariant();
+#line 159 "..\..\Output\SinglePageRazorTemplate.cshtml"
+ 					foreach (var spec in feature.Specs.OrderBy(x => x.MethodName))
+					{
+						var scenarioClass = spec.Status.ToString().ToLowerInvariant();
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "                        <li class=\"");
+WriteLiteralTo(@__razor_helper_writer, "\t\t\t\t\t\t<li class=\"");
 
 
 
-#line 161 "..\..\Output\SinglePageRazorTemplate.cshtml"
-    WriteTo(@__razor_helper_writer, scenarioClass);
+#line 162 "..\..\Output\SinglePageRazorTemplate.cshtml"
+WriteTo(@__razor_helper_writer, scenarioClass);
 
 #line default
 #line hidden
@@ -298,8 +298,8 @@ WriteLiteralTo(@__razor_helper_writer, "\" title=\"Scenario: ");
 
 
 
-#line 161 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                     WriteTo(@__razor_helper_writer, spec.MethodName);
+#line 162 "..\..\Output\SinglePageRazorTemplate.cshtml"
+                   WriteTo(@__razor_helper_writer, spec.MethodName);
 
 #line default
 #line hidden
@@ -308,8 +308,8 @@ WriteLiteralTo(@__razor_helper_writer, " (");
 
 
 
-#line 161 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                       WriteTo(@__razor_helper_writer, spec.Status);
+#line 162 "..\..\Output\SinglePageRazorTemplate.cshtml"
+                                     WriteTo(@__razor_helper_writer, spec.Status);
 
 #line default
 #line hidden
@@ -318,18 +318,18 @@ WriteLiteralTo(@__razor_helper_writer, ")\" data-tags=\"");
 
 
 
-#line 161 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                                 WriteTo(@__razor_helper_writer, string.Join(" ", spec.EffectiveTags()));
+#line 162 "..\..\Output\SinglePageRazorTemplate.cshtml"
+                                                               WriteTo(@__razor_helper_writer, string.Join(" ", spec.EffectiveTags()));
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "\">\r\n                            <a class=\"scenarioLink\" href=\"#");
+WriteLiteralTo(@__razor_helper_writer, "\">\r\n\t\t\t\t\t\t\t<a class=\"scenarioLink\" href=\"#");
 
 
 
-#line 162 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                            WriteTo(@__razor_helper_writer, AnchorName(feature, spec));
+#line 163 "..\..\Output\SinglePageRazorTemplate.cshtml"
+       WriteTo(@__razor_helper_writer, AnchorName(feature, spec));
 
 #line default
 #line hidden
@@ -338,37 +338,37 @@ WriteLiteralTo(@__razor_helper_writer, "\">");
 
 
 
-#line 162 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                        WriteTo(@__razor_helper_writer, spec.MethodName);
+#line 163 "..\..\Output\SinglePageRazorTemplate.cshtml"
+                                   WriteTo(@__razor_helper_writer, spec.MethodName);
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "</a>\r\n                        </li>\r\n");
+WriteLiteralTo(@__razor_helper_writer, "</a>\r\n\t\t\t\t\t\t</li>\r\n");
 
 
 
-#line 164 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                    }
-
-#line default
-#line hidden
-
-WriteLiteralTo(@__razor_helper_writer, "                </ul>\r\n            </li>\r\n");
-
-
-
-#line 167 "..\..\Output\SinglePageRazorTemplate.cshtml"
-        }
+#line 165 "..\..\Output\SinglePageRazorTemplate.cshtml"
+					}
 
 #line default
 #line hidden
 
-WriteLiteralTo(@__razor_helper_writer, "    </ul>\r\n");
+WriteLiteralTo(@__razor_helper_writer, "\t\t\t\t</ul>\r\n\t\t\t</li>\r\n");
 
 
 
-#line 169 "..\..\Output\SinglePageRazorTemplate.cshtml"
+#line 168 "..\..\Output\SinglePageRazorTemplate.cshtml"
+		}
+
+#line default
+#line hidden
+
+WriteLiteralTo(@__razor_helper_writer, "\t</ul>\r\n");
+
+
+
+#line 170 "..\..\Output\SinglePageRazorTemplate.cshtml"
 
 #line default
 #line hidden
@@ -378,56 +378,57 @@ WriteLiteralTo(@__razor_helper_writer, "    </ul>\r\n");
 }
 
 
-        #line 172 "..\..\Output\SinglePageRazorTemplate.cshtml"
-
-    string AnchorName(TestClassViewModel @class, SpecViewModel spec)
-    {
-        return "Scenario" + @class.Name.Replace(" ", "_") + spec.MethodName.Replace(" ", "_");
-    }
-
-    string AnchorName(TestClassViewModel @class)
-    {
-        return "Feature" + @class.Name.Replace(" ", "_");
-    }
+        #line 173 "..\..\Output\SinglePageRazorTemplate.cshtml"
 
 
-    static readonly Dictionary<Status, string> StatusColours = new Dictionary<Status, string>
-        {
-            {Status.Passed, "rgba(86, 158, 78, 0.9)"},
-            {Status.Failed, "rgba(238, 66, 68, 0.9)"},
-            {Status.Skipped, "rgba(245, 184, 81, 0.9)"},
-            {Status.Pending, "rgba(245, 220, 95, 0.9)"},
-            {Status.NotRun, "transparent"},
-        };
+	string AnchorName(TestClassViewModel @class, SpecViewModel spec)
+	{
+		return "Scenario" + @class.Name.Replace(" ", "_") + spec.MethodName.Replace(" ", "_");
+	}
 
-    static readonly Status[] HumanOrderedStatuses = new[] {Status.Failed, Status.Passed, Status.Skipped, Status.Pending, Status.NotRun};
-
-    static string Gradient(IEnumerable<Status> statuses)
-    {
-        double tp = 0;
-        string s = "";
-        foreach (Status status in HumanOrderedStatuses)
-        {
-            string colour = StatusColours[status];
-            s += string.Format(", {0} {1}%", colour, tp);
-            tp += statuses.Count(y => y == status)/(double) statuses.Count()*100;
-            s += string.Format(", {0} {1}%", colour, tp);
-        }
+	string AnchorName(TestClassViewModel @class)
+	{
+		return "Feature" + @class.Name.Replace(" ", "_");
+	}
 
 
-        return "background-image: linear-gradient(to right" + s + ")";
-    }
+	static readonly Dictionary<Status, string> StatusColours = new Dictionary<Status, string>
+	{
+		{Status.Passed, "rgba(86, 158, 78, 0.9)"},
+		{Status.Failed, "rgba(238, 66, 68, 0.9)"},
+		{Status.Skipped, "rgba(245, 184, 81, 0.9)"},
+		{Status.Pending, "rgba(245, 220, 95, 0.9)"},
+		{Status.NotRun, "transparent"},
+	};
+
+	static readonly Status[] HumanOrderedStatuses = {Status.Failed, Status.Passed, Status.Skipped, Status.Pending, Status.NotRun};
+
+	static string Gradient(IEnumerable<Status> statuses)
+	{
+		double tp = 0;
+		var s = "";
+		foreach (var status in HumanOrderedStatuses)
+		{
+			var colour = StatusColours[status];
+			s += string.Format(", {0} {1}%", colour, tp);
+			tp += statuses.Count(y => y == status)/(double) statuses.Count()*100;
+			s += string.Format(", {0} {1}%", colour, tp);
+		}
 
 
-    static string Title(IEnumerable<Status> statuses)
-    {
-        IEnumerable<string> v = from s in HumanOrderedStatuses
-                                let count = statuses.Count(y => y == s)
-                                where count > 0
-                                select count + " " + s;
+		return "background-image: linear-gradient(to right" + s + ")";
+	}
 
-        return string.Join(", ", v);
-    }
+
+	static string Title(IEnumerable<Status> statuses)
+	{
+		var v = from s in HumanOrderedStatuses
+			let count = statuses.Count(y => y == s)
+			where count > 0
+			select count + " " + s;
+
+		return string.Join(", ", v);
+	}
 
 
         #line default
@@ -452,62 +453,84 @@ WriteLiteral("\r\n");
             
             #line 14 "..\..\Output\SinglePageRazorTemplate.cshtml"
   
-    IEnumerable<Status> statusCounts = TemplateModel.RootFolder.DescendantClasses().SelectMany(y => y.Specs.Select(x => x.Status));
-    List<TagViewModel> tags = TemplateModel.Tags.ToList();
-    double fattestTagCount = tags.Select(x => x.Statuses.Count()).DefaultIfEmpty(1).Max();
+	var statusCounts = TemplateModel.RootFolder.DescendantClasses().SelectMany(y => y.Specs.Select(x => x.Status));
+	var tags = TemplateModel.Tags.ToList();
+	double fattestTagCount = tags.Select(x => x.Statuses.Count()).DefaultIfEmpty(1).Max();
 
 
             
             #line default
             #line hidden
-WriteLiteral("<!DOCTYPE html>\r\n<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n    <head" +
-">\r\n        <meta charset=\"utf-8\" />\r\n        <title>Speclight report</title>\r\n  " +
-"      <style type=\"text/css\">\r\n            ");
+WriteLiteral("<!DOCTYPE html>\r\n<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n\t<head>\r\n" +
+"\t\t<meta charset=\"utf-8\" />\r\n\t\t<title>Speclight report</title>\r\n\t\t<style type=\"te" +
+"xt/css\">\r\n\t\t\t");
 
 
             
             #line 25 "..\..\Output\SinglePageRazorTemplate.cshtml"
-       Write(IncludeEmbeddedResource("Style.min.css"));
+Write(IncludeEmbeddedResource("Style.min.css"));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n        </style>\r\n        <script type=\"text/javascript\">\r\n            ");
+WriteLiteral(" \r\n\t\t</style>\r\n\t\t<script type=\"text/javascript\">\r\n\t\t\t");
 
 
             
             #line 28 "..\..\Output\SinglePageRazorTemplate.cshtml"
-       Write(IncludeEmbeddedResource("jquery-1.10.2.min.js"));
+Write(IncludeEmbeddedResource("jquery-1.10.2.min.js"));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n        </script>\r\n\r\n\r\n\r\n        <script type=\"text/javascript\">\r\n            $" +
-"(function() {\r\n                //folder collapsing\r\n                $(\"li.folder" +
-" > span.folderName\").click(function() {\r\n                    $(this).parent().to" +
-"ggleClass(\"collapsed\");\r\n                });\r\n\r\n                //highlight curr" +
-"ent item\r\n                function updateHighlight() {\r\n                    $(\"#" +
-"TableOfContents a\").removeClass(\"current\");\r\n                    $(\"h2[id],h3[id" +
-"]\").filter(\":visible\").filter(function() {\r\n                        var elemTop " +
-"= $(this).offset().top;\r\n                        return elemTop >= 0;\r\n         " +
-"           }).first().each(function() {\r\n                        $(\"#TableOfCont" +
-"ents a[href=\'#\" + this.id + \"\']\").addClass(\"current\");\r\n                    });\r" +
-"\n                }\r\n\r\n                $(\"#Content\").scroll(updateHighlight);\r\n  " +
-"              updateHighlight();\r\n\r\n                //tag behaviour\r\n           " +
-"     $(\"input[data-tag-controller]\").change(function() {\r\n                    va" +
-"r selectedTags = $(\"input[data-tag-controller]:checked\").map(function(i, d) { re" +
-"turn $(d).data(\"tag-controller\"); });\r\n                    if (selectedTags.size" +
-"()) {\r\n                        $(\"*[data-tags]\").hide();\r\n                      " +
-"  selectedTags.each(function() { $(\"*[data-tags~=\'\" + this + \"\']\").show(); });\r\n" +
-"                    } else {\r\n                        $(\"*[data-tags]\").show();\r" +
-"\n                    }\r\n                    updateHighlight();\r\n                " +
-"});\r\n            });\r\n        </script>\r\n    </head>\r\n    <body>\r\n        <div i" +
-"d=\"TableOfContents\">\r\n            <div class=\"graph\" style=\"");
+WriteLiteral(@"
+		</script>
+
+
+
+		<script type=""text/javascript"">
+			$(function() {
+				//folder collapsing
+				$(""li.folder > span.folderName"").click(function() {
+					$(this).parent().toggleClass(""collapsed"");
+				});
+
+				//highlight current item
+				function updateHighlight() {
+					$(""#TableOfContents a"").removeClass(""current"");
+					$(""h2[id], h3[id]"").filter("":visible"").filter(function() {
+						var elemTop = $(this).offset().top;
+						return elemTop >= 0;
+					}).first().each(function() {
+						$(""#TableOfContents a[href='#"" + this.id + ""']"").addClass(""current"");
+					});
+				}
+
+				$(""#Content"").scroll(updateHighlight);
+				updateHighlight();
+
+				//tag behaviour
+				$(""input[data-tag-controller]"").change(function() {
+					var selectedTags = $(""input[data-tag-controller]:checked"").map(function(i, d) { return $(d).data(""tag-controller""); });
+					if (selectedTags.size()) {
+						$(""*[data-tags]"").hide();
+						selectedTags.each(function() { $(""*[data-tags~='"" + this + ""']"").show(); });
+					} else {
+						$(""*[data-tags]"").show();
+					}
+					updateHighlight();
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id=""TableOfContents"">
+			<div class=""graph"" style=""");
 
 
             
             #line 70 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                 Write(Gradient(statusCounts));
+                        Write(Gradient(statusCounts));
 
             
             #line default
@@ -517,31 +540,31 @@ WriteLiteral("\" title=\"Status breakdown for all scenarios\">");
 
             
             #line 70 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                                                     Write(Title(statusCounts));
+                                                                                            Write(Title(statusCounts));
 
             
             #line default
             #line hidden
-WriteLiteral("</div>\r\n            <div class=\"tagCloud\">\r\n");
+WriteLiteral("</div>\r\n\t\t\t<div class=\"tagCloud\">\r\n");
 
 
             
             #line 72 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                 foreach (TagViewModel tag in tags)
-                {
-                    double fatness = (tag.Statuses.Count() - 1)/fattestTagCount;
-                    double size = 90 + fatness*60;
+ 				foreach (var tag in tags)
+				{
+					var fatness = (tag.Statuses.Count() - 1)/fattestTagCount;
+					var size = 90 + fatness*60;
 
 
             
             #line default
             #line hidden
-WriteLiteral("                    <input id=\"tagCheckbox-");
+WriteLiteral("\t\t\t\t\t<input id=\"tagCheckbox-");
 
 
             
             #line 77 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                      Write(tag.Name);
+                       Write(tag.Name);
 
             
             #line default
@@ -551,7 +574,7 @@ WriteLiteral("\" type=\"checkbox\" data-tag-controller=\"");
 
             
             #line 77 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                                      Write(tag.Name);
+                                                                       Write(tag.Name);
 
             
             #line default
@@ -560,12 +583,12 @@ WriteLiteral("\"/>\r\n");
 
 
 
-WriteLiteral("                    <label for=\"tagCheckbox-");
+WriteLiteral("\t\t\t\t\t<label for=\"tagCheckbox-");
 
 
             
             #line 78 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                       Write(tag.Name);
+                        Write(tag.Name);
 
             
             #line default
@@ -575,7 +598,7 @@ WriteLiteral("\" title=\"Tag \'");
 
             
             #line 78 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                              Write(tag.Name);
+                                               Write(tag.Name);
 
             
             #line default
@@ -585,7 +608,7 @@ WriteLiteral("\' (");
 
             
             #line 78 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                          Write(Title(tag.Statuses));
+                                                           Write(Title(tag.Statuses));
 
             
             #line default
@@ -595,7 +618,7 @@ WriteLiteral(") - Click to filter\" style=\"");
 
             
             #line 78 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                                                                          Write(Gradient(tag.Statuses));
+                                                                                                           Write(Gradient(tag.Statuses));
 
             
             #line default
@@ -605,7 +628,7 @@ WriteLiteral("; font-size: ");
 
             
             #line 78 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                                                                                                               Write(size);
+                                                                                                                                                Write(size);
 
             
             #line default
@@ -618,7 +641,7 @@ WriteLiteral("@");
 
             
             #line 78 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                                                                                                                          Write(tag.Name);
+                                                                                                                                                           Write(tag.Name);
 
             
             #line default
@@ -628,49 +651,48 @@ WriteLiteral("</label>\r\n");
 
             
             #line 79 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                }
+				}
 
             
             #line default
             #line hidden
-WriteLiteral("            </div>\r\n            ");
+WriteLiteral("\t\t\t</div>\r\n\t\t\t");
 
 
             
             #line 81 "..\..\Output\SinglePageRazorTemplate.cshtml"
-       Write(FolderToc(TemplateModel.RootFolder));
+Write(FolderToc(TemplateModel.RootFolder));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n        </div>\r\n        <div id=\"Content\">\r\n            <h1>Speclight report<" +
-"/h1>\r\n\r\n");
+WriteLiteral("\r\n\r\n\t\t</div>\r\n\t\t<div id=\"Content\">\r\n\t\t\t<h1>Speclight report</h1>\r\n\r\n");
 
 
             
             #line 87 "..\..\Output\SinglePageRazorTemplate.cshtml"
-             foreach (TestClassViewModel testClass in TemplateModel.RootFolder.DescendantClasses())
-            {
+ 			foreach (var testClass in TemplateModel.RootFolder.DescendantClasses())
+			{
 
             
             #line default
             #line hidden
-WriteLiteral("                <div class=\"feature\" data-tags=\"");
+WriteLiteral("\t\t\t\t<div class=\"feature\" data-tags=\"");
 
 
             
             #line 89 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                           Write(string.Join(" ", testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct()));
+                               Write(string.Join(" ", testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct()));
 
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                    <h2 id=\"");
+WriteLiteral("\">\r\n\t\t\t\t\t<h2 id=\"");
 
 
             
             #line 90 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                       Write(AnchorName(testClass));
+        Write(AnchorName(testClass));
 
             
             #line default
@@ -680,17 +702,17 @@ WriteLiteral("\">Class: ");
 
             
             #line 90 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                      Write(testClass.Name);
+                                       Write(testClass.Name);
 
             
             #line default
             #line hidden
-WriteLiteral("</h2>\r\n                    ");
+WriteLiteral("</h2>\r\n\t\t\t\t\t");
 
 
             
             #line 91 "..\..\Output\SinglePageRazorTemplate.cshtml"
-               Write(TagBox(testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct()));
+Write(TagBox(testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct()));
 
             
             #line default
@@ -700,19 +722,19 @@ WriteLiteral("\r\n");
 
             
             #line 92 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                     foreach (SpecViewModel spec in testClass.Specs.OrderBy(x => x.MethodName))
-                    {
-                        var firstError = spec.Spec.Outcomes.Select(x => x.Error).FirstOrDefault(x => x != null);
+ 					foreach (var spec in testClass.Specs.OrderBy(x => x.MethodName))
+					{
+						var firstError = spec.Spec.Outcomes.Select(x => x.Error).FirstOrDefault(x => x != null);
 
             
             #line default
             #line hidden
-WriteLiteral("                        <div class=\"scenario ");
+WriteLiteral("\t\t\t\t\t\t<div class=\"scenario ");
 
 
             
             #line 95 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                        Write(spec.Status.ToString().ToLowerInvariant());
+                      Write(spec.Status.ToString().ToLowerInvariant());
 
             
             #line default
@@ -722,17 +744,17 @@ WriteLiteral("\" data-tags=\"");
 
             
             #line 95 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                                               Write(string.Join(" ", spec.EffectiveTags()));
+                                                                             Write(string.Join(" ", spec.EffectiveTags()));
 
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                            <h3 id=\"");
+WriteLiteral("\">\r\n\t\t\t\t\t\t\t<h3 id=\"");
 
 
             
             #line 96 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                               Write(AnchorName(testClass, spec));
+          Write(AnchorName(testClass, spec));
 
             
             #line default
@@ -742,7 +764,7 @@ WriteLiteral("\">Method: ");
 
             
             #line 96 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                     Write(spec.MethodName);
+                                                Write(spec.MethodName);
 
             
             #line default
@@ -752,48 +774,48 @@ WriteLiteral("  (");
 
             
             #line 96 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                                        Write(spec.Status.ToString());
+                                                                   Write(spec.Status.ToString());
 
             
             #line default
             #line hidden
-WriteLiteral(")</h3>\r\n                            ");
+WriteLiteral(")</h3>\r\n\t\t\t\t\t\t\t");
 
 
             
             #line 97 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                       Write(TagBox(spec.Spec.SpecTags));
+  Write(TagBox(spec.Spec.SpecTags));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                            <p class=\"description\">");
+WriteLiteral("\r\n\t\t\t\t\t\t\t<p class=\"description\">");
 
 
             
             #line 98 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                              Write(spec.Spec.Description);
+                         Write(spec.Spec.Description);
 
             
             #line default
             #line hidden
-WriteLiteral("</p>\r\n                            <ul>\r\n");
+WriteLiteral("</p>\r\n\t\t\t\t\t\t\t<ul>\r\n");
 
 
             
             #line 100 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                 foreach (StepOutcome o in spec.Spec.Outcomes)
-                                {
+ 								foreach (var o in spec.Spec.Outcomes)
+								{
 
             
             #line default
             #line hidden
-WriteLiteral("                                    <li class=\"");
+WriteLiteral("\t\t\t\t\t\t\t\t\t<li class=\"");
 
 
             
             #line 102 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                          Write(o.Status.ToString().ToLowerInvariant());
+               Write(o.Status.ToString().ToLowerInvariant());
 
             
             #line default
@@ -803,78 +825,78 @@ WriteLiteral("\" title=\"");
 
             
             #line 102 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                                                          Write(o.Error);
+                                                               Write(o.Error);
 
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                                        <em>");
+WriteLiteral("\">\r\n\t\t\t\t\t\t\t\t\t\t<em>");
 
 
             
             #line 103 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                       Write(o.Step.Type);
+         Write(o.Step.Type);
 
             
             #line default
             #line hidden
-WriteLiteral("</em>\r\n                                        ");
+WriteLiteral("</em>\r\n\t\t\t\t\t\t\t\t\t\t");
 
 
             
             #line 104 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                   Write(o.Step.Description);
+     Write(o.Step.Description);
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                                        <strong>");
+WriteLiteral("\r\n\t\t\t\t\t\t\t\t\t\t<strong>");
 
 
             
             #line 105 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                           Write(o.Status);
+             Write(o.Status);
 
             
             #line default
             #line hidden
-WriteLiteral("</strong>\r\n                                        ");
+WriteLiteral("</strong>\r\n\t\t\t\t\t\t\t\t\t\t");
 
 
             
             #line 106 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                   Write(TagBox(o.Step.Tags));
+     Write(TagBox(o.Step.Tags));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                                    </li>\r\n");
+WriteLiteral("\r\n\t\t\t\t\t\t\t\t\t</li>\r\n");
 
 
             
             #line 108 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                }
+								}
 
             
             #line default
             #line hidden
-WriteLiteral("                            </ul>\r\n");
+WriteLiteral("\t\t\t\t\t\t\t</ul>\r\n");
 
 
             
             #line 110 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                             if (firstError != null)
-                            {
+ 							if (firstError != null)
+							{
 
             
             #line default
             #line hidden
-WriteLiteral("                                <div class=\"errorMessage\">");
+WriteLiteral("\t\t\t\t\t\t\t\t<div class=\"errorMessage\">");
 
 
             
             #line 112 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                     Write(firstError);
+                             Write(firstError);
 
             
             #line default
@@ -884,32 +906,32 @@ WriteLiteral("</div>\r\n");
 
             
             #line 113 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                            }
+							}
 
             
             #line default
             #line hidden
-WriteLiteral("                        </div>                    ");
+WriteLiteral("\t\t\t\t\t\t</div>\r\n");
 
 
             
-            #line 114 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                  }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                </div>\r\n");
-
-
-            
-            #line 116 "..\..\Output\SinglePageRazorTemplate.cshtml"
-            }
+            #line 115 "..\..\Output\SinglePageRazorTemplate.cshtml"
+					}
 
             
             #line default
             #line hidden
-WriteLiteral("        </div>\r\n\r\n    </body>\r\n</html>\r\n\r\n");
+WriteLiteral("\t\t\t\t</div>\r\n");
+
+
+            
+            #line 117 "..\..\Output\SinglePageRazorTemplate.cshtml"
+			}
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t</div>\r\n\r\n\t</body>\r\n</html>\r\n\r\n");
 
 
 
@@ -919,8 +941,6 @@ WriteLiteral("\r\n\r\n");
 
 WriteLiteral("\r\n\r\n");
 
-
-WriteLiteral("\r\n");
 
 
         }

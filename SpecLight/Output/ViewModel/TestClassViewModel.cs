@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace SpecLight.Output.ViewModel
 {
-    public class TestClassViewModel
+    internal class TestClassViewModel
     {
         public TestClassViewModel(string name)
         {
