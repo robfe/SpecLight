@@ -82,14 +82,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Output\images\cross.png" />
-    <Content Include="Output\images\error.png" />
-    <Content Include="Output\images\pencil.png" />
-    <Content Include="Output\images\tick.png" />
+    <None Include="Output\images\cross.png" />
+    <None Include="Output\images\error.png" />
+    <None Include="Output\images\pencil.png" />
+    <None Include="Output\images\tick.png" />
     <EmbeddedResource Include="Output\jquery-1.10.2.min.js" />
-    <Content Include="Output\Style.css">
+    <None Include="Output\Style.css">
       <DependentUpon>Style.less</DependentUpon>
-    </Content>
+    </None>
     <EmbeddedResource Include="Output\Style.min.css">
       <DependentUpon>Style.less</DependentUpon>
     </EmbeddedResource>
