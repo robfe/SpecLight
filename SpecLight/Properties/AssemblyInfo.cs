@@ -4,6 +4,7 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("SpecLight")]
 [assembly: AssemblyDescription("")]
@@ -14,6 +15,7 @@ using System.Resources;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
+[assembly: InternalsVisibleTo("SpecLight.Tests")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -27,7 +27,7 @@ namespace SpecLight
         /// </param>
 		public Spec Given(Action action)
 		{
-			AddStep(ScenarioBlock.Given, StringHelpers.UnCamel(action.Method.Name), action);
+			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method.Name), action);
 			return this;
 		}		
 				
@@ -259,7 +259,7 @@ namespace SpecLight
         /// </param>
 		public Spec When(Action action)
 		{
-			AddStep(ScenarioBlock.When, StringHelpers.UnCamel(action.Method.Name), action);
+			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method.Name), action);
 			return this;
 		}		
 				
@@ -491,7 +491,7 @@ namespace SpecLight
         /// </param>
 		public Spec Then(Action action)
 		{
-			AddStep(ScenarioBlock.Then, StringHelpers.UnCamel(action.Method.Name), action);
+			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method.Name), action);
 			return this;
 		}		
 				
@@ -723,7 +723,7 @@ namespace SpecLight
         /// </param>
 		public Spec And(Action action)
 		{
-			AddStep(ScenarioBlock.And, StringHelpers.UnCamel(action.Method.Name), action);
+			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method.Name), action);
 			return this;
 		}		
 				

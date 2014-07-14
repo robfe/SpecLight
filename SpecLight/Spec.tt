@@ -49,7 +49,7 @@ namespace SpecLight
         /// </param>
 		public Spec <#=b #>(Action action)
 		{
-			AddStep(ScenarioBlock.<#=b #>, StringHelpers.UnCamel(action.Method.Name), action);
+			AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method.Name), action);
 			return this;
 		}		
 				
