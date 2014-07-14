@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A38BB3
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecLight.ExampleTests", "SpecLight.ExampleTests\SpecLight.ExampleTests.csproj", "{6F434FC7-4C74-43BD-9F11-6833655B1F22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{AD7597B2-088C-412F-9604-CE56DD28CF87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD7597B2-088C-412F-9604-CE56DD28CF87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD7597B2-088C-412F-9604-CE56DD28CF87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,9 +2,8 @@
 using System.Runtime.CompilerServices;
 using Xunit;
 using Xunit.Extensions;
-using Xunit.Sdk;
 
-namespace SpecLight.Tests
+namespace SpecLight.ExampleTests
 {
     [Trait("category", "examples")]
     public class ExampleTests
