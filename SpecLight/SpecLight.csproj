@@ -46,7 +46,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Spec.designer.cs</LastGenOutput>
     </None>
-    <None Include="SpecLight.nuspec" />
+    <None Include="SpecLight.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleOutcomePrinter.cs" />

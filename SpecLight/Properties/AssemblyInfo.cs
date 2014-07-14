@@ -33,5 +33,5 @@ using System.Runtime.CompilerServices;
 
 static class SpeclightVersion
 {
-	internal const string Version = "1.0.3.0";
+    internal const string Version = "1.0.3.0";
 }

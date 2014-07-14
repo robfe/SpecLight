@@ -8,7 +8,7 @@ namespace SpecLight
 {
     static class StringHelpers
     {
-	    static readonly Dictionary<string, string> Replacements = @"
+        static readonly Dictionary<string, string> Replacements = @"
 i=I
 i've=I've
 should False=shouldn't
@@ -26,20 +26,20 @@ is True=is
         internal static string CreateText(string name, params object[] args)
         {
             var parameterQueue = new Queue<string>(args.Select(x => x.ToString()));
-	        var uncameled = Regex.Replace(name, "[A-Z]", x => " " + x.Value.ToLowerInvariant());
-	        var paramsSubsituted = Regex.Replace(uncameled, "_", x => parameterQueue.Any() ? " " + parameterQueue.Dequeue() + " " : " <missing parameter> ");
+            var uncameled = Regex.Replace(name, "[A-Z]", x => " " + x.Value.ToLowerInvariant());
+            var paramsSubsituted = Regex.Replace(uncameled, "_", x => parameterQueue.Any() ? " " + parameterQueue.Dequeue() + " " : " <missing parameter> ");
 
-			
+            
             if (parameterQueue.Any())
             {
                 paramsSubsituted += "(" + string.Join(", ", parameterQueue) + ")";
             }
 
-			var sb = new StringBuilder(paramsSubsituted);
-	        foreach (var kvp in Replacements)
-	        {
-		        sb.Replace(" " + kvp.Key + " ", " " + kvp.Value + " ");
-	        }
+            var sb = new StringBuilder(paramsSubsituted);
+            foreach (var kvp in Replacements)
+            {
+                sb.Replace(" " + kvp.Key + " ", " " + kvp.Value + " ");
+            }
             var normalizeSpaces = Regex.Replace(sb.ToString(), "\\s+", " ");
             return normalizeSpaces.Trim();
         }
