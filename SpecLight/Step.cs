@@ -19,7 +19,7 @@ namespace SpecLight
 
         internal string FormattedType
         {
-            get { return (Type == ScenarioBlock.And ? "  " : "") + Type; }
+            get { return Type.ToString().PadLeft(5, ' '); }
         }
 
         internal StepOutcome Execute(bool shouldSkip)
