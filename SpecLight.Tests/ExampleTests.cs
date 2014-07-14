@@ -2,9 +2,11 @@
 using System.Runtime.CompilerServices;
 using Xunit;
 using Xunit.Extensions;
+using Xunit.Sdk;
 
 namespace SpecLight.Tests
 {
+    [Trait("category", "examples")]
     public class ExampleTests
     {
         int total;
