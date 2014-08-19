@@ -14,4 +14,7 @@
     <copyright>Copyright 2014</copyright>
     <tags>BDD StoryQ Specflow</tags>
   </metadata>
+    <files>
+        <file src="SpecLight.ExternalAnnotations.xml" target="lib\Net45" />
+    </files>
 </package>
