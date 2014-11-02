@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -23,10 +24,22 @@ is False=isn't
 is True=is
 ".Trim().Split('\n').Select(x => x.Trim().Split('=')).ToDictionary(x => x[0], x => x[1]);
 
-        internal static string CreateText(string name, params object[] args)
+        internal static string CreateText(MethodInfo method, params object[] args)
         {
-            var parameterQueue = new Queue<string>(args.Select(x => x.ToString()));
-            var uncameled = Regex.Replace(name, "[A-Z]", x => " " + x.Value.ToLowerInvariant());
+            var parameterQueue = new Queue<string>(args.Select((o, i) =>
+            {
+	            var param = method.GetParameters().ElementAtOrDefault(i);
+	            if (param != null && param.ParameterType == typeof (bool) && o is bool && param.Name.Contains("Or"))
+	            {
+		            var options = param.Name.Split(new[] {"Or"}, StringSplitOptions.None);
+		            if (options.Length == 2)
+		            {
+			            return Regex.Replace(options[((bool) o) ? 0 : 1], "[A-Z]", x => " " + x.Value.ToLowerInvariant()).Trim();
+		            }
+	            }
+	            return o.ToString();
+            }));
+            var uncameled = Regex.Replace(method.Name, "[A-Z]", x => " " + x.Value.ToLowerInvariant());
             var paramsSubsituted = Regex.Replace(uncameled, "_", x => parameterQueue.Any() ? " " + parameterQueue.Dequeue() + " " : " <missing parameter> ");
 
             

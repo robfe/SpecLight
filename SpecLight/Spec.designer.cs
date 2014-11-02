@@ -27,7 +27,7 @@ namespace SpecLight
         /// </param>
 		public Spec Given(Action action)
 		{
-			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method.Name), action);
+			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method), action);
 			return this;
 		}		
 				
@@ -58,7 +58,7 @@ namespace SpecLight
         /// </param>
 		public Spec Given<T1>(Action<T1> action, T1 p1)
 		{
-			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method.Name, p1), () => action(p1));
+			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, p1), () => action(p1));
 			return this;
 		}
 
@@ -83,7 +83,7 @@ namespace SpecLight
         /// </param>
 		public Spec Given<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
 		{
-			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method.Name, p1, p2), () => action(p1, p2));
+			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, p1, p2), () => action(p1, p2));
 			return this;
 		}
 
@@ -108,7 +108,7 @@ namespace SpecLight
         /// </param>
 		public Spec Given<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
 		{
-			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method.Name, p1, p2, p3), () => action(p1, p2, p3));
+			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, p1, p2, p3), () => action(p1, p2, p3));
 			return this;
 		}
 
@@ -133,7 +133,7 @@ namespace SpecLight
         /// </param>
 		public Spec Given<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
 		{
-			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4), () => action(p1, p2, p3, p4));
+			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, p1, p2, p3, p4), () => action(p1, p2, p3, p4));
 			return this;
 		}
 
@@ -158,7 +158,7 @@ namespace SpecLight
         /// </param>
 		public Spec Given<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
 		{
-			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5));
+			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5));
 			return this;
 		}
 
@@ -183,7 +183,7 @@ namespace SpecLight
         /// </param>
 		public Spec Given<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
 		{
-			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6));
+			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6));
 			return this;
 		}
 
@@ -208,7 +208,7 @@ namespace SpecLight
         /// </param>
 		public Spec Given<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
 		{
-			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7));
+			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7));
 			return this;
 		}
 
@@ -233,7 +233,7 @@ namespace SpecLight
         /// </param>
 		public Spec Given<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8)
 		{
-			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6, p7, p8), () => action(p1, p2, p3, p4, p5, p6, p7, p8));
+			AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6, p7, p8), () => action(p1, p2, p3, p4, p5, p6, p7, p8));
 			return this;
 		}
 
@@ -259,7 +259,7 @@ namespace SpecLight
         /// </param>
 		public Spec When(Action action)
 		{
-			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method.Name), action);
+			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method), action);
 			return this;
 		}		
 				
@@ -290,7 +290,7 @@ namespace SpecLight
         /// </param>
 		public Spec When<T1>(Action<T1> action, T1 p1)
 		{
-			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method.Name, p1), () => action(p1));
+			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, p1), () => action(p1));
 			return this;
 		}
 
@@ -315,7 +315,7 @@ namespace SpecLight
         /// </param>
 		public Spec When<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
 		{
-			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method.Name, p1, p2), () => action(p1, p2));
+			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, p1, p2), () => action(p1, p2));
 			return this;
 		}
 
@@ -340,7 +340,7 @@ namespace SpecLight
         /// </param>
 		public Spec When<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
 		{
-			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method.Name, p1, p2, p3), () => action(p1, p2, p3));
+			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, p1, p2, p3), () => action(p1, p2, p3));
 			return this;
 		}
 
@@ -365,7 +365,7 @@ namespace SpecLight
         /// </param>
 		public Spec When<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
 		{
-			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4), () => action(p1, p2, p3, p4));
+			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, p1, p2, p3, p4), () => action(p1, p2, p3, p4));
 			return this;
 		}
 
@@ -390,7 +390,7 @@ namespace SpecLight
         /// </param>
 		public Spec When<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
 		{
-			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5));
+			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5));
 			return this;
 		}
 
@@ -415,7 +415,7 @@ namespace SpecLight
         /// </param>
 		public Spec When<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
 		{
-			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6));
+			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6));
 			return this;
 		}
 
@@ -440,7 +440,7 @@ namespace SpecLight
         /// </param>
 		public Spec When<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
 		{
-			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7));
+			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7));
 			return this;
 		}
 
@@ -465,7 +465,7 @@ namespace SpecLight
         /// </param>
 		public Spec When<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8)
 		{
-			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6, p7, p8), () => action(p1, p2, p3, p4, p5, p6, p7, p8));
+			AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6, p7, p8), () => action(p1, p2, p3, p4, p5, p6, p7, p8));
 			return this;
 		}
 
@@ -491,7 +491,7 @@ namespace SpecLight
         /// </param>
 		public Spec Then(Action action)
 		{
-			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method.Name), action);
+			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method), action);
 			return this;
 		}		
 				
@@ -522,7 +522,7 @@ namespace SpecLight
         /// </param>
 		public Spec Then<T1>(Action<T1> action, T1 p1)
 		{
-			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method.Name, p1), () => action(p1));
+			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, p1), () => action(p1));
 			return this;
 		}
 
@@ -547,7 +547,7 @@ namespace SpecLight
         /// </param>
 		public Spec Then<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
 		{
-			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method.Name, p1, p2), () => action(p1, p2));
+			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, p1, p2), () => action(p1, p2));
 			return this;
 		}
 
@@ -572,7 +572,7 @@ namespace SpecLight
         /// </param>
 		public Spec Then<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
 		{
-			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method.Name, p1, p2, p3), () => action(p1, p2, p3));
+			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, p1, p2, p3), () => action(p1, p2, p3));
 			return this;
 		}
 
@@ -597,7 +597,7 @@ namespace SpecLight
         /// </param>
 		public Spec Then<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
 		{
-			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4), () => action(p1, p2, p3, p4));
+			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, p1, p2, p3, p4), () => action(p1, p2, p3, p4));
 			return this;
 		}
 
@@ -622,7 +622,7 @@ namespace SpecLight
         /// </param>
 		public Spec Then<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
 		{
-			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5));
+			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5));
 			return this;
 		}
 
@@ -647,7 +647,7 @@ namespace SpecLight
         /// </param>
 		public Spec Then<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
 		{
-			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6));
+			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6));
 			return this;
 		}
 
@@ -672,7 +672,7 @@ namespace SpecLight
         /// </param>
 		public Spec Then<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
 		{
-			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7));
+			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7));
 			return this;
 		}
 
@@ -697,7 +697,7 @@ namespace SpecLight
         /// </param>
 		public Spec Then<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8)
 		{
-			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6, p7, p8), () => action(p1, p2, p3, p4, p5, p6, p7, p8));
+			AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6, p7, p8), () => action(p1, p2, p3, p4, p5, p6, p7, p8));
 			return this;
 		}
 
@@ -723,7 +723,7 @@ namespace SpecLight
         /// </param>
 		public Spec And(Action action)
 		{
-			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method.Name), action);
+			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method), action);
 			return this;
 		}		
 				
@@ -754,7 +754,7 @@ namespace SpecLight
         /// </param>
 		public Spec And<T1>(Action<T1> action, T1 p1)
 		{
-			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method.Name, p1), () => action(p1));
+			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, p1), () => action(p1));
 			return this;
 		}
 
@@ -779,7 +779,7 @@ namespace SpecLight
         /// </param>
 		public Spec And<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
 		{
-			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method.Name, p1, p2), () => action(p1, p2));
+			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, p1, p2), () => action(p1, p2));
 			return this;
 		}
 
@@ -804,7 +804,7 @@ namespace SpecLight
         /// </param>
 		public Spec And<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
 		{
-			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method.Name, p1, p2, p3), () => action(p1, p2, p3));
+			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, p1, p2, p3), () => action(p1, p2, p3));
 			return this;
 		}
 
@@ -829,7 +829,7 @@ namespace SpecLight
         /// </param>
 		public Spec And<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
 		{
-			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4), () => action(p1, p2, p3, p4));
+			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, p1, p2, p3, p4), () => action(p1, p2, p3, p4));
 			return this;
 		}
 
@@ -854,7 +854,7 @@ namespace SpecLight
         /// </param>
 		public Spec And<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
 		{
-			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5));
+			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5));
 			return this;
 		}
 
@@ -879,7 +879,7 @@ namespace SpecLight
         /// </param>
 		public Spec And<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
 		{
-			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6));
+			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6));
 			return this;
 		}
 
@@ -904,7 +904,7 @@ namespace SpecLight
         /// </param>
 		public Spec And<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
 		{
-			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7));
+			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7));
 			return this;
 		}
 
@@ -929,7 +929,7 @@ namespace SpecLight
         /// </param>
 		public Spec And<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8)
 		{
-			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method.Name, p1, p2, p3, p4, p5, p6, p7, p8), () => action(p1, p2, p3, p4, p5, p6, p7, p8));
+			AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, p1, p2, p3, p4, p5, p6, p7, p8), () => action(p1, p2, p3, p4, p5, p6, p7, p8));
 			return this;
 		}
 

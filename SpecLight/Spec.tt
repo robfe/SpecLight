@@ -49,7 +49,7 @@ namespace SpecLight
         /// </param>
 		public Spec <#=b #>(Action action)
 		{
-			AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method.Name), action);
+			AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method), action);
 			return this;
 		}		
 				
@@ -88,7 +88,7 @@ namespace SpecLight
         /// </param>
 		public Spec <#=b #><<#=tdec #>>(Action<<#=tdec #>> action, <#= tpar #>)
 		{
-			AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method.Name, <#=tvals #>), () => action(<#=tvals #>));
+			AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method, <#=tvals #>), () => action(<#=tvals #>));
 			return this;
 		}
 
