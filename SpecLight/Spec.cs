@@ -86,9 +86,9 @@ namespace SpecLight
             return outcomes;
         }
 
-        void AddStep(ScenarioBlock block, string text, Action action = null)
+        void AddStep(ScenarioBlock block, string text, Action action, Delegate originalDelegate)
         {
-            Steps.Add(new Step {Type = block, Description = text, Action = action ?? (() => { throw new NotImplementedException(); })});
+            Steps.Add(new Step {Type = block, Description = text, Action = action, OriginalDelegate = originalDelegate});
         }
 
         public Spec Tag(params string[] tags)

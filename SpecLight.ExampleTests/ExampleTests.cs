@@ -38,6 +38,18 @@ namespace SpecLight.ExampleTests
                 .Execute();
         }
 
+        [Fact]
+        public void Empty()
+        {
+            new Spec(@"
+                    Sometimes you just want to write a step, and have it pass even though it does nothing
+					Speclight detects method that have no code and adds 'empty' to the status of 'passed'")
+                .Given(EmptyMethodWithArgument_, "x")
+                .When(IPressAdd)
+                .Then(EmptyMethodWithArgument_, "x")
+                .Execute();
+        }
+
         [Theory]
         [InlineData(1, 2, 3)]
         [InlineData(1, -2, -1)]
@@ -87,6 +99,11 @@ namespace SpecLight.ExampleTests
         {
             throw new NotImplementedException();
         }
+
+	    void EmptyMethodWithArgument_(string arg)
+	    {
+		    
+	    }
 
         void IEnter_(int obj)
         {

@@ -1,11 +1,17 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace SpecLight
 {
     public class Step
     {
         static readonly List<string> SkipExceptions = new List<string>("NUnit.Framework.InconclusiveException".Split(','));
+
+		static readonly ConcurrentDictionary<MethodInfo, bool> MethodIsEmptyCache = new ConcurrentDictionary<MethodInfo, bool>();
 
         public Step()
         {
@@ -16,6 +22,7 @@ namespace SpecLight
         public string Description { get; internal set; }
         public Action Action { get; internal set; }
         public List<string> Tags { get; private set; }
+		public Delegate OriginalDelegate { get; internal set; }
 
         internal string FormattedType
         {
@@ -34,7 +41,8 @@ namespace SpecLight
             try
             {
                 Action();
-                outcome.Status = Status.Passed;
+	            outcome.Status = Status.Passed;
+	            outcome.Empty = MethodIsEmpty(OriginalDelegate.GetMethodInfo());
             }
             catch (NotImplementedException e)
             {
@@ -46,7 +54,20 @@ namespace SpecLight
                 outcome.Status = SkipExceptions.Contains(e.GetType().FullName) ? Status.Skipped : Status.Failed;
                 outcome.Error = e;
             }
-            return outcome;
+	       
+
+	        return outcome;
         }
+
+	    bool MethodIsEmpty(MethodInfo methodInfo)
+	    {
+		    return MethodIsEmptyCache.GetOrAdd(methodInfo, info =>
+		    {
+			    var il = info.GetMethodBody().GetILAsByteArray();
+
+				//it's probably just [Nop, Ret] but i can
+			    return il.Length < 10 && il.All(x => x == OpCodes.Nop.Value || x == OpCodes.Ret.Value);
+		    });
+	    }
     }
 }
