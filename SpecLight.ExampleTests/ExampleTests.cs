@@ -79,7 +79,7 @@ namespace SpecLight.ExampleTests
                 .Given(IEnter_, 5)
                 .Finally(() => Console.WriteLine("Cleanup 1/2"))
                 .And(IEnter_, 6)
-                .When(IPressAdd).Tag("NotImplemented")
+                .When(IPressAdd)
                 .Then(TheResultShouldBe_, -12013)
                 .Finally(() => Console.WriteLine("Cleanup 2/2"))
                 .Execute();

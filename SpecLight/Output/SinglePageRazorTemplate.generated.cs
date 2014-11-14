@@ -820,12 +820,22 @@ WriteLiteral("\t\t\t\t\t\t\t\t\t<li class=\"");
             
             #line default
             #line hidden
+WriteLiteral(" ");
+
+
+            
+            #line 102 "..\..\Output\SinglePageRazorTemplate.cshtml"
+                                                        Write(o.Empty?"empty":"");
+
+            
+            #line default
+            #line hidden
 WriteLiteral("\" title=\"");
 
 
             
             #line 102 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                                                               Write(o.Error);
+                                                                                     Write(o.Error);
 
             
             #line default

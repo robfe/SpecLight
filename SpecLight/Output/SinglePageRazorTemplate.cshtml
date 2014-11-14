@@ -99,7 +99,7 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
 							<ul>
 								@foreach (var o in spec.Spec.Outcomes)
 								{
-									<li class="@o.Status.ToString().ToLowerInvariant()" title="@o.Error">
+									<li class="@o.Status.ToString().ToLowerInvariant() @(o.Empty?"empty":"")" title="@o.Error">
 										<em>@o.Step.Type</em>
 										@o.Step.Description
 										<strong>
