@@ -56,5 +56,21 @@ namespace SpecLight.Output.ViewModel
             }
             return c;
         }
+
+        public void MergeSingleFolders()
+        {
+            if (!string.IsNullOrWhiteSpace(Name) && SubFolders.Count == 1 && Classes.Count == 0)
+            {
+                var s = SubFolders.Single();
+                Name += "."+s.Name;
+                SubFolders = s.SubFolders;
+                Classes = s.Classes;
+            }
+
+            foreach (var folder in SubFolders)
+            {
+                folder.MergeSingleFolders();
+            }
+        }
     }
 }

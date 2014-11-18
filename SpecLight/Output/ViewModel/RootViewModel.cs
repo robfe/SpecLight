@@ -14,6 +14,8 @@ namespace SpecLight.Output.ViewModel
                 var testClassViewModel = RootFolder.SubFolder(c.Namespace).Class(c.Name);
                 testClassViewModel.Specs.Add(new SpecViewModel(spec));
             }
+
+            RootFolder.MergeSingleFolders();
         }
 
         public FolderViewModel RootFolder { get; set; }
