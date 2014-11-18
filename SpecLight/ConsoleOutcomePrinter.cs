@@ -5,7 +5,8 @@ namespace SpecLight
 {
     static class ConsoleOutcomePrinter
     {
-        public static readonly int MaxStepOutcomeNameLength = Enum.GetNames(typeof (Status)).Max(x => x.Length);
+        const string Empty = " (Empty)";
+        public static readonly int MaxStepOutcomeNameLength = Enum.GetNames(typeof(Status)).Max(x => x.Length)+Empty.Length;
 
         public static void PrintOutcomes(Spec spec)
         {
@@ -22,7 +23,12 @@ namespace SpecLight
             {
                 var step = o.Step;
                 var message = String.Format("{0} {1}:", step.FormattedType, step.Description);
-                Console.WriteLine("{0}\t{1}\t{2}", message.PadRight(maxMessageWidth), o.Status.ToString().PadRight(MaxStepOutcomeNameLength + 1), String.Join(", ", step.Tags.Select(x => "@" + x)));
+                var s = o.Status.ToString();
+                if (o.Empty)
+                {
+                    s += Empty;
+                }
+                Console.WriteLine("{0}\t{1}\t{2}", message.PadRight(maxMessageWidth), s.PadRight(MaxStepOutcomeNameLength + 1), String.Join(", ", step.Tags.Select(x => "@" + x)));
             }
         }
     }
