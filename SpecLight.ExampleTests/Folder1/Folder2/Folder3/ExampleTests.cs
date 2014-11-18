@@ -1,9 +1,6 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using Xunit;
-using Xunit.Extensions;
+﻿using Xunit;
 
-namespace SpecLight.ExampleTests.Folder1.Folder2
+namespace SpecLight.ExampleTests.Folder1.Folder2.Folder3
 {
     [Trait("category", "examples")]
     public class ExampleTests

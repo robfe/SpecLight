@@ -35,7 +35,7 @@ namespace SpecLight.Output.ViewModel
                 return this;
             }
 
-            var split = path.Split(new[] {'.'}, 2);
+            var split = path.Split(new[] { '.' }, 2);
             var folder = SubFolders.SingleOrDefault(x => x.Name == split[0]);
 
             if (folder == null)
@@ -59,17 +59,17 @@ namespace SpecLight.Output.ViewModel
 
         public void MergeSingleFolders()
         {
-            if (!string.IsNullOrWhiteSpace(Name) && SubFolders.Count == 1 && Classes.Count == 0)
-            {
-                var s = SubFolders.Single();
-                Name += "."+s.Name;
-                SubFolders = s.SubFolders;
-                Classes = s.Classes;
-            }
-
             foreach (var folder in SubFolders)
             {
                 folder.MergeSingleFolders();
+            }
+
+            if (!string.IsNullOrWhiteSpace(Name) && SubFolders.Count == 1 && Classes.Count == 0)
+            {
+                var s = SubFolders.Single();
+                Name += "." + s.Name;
+                SubFolders = s.SubFolders;
+                Classes = s.Classes;
             }
         }
     }
