@@ -71,7 +71,7 @@ namespace SpecLight
             {
                 var il = info.GetMethodBody().GetILAsByteArray();
 
-                //it's probably just [Nop, Ret] but i can
+                //it's probably just [Nop, Ret]
                 return il.Length < 10 && il.All(x => x == OpCodes.Nop.Value || x == OpCodes.Ret.Value);
             });
         }
