@@ -28,11 +28,6 @@ namespace SpecLight
         var b = kvp.Key;
         var desc = kvp.Value;
 #>
-//		public Spec <#=b #>(string text)
-//		{
-//			AddStep(ScenarioBlock.<#=b #>, text);
-//			return this;
-//		}
 
         /// <summary>
         /// <#=desc #>
@@ -51,13 +46,7 @@ namespace SpecLight
         {
             AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method), action, action, new object[0]);
             return this;
-        }		
-                
-//		public Spec <#=b #>(string text, Action action)
-//		{
-//			AddStep(ScenarioBlock.<#=b #>, text, action);
-//			return this;
-//		}		
+        }
 
 <#
         foreach (var i in Enumerable.Range(1, 8))
@@ -67,11 +56,6 @@ namespace SpecLight
             var tpar = string.Join(", ", all.Select(x => string.Format("T{0} p{0}", x)));
             var tvals = string.Join(", ", all.Select(x => "p" + x));
 #>
-//		public Spec <#=b #><<#=tdec #>>(string text, Action<<#=tdec #>> action, <#= tpar #>)
-//		{
-//			AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(text, <#=tvals #>), () => action(<#=tvals #>), action);
-//			return this;
-//		}
 
         /// <summary>
         /// <#=desc #>
