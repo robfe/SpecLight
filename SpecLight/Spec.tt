@@ -20,13 +20,13 @@ using System.Linq.Expressions;
 namespace SpecLight
 {
 #pragma warning disable 1573
-	public partial class Spec
-	{
+    public partial class Spec
+    {
 <#
-	foreach (var kvp in descriptions)
-	{
-	    var b = kvp.Key;
-	    var desc = kvp.Value;
+    foreach (var kvp in descriptions)
+    {
+        var b = kvp.Key;
+        var desc = kvp.Value;
 #>
 //		public Spec <#=b #>(string text)
 //		{
@@ -34,25 +34,25 @@ namespace SpecLight
 //			return this;
 //		}
 
-		/// <summary>
+        /// <summary>
         /// <#=desc #>
         /// 
         /// </summary>
         /// <remarks>
-		/// Be sure to describe the behaviour not the implementation.
-		/// This overload infers its text from the name of the parameter <paramref name="action"/>
-		/// </remarks>
+        /// Be sure to describe the behaviour not the implementation.
+        /// This overload infers its text from the name of the parameter <paramref name="action"/>
+        /// </remarks>
         /// <param name="action">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
         /// Do not use a lambda or anonymous method here, as the name will not be human readable
         /// </param>
-		public Spec <#=b #>(Action action)
-		{
-			AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method), action, action);
-			return this;
-		}		
-				
+        public Spec <#=b #>(Action action)
+        {
+            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method), action, action, new object[0]);
+            return this;
+        }		
+                
 //		public Spec <#=b #>(string text, Action action)
 //		{
 //			AddStep(ScenarioBlock.<#=b #>, text, action);
@@ -60,12 +60,12 @@ namespace SpecLight
 //		}		
 
 <#
-		foreach (var i in Enumerable.Range(1, 8))
-		{
-		    var all = Enumerable.Range(1, i);
-		    var tdec = string.Join(", ", all.Select(x => "T" + x));
-		    var tpar = string.Join(", ", all.Select(x => string.Format("T{0} p{0}", x)));
-		    var tvals = string.Join(", ", all.Select(x => "p" + x));
+        foreach (var i in Enumerable.Range(1, 8))
+        {
+            var all = Enumerable.Range(1, i);
+            var tdec = string.Join(", ", all.Select(x => "T" + x));
+            var tpar = string.Join(", ", all.Select(x => string.Format("T{0} p{0}", x)));
+            var tvals = string.Join(", ", all.Select(x => "p" + x));
 #>
 //		public Spec <#=b #><<#=tdec #>>(string text, Action<<#=tdec #>> action, <#= tpar #>)
 //		{
@@ -73,33 +73,33 @@ namespace SpecLight
 //			return this;
 //		}
 
-		/// <summary>
+        /// <summary>
         /// <#=desc #>
         /// 
         /// </summary>
         /// <remarks>
-		/// Be sure to describe the behaviour not the implementation.
-		/// This overload infers its text from the name of the parameter <paramref name="action"/>
-		/// </remarks>
+        /// Be sure to describe the behaviour not the implementation.
+        /// This overload infers its text from the name of the parameter <paramref name="action"/>
+        /// </remarks>
         /// <param name="action">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
         /// Do not use a lambda or anonymous method here, as the name will not be human readable
         /// </param>
-		public Spec <#=b #><<#=tdec #>>(Action<<#=tdec #>> action, <#= tpar #>)
-		{
-			AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method, <#=tvals #>), () => action(<#=tvals #>), action);
-			return this;
-		}
+        public Spec <#=b #><<#=tdec #>>(Action<<#=tdec #>> action, <#= tpar #>)
+        {
+            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method, <#=tvals #>), () => action(<#=tvals #>), action, new object[]{<#=tvals#>});
+            return this;
+        }
 
 <#
-		}
+        }
 #>
 
 <#
-	}
+    }
 #>
-	}
+    }
 #pragma warning restore 1573
 
 }

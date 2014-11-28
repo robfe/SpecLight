@@ -21,6 +21,7 @@ namespace SpecLight
         public ScenarioBlock Type { get; internal set; }
         public string Description { get; internal set; }
         public List<string> Tags { get; private set; }
+        public object[] Arguments { get; internal set; }
 
         internal Action Action { get; set; }
         internal Delegate OriginalDelegate { get; set; }
@@ -31,6 +32,7 @@ namespace SpecLight
         {
             get { return Type.ToString().PadLeft(5, ' '); }
         }
+
 
 
         internal StepOutcome Execute(bool shouldSkip)
