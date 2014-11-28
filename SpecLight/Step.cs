@@ -22,6 +22,7 @@ namespace SpecLight
         public string Description { get; internal set; }
         public List<string> Tags { get; private set; }
         public object[] Arguments { get; internal set; }
+        public Spec Spec { get; internal set; }
 
         internal Action Action { get; set; }
         internal Delegate OriginalDelegate { get; set; }

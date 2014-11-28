@@ -95,7 +95,8 @@ namespace SpecLight
                 Action = action, 
                 OriginalDelegate = originalDelegate, 
                 Index = Steps.Count, 
-                Arguments = arguments
+                Arguments = arguments,
+                Spec = this
             });
         }
 
