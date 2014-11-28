@@ -11,7 +11,7 @@ namespace SpecLight
     {
         static readonly List<string> SkipExceptions = new List<string>("NUnit.Framework.InconclusiveException".Split(','));
 
-		static readonly ConcurrentDictionary<MethodInfo, bool> MethodIsEmptyCache = new ConcurrentDictionary<MethodInfo, bool>();
+        static readonly ConcurrentDictionary<MethodInfo, bool> MethodIsEmptyCache = new ConcurrentDictionary<MethodInfo, bool>();
 
         public Step()
         {
@@ -20,14 +20,18 @@ namespace SpecLight
 
         public ScenarioBlock Type { get; internal set; }
         public string Description { get; internal set; }
-        public Action Action { get; internal set; }
         public List<string> Tags { get; private set; }
-		public Delegate OriginalDelegate { get; internal set; }
+
+        internal Action Action { get; set; }
+        internal Delegate OriginalDelegate { get; set; }
+        
+        public int Index { get; internal set; }
 
         internal string FormattedType
         {
             get { return Type.ToString().PadLeft(5, ' '); }
         }
+
 
         internal StepOutcome Execute(bool shouldSkip)
         {
@@ -41,8 +45,8 @@ namespace SpecLight
             try
             {
                 Action();
-	            outcome.Status = Status.Passed;
-	            outcome.Empty = MethodIsEmpty(OriginalDelegate.GetMethodInfo());
+                outcome.Status = Status.Passed;
+                outcome.Empty = MethodIsEmpty(OriginalDelegate.GetMethodInfo());
             }
             catch (NotImplementedException e)
             {
@@ -54,20 +58,20 @@ namespace SpecLight
                 outcome.Status = SkipExceptions.Contains(e.GetType().FullName) ? Status.Skipped : Status.Failed;
                 outcome.Error = e;
             }
-	       
+           
 
-	        return outcome;
+            return outcome;
         }
 
-	    bool MethodIsEmpty(MethodInfo methodInfo)
-	    {
-		    return MethodIsEmptyCache.GetOrAdd(methodInfo, info =>
-		    {
-			    var il = info.GetMethodBody().GetILAsByteArray();
+        bool MethodIsEmpty(MethodInfo methodInfo)
+        {
+            return MethodIsEmptyCache.GetOrAdd(methodInfo, info =>
+            {
+                var il = info.GetMethodBody().GetILAsByteArray();
 
-				//it's probably just [Nop, Ret] but i can
-			    return il.Length < 10 && il.All(x => x == OpCodes.Nop.Value || x == OpCodes.Ret.Value);
-		    });
-	    }
+                //it's probably just [Nop, Ret] but i can
+                return il.Length < 10 && il.All(x => x == OpCodes.Nop.Value || x == OpCodes.Ret.Value);
+            });
+        }
     }
 }
