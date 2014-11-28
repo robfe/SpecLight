@@ -2,27 +2,27 @@
 {
     public class SpecFixtureBase : ISpecFixture
     {
-        public void GlobalSetup()
+        public virtual void GlobalSetup()
         {
         }
 
-        public void GlobalTeardown()
+        public virtual void GlobalTeardown()
         {
         }
 
-        public void SpecSetup(Spec spec)
+        public virtual void SpecSetup(Spec spec)
         {
         }
 
-        public void SpecTeardown(Spec spec)
+        public virtual void SpecTeardown(Spec spec)
         {
         }
 
-        public void StepSetup(Step step)
+        public virtual void StepSetup(Step step)
         {
         }
 
-        public void StepTeardown(Step step)
+        public virtual void StepTeardown(Step step)
         {
         }
     }
