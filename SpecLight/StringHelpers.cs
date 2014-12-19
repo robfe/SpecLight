@@ -34,12 +34,12 @@ is True=is
 		            var options = param.Name.Split(new[] {"Or"}, StringSplitOptions.None);
 		            if (options.Length == 2)
 		            {
-			            return Regex.Replace(options[((bool) o) ? 0 : 1], "[A-Z]", x => " " + x.Value.ToLowerInvariant()).Trim();
+			            return UnCamel(options[((bool) o) ? 0 : 1]).Trim();
 		            }
 	            }
-	            return o.ToString();
+	            return (o??"<null>").ToString();
             }));
-            var uncameled = Regex.Replace(method.Name, "[A-Z]", x => " " + x.Value.ToLowerInvariant());
+	        var uncameled = UnCamel(method.Name);
             var paramsSubsituted = Regex.Replace(uncameled, "_", x => parameterQueue.Any() ? " " + parameterQueue.Dequeue() + " " : " <missing parameter> ");
 
             
@@ -57,7 +57,10 @@ is True=is
             return normalizeSpaces.Trim();
         }
 
-
+	    static string UnCamel(string s)
+	    {
+		    return Regex.Replace(s, "[A-Z]", x => " " + x.Value.ToLowerInvariant());
+	    }
     }
 
 }

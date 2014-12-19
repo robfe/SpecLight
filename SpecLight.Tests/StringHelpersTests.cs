@@ -25,6 +25,12 @@ namespace SpecLight.Tests
 	        Assert.Equal("the thing fails really badly", StringHelpers.CreateText(((Action<bool>) TheThing_).Method, false));
         }
 
+        [Fact]
+        public void NullIsOk()
+        {
+            Assert.Equal("the <null> is one word", StringHelpers.CreateText(((Action<string>) The_IsOneWord).Method, new object[]{null}));
+        }
+
 	    void The_IsOneWord(string s)
 	    {
 	    }
