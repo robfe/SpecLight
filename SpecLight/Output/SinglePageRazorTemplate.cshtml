@@ -102,13 +102,10 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
 									<li class="@o.Status.ToString().ToLowerInvariant() @(o.Empty?"empty":"")" title="@o.Error">
 										<em>@o.Step.Type</em>
 										@o.Step.Description
-										<strong>
-											@o.Status
-											@if (o.Empty)
-											{
-												<span title="Test step contained no code">(Empty)</span>
-											}
-										</strong>
+										@if (o.Empty)
+										{
+											<strong title="Test step contained no code">(Empty)</strong>
+										}
 										@TagBox(o.Step.Tags)
 									</li>
 								}
