@@ -122,7 +122,6 @@ namespace SpecLight
         public Spec WithFixture<T>() where T : ISpecFixture, new()
         {
             Fixtures.Add(SpecFixtureRepository<T>.Fixture);
-            SpecTags.Add("fixture:"+typeof(T).Name);
             return this;
         }
 
