@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Xunit;
 using Xunit.Extensions;
@@ -43,7 +45,7 @@ namespace SpecLight.ExampleTests
         {
             new Spec(@"
                     Sometimes you just want to write a step, and have it pass even though it does nothing
-					Speclight detects method that have no code and adds 'empty' to the status of 'passed'")
+                    Speclight detects method that have no code and adds 'empty' to the status of 'passed'")
                 .Given(EmptyMethodWithArgument_, "x")
                 .When(IPressAdd)
                 .Then(EmptyMethodWithArgument_, "x")
@@ -75,7 +77,7 @@ namespace SpecLight.ExampleTests
                     As a Math Idiot
                     I want to add two numbers")
                 .Tag("DemonstrateFinally")
-                .WithFixture<PrintingFixture>()
+                .WithFixture<ExecutionTimer>()
                 .Given(IEnter_, 5)
                 .Finally(() => Console.WriteLine("Cleanup 1/2"))
                 .And(IEnter_, 6)
@@ -100,10 +102,10 @@ namespace SpecLight.ExampleTests
             throw new NotImplementedException();
         }
 
-	    void EmptyMethodWithArgument_(string arg)
-	    {
-		    
-	    }
+        void EmptyMethodWithArgument_(string arg)
+        {
+            
+        }
 
         void IEnter_(int obj)
         {
@@ -111,41 +113,31 @@ namespace SpecLight.ExampleTests
         }
     }
 
-    public class PrintingFixture : ISpecFixture
+    public class ExecutionTimer : SpecFixtureBase
     {
-        void Print([CallerMemberName] string s = null)
+        public override void StepSetup(Step step)
         {
-            Console.Out.WriteLine("PrintingFixture: " + s);
-        }
-        public void GlobalSetup()
-        {
-            Print();
+            //since this class is time-sensitive, access the dictionary not the bag. Warmup can be as high as 200ms for dynamic invokes.
+            step.DataDictionary["Timer"] = Stopwatch.StartNew(); //this won't get printed as it's not a string. 
         }
 
-        public void GlobalTeardown()
+        public override void StepTeardown(Step step)
         {
-            Print();
+            var stopwatch = (Stopwatch) step.DataDictionary["Timer"];
+            stopwatch.Stop();
+            step.DataBag.ExecutionTime = stopwatch.ElapsedMilliseconds + "ms"; //this goes into the output as it's a string
+
+            if (stopwatch.ElapsedMilliseconds > 10)
+            {
+                step.Tags.Add("slow");
+            }
         }
 
-        public void SpecSetup(Spec spec)
+        public override void SpecTeardown(Spec spec)
         {
-            Print();
-        }
-
-        public void SpecTeardown(Spec spec)
-        {
-            Print();
-        }
-
-        public void StepSetup(Step step)
-        {
-            Print();
-        }
-
-        public void StepTeardown(Step step)
-        {
-            Print();
+            //note that the spec would have actually taken a lot longer to execute (speclight reflection overhead), but the following number is accurate for user code
+            var total = spec.Steps.Select(x => (Stopwatch) x.DataBag.Timer).Sum(x => x.ElapsedMilliseconds);
+            spec.DataBag.ExecutionTime = total + "ms";
         }
     }
-
 }

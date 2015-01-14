@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -12,6 +13,7 @@ namespace SpecLight
     public partial class Spec
     {
         Action _finalActions;
+        readonly ExpandoObject _extraData = new ExpandoObject();
 
         public Spec(string description)
         {
@@ -26,6 +28,18 @@ namespace SpecLight
         public MethodBase CallingMethod { get; set; }
         public string TestMethodNameOverride { get; set; }
         public List<Step> Steps { get; private set; }
+        
+        /// <summary>
+        /// A bag to attach random stuff to a step. Most likely used by an <see cref="ISpecFixture"/>. Refers to the same datastore as the <see cref="DataDictionary"/>. Any contents of type string will be printed to output.
+        /// </summary>
+        public dynamic DataBag { get { return _extraData; }}
+
+        /// <summary>
+        /// A dictionary to attach random stuff to a step. Most likely used by an <see cref="ISpecFixture"/>. Refers to the same datastore as the <see cref="DataBag"/>. Any contents of type string will be printed to output.
+        /// </summary>
+        public IDictionary<string, object> DataDictionary { get { return _extraData; }}
+
+
         internal List<StepOutcome> Outcomes { get; private set; }
         internal List<string> SpecTags { get; private set; }
         internal List<ISpecFixture> Fixtures { get; private set; }
@@ -69,8 +83,8 @@ namespace SpecLight
             var outcomes = new List<StepOutcome>();
             foreach (var step in steps)
             {
-                Fixtures.ForEach(x => x.StepSetup(step));
                 Console.WriteLine("> SpecLight {2} step: {0} {1}", step.Type, step.Description, skip?"skipping":"executing");
+                Fixtures.ForEach(x => x.StepSetup(step));
                 var o = step.Execute(skip);
                 Fixtures.ForEach(x => x.StepTeardown(step));
                 outcomes.Add(o);

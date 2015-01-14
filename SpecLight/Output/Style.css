@@ -299,3 +299,7 @@ table td.number {
   display: none;
   overflow: hidden;
 }
+.extra-data {
+  font-size: 90%;
+  font-weight: bold;
+}

@@ -12,216 +12,227 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
 @using SpecLight.Output.ViewModel
 @inherits SpecLight.Output.RazorTemplateBase
 @{
-	var statusCounts = TemplateModel.RootFolder.DescendantClasses().SelectMany(y => y.Specs.Select(x => x.Status));
-	var tags = TemplateModel.Tags.ToList();
-	double fattestTagCount = tags.Select(x => x.Statuses.Count()).DefaultIfEmpty(1).Max();
+    var statusCounts = TemplateModel.RootFolder.DescendantClasses().SelectMany(y => y.Specs.Select(x => x.Status));
+    var tags = TemplateModel.Tags.ToList();
+    double fattestTagCount = tags.Select(x => x.Statuses.Count()).DefaultIfEmpty(1).Max();
 }
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta charset="utf-8" />
-		<title>Speclight report</title>
-		<style type="text/css">
-			@IncludeEmbeddedResource("Style.min.css") 
-		</style>
-		<script type="text/javascript">
-			@IncludeEmbeddedResource("jquery-1.10.2.min.js")
-		</script>
+    <head>
+        <meta charset="utf-8" />
+        <title>Speclight report</title>
+        <style type="text/css">
+            @IncludeEmbeddedResource("Style.min.css") 
+        </style>
+        <script type="text/javascript">
+            @IncludeEmbeddedResource("jquery-1.10.2.min.js")
+        </script>
 
 
 
-		<script type="text/javascript">
-			$(function() {
-				//folder collapsing
-				$("li.folder > span.folderName").click(function() {
-					$(this).parent().toggleClass("collapsed");
-				});
+        <script type="text/javascript">
+            $(function() {
+                //folder collapsing
+                $("li.folder > span.folderName").click(function() {
+                    $(this).parent().toggleClass("collapsed");
+                });
 
-				//highlight current item
-				function updateHighlight() {
-					$("#TableOfContents a").removeClass("current");
-					$("h2[id], h3[id]").filter(":visible").filter(function() {
-						var elemTop = $(this).offset().top;
-						return elemTop >= 0;
-					}).first().each(function() {
-						$("#TableOfContents a[href='#" + this.id + "']").addClass("current");
-					});
-				}
+                //highlight current item
+                function updateHighlight() {
+                    $("#TableOfContents a").removeClass("current");
+                    $("h2[id], h3[id]").filter(":visible").filter(function() {
+                        var elemTop = $(this).offset().top;
+                        return elemTop >= 0;
+                    }).first().each(function() {
+                        $("#TableOfContents a[href='#" + this.id + "']").addClass("current");
+                    });
+                }
 
-				$("#Content").scroll(updateHighlight);
-				updateHighlight();
+                $("#Content").scroll(updateHighlight);
+                updateHighlight();
 
-				//tag behaviour
-				$("input[data-tag-controller]").change(function() {
-					var selectedTags = $("input[data-tag-controller]:checked").map(function(i, d) { return $(d).data("tag-controller"); });
-					if (selectedTags.size()) {
-						$("*[data-tags]").hide();
-						selectedTags.each(function() { $("*[data-tags~='" + this + "']").show(); });
-					} else {
-						$("*[data-tags]").show();
-					}
-					updateHighlight();
-				});
-			});
-		</script>
-	</head>
-	<body>
-		<div id="TableOfContents">
-			<div class="graph" style="@Gradient(statusCounts)" title="Status breakdown for all scenarios">@Title(statusCounts)</div>
-			<div class="tagCloud">
-				@foreach (var tag in tags)
-				{
-					var fatness = (tag.Statuses.Count() - 1)/fattestTagCount;
-					var size = 90 + fatness*60;
+                //tag behaviour
+                $("input[data-tag-controller]").change(function() {
+                    var selectedTags = $("input[data-tag-controller]:checked").map(function(i, d) { return $(d).data("tag-controller"); });
+                    if (selectedTags.size()) {
+                        $("*[data-tags]").hide();
+                        selectedTags.each(function() { $("*[data-tags~='" + this + "']").show(); });
+                    } else {
+                        $("*[data-tags]").show();
+                    }
+                    updateHighlight();
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="TableOfContents">
+            <div class="graph" style="@Gradient(statusCounts)" title="Status breakdown for all scenarios">@Title(statusCounts)</div>
+            <div class="tagCloud">
+                @foreach (var tag in tags)
+                {
+                    var fatness = (tag.Statuses.Count() - 1)/fattestTagCount;
+                    var size = 90 + fatness*60;
 
-					<input id="tagCheckbox-@tag.Name" type="checkbox" data-tag-controller="@tag.Name"/>
-					<label for="tagCheckbox-@tag.Name" title="Tag '@tag.Name' (@Title(tag.Statuses)) - Click to filter" style="@Gradient(tag.Statuses); font-size: @(size)%">@@@tag.Name</label>
-				}
-			</div>
-			@FolderToc(TemplateModel.RootFolder)
+                    <input id="tagCheckbox-@tag.Name" type="checkbox" data-tag-controller="@tag.Name"/>
+                    <label for="tagCheckbox-@tag.Name" title="Tag '@tag.Name' (@Title(tag.Statuses)) - Click to filter" style="@Gradient(tag.Statuses); font-size: @(size)%">@@@tag.Name</label>
+                }
+            </div>
+            @FolderToc(TemplateModel.RootFolder)
 
-		</div>
-		<div id="Content">
-			<h1>Speclight report</h1>
+        </div>
+        <div id="Content">
+            <h1>Speclight report</h1>
 
-			@foreach (var testClass in TemplateModel.RootFolder.DescendantClasses())
-			{
-				<div class="feature" data-tags="@string.Join(" ", testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct())">
-					<h2 id="@AnchorName(testClass)">Class: @testClass.Name</h2>
-					@TagBox(testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct())
-					@foreach (var spec in testClass.Specs.OrderBy(x => x.MethodName))
-					{
-						var firstError = spec.Spec.Outcomes.Select(x => x.Error).FirstOrDefault(x => x != null);
-						<div class="scenario @spec.Status.ToString().ToLowerInvariant()" data-tags="@string.Join(" ", spec.EffectiveTags())">
-							<h3 id="@AnchorName(testClass, spec)">Method: @spec.MethodName  (@spec.Status.ToString())</h3>
-							@TagBox(spec.Spec.SpecTags)
-							<p class="description">@spec.Spec.Description</p>
-							<ul>
-								@foreach (var o in spec.Spec.Outcomes)
-								{
-									<li class="@o.Status.ToString().ToLowerInvariant() @(o.Empty?"empty":"")" title="@o.Error">
-										<em>@o.Step.Type</em>
-										@o.Step.Description
-										@if (o.Empty)
-										{
-											<strong title="Test step contained no code">(Empty)</strong>
-										}
-										@TagBox(o.Step.Tags)
-									</li>
-								}
-							</ul>
-							@if (firstError != null)
-							{
-								<pre class="errorMessage">@firstError</pre>
-							}
-						</div>
-					}
-				</div>
-			}
-		</div>
+            @foreach (var testClass in TemplateModel.RootFolder.DescendantClasses())
+            {
+                <div class="feature" data-tags="@string.Join(" ", testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct())">
+                    <h2 id="@AnchorName(testClass)">Class: @testClass.Name</h2>
+                    @TagBox(testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct())
+                    @foreach (var spec in testClass.Specs.OrderBy(x => x.MethodName))
+                    {
+                        var firstError = spec.Spec.Outcomes.Select(x => x.Error).FirstOrDefault(x => x != null);
+                        <div class="scenario @spec.Status.ToString().ToLowerInvariant()" data-tags="@string.Join(" ", spec.EffectiveTags())">
+                            <h3 id="@AnchorName(testClass, spec)">Method: @spec.MethodName  (@spec.Status.ToString())</h3>
+                            @TagBox(spec.Spec.SpecTags)
+                            <p class="description">@spec.Spec.Description</p>
+                            @ExtraData(spec.Spec.DataDictionary)
+                            <ul>
+                                @foreach (var o in spec.Spec.Outcomes)
+                                {
+                                    <li class="@o.Status.ToString().ToLowerInvariant() @(o.Empty?"empty":"")" title="@o.Error">
+                                        <em>@o.Step.Type</em>
+                                        @o.Step.Description
+                                        @if (o.Empty)
+                                        {
+                                            <strong title="Test step contained no code">(Empty)</strong>
+                                        }
+                                        @TagBox(o.Step.Tags)
+                                        @ExtraData(o.Step.DataDictionary)
+                                    </li>
+                                }
+                            </ul>
+                            @if (firstError != null)
+                            {
+                                <pre class="errorMessage">@firstError</pre>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
 
-	</body>
+    </body>
 </html>
 
 @helper TagBox(IEnumerable<string> tags)
 {
-	if (tags == null || !tags.Any())
-	{
-		return;
-	}
-	<span class="tags">@string.Join(", ", tags.Select(x => "@" + x))</span>
+    if (tags == null || !tags.Any())
+    {
+        return;
+    }
+    <span class="tags">@string.Join(", ", tags.Select(x => "@" + x))</span>
+}
+
+@helper ExtraData(IDictionary<string, object> dataDictionary)
+{
+    var data = dataDictionary.FormatExtraData();
+    if (!string.IsNullOrWhiteSpace(data))
+    {
+        <span class="extra-data" title="Extra Data">@data</span>
+    }
 }
 
 @helper FolderToc(FolderViewModel folder)
 {
-	if (!string.IsNullOrWhiteSpace(folder.Name))
-	{
-		var statusCounts = folder.DescendantClasses().SelectMany(y => y.Specs.Select(x => x.Status)).ToList();
-		<span class="folderName">
-			<span class="folderGlyph"></span>
-			<span class="folderNameText">@folder.Name</span>
-			<span class="graph" style="@Gradient(statusCounts)" title="@Title(statusCounts) in folder '@folder.Name'"></span>
-		</span>
-	}
-	<ul data-tags="@string.Join(" ", folder.DescendantClasses().SelectMany(x => x.Specs).SelectMany(x => x.EffectiveTags()).Distinct())">
-		@foreach (var child in folder.SubFolders.OrderBy(x => x.Name))
-		{
-			var featureClass = folder.DescendantClasses().SelectMany(x => x.Specs).Select(x => x.Status).DefaultIfEmpty(Status.Pending).Max().ToString().ToLowerInvariant();
-			<li class="folder @featureClass">
+    if (!string.IsNullOrWhiteSpace(folder.Name))
+    {
+        var statusCounts = folder.DescendantClasses().SelectMany(y => y.Specs.Select(x => x.Status)).ToList();
+        <span class="folderName">
+            <span class="folderGlyph"></span>
+            <span class="folderNameText">@folder.Name</span>
+            <span class="graph" style="@Gradient(statusCounts)" title="@Title(statusCounts) in folder '@folder.Name'"></span>
+        </span>
+    }
+    <ul data-tags="@string.Join(" ", folder.DescendantClasses().SelectMany(x => x.Specs).SelectMany(x => x.EffectiveTags()).Distinct())">
+        @foreach (var child in folder.SubFolders.OrderBy(x => x.Name))
+        {
+            var featureClass = folder.DescendantClasses().SelectMany(x => x.Specs).Select(x => x.Status).DefaultIfEmpty(Status.Pending).Max().ToString().ToLowerInvariant();
+            <li class="folder @featureClass">
 
-				@FolderToc(child)
-			</li>
-		}
-		@foreach (var feature in folder.Classes.OrderBy(x => x.Name))
-		{
-			var maxStatus = feature.Specs.Select(x => x.Status).DefaultIfEmpty(Status.Pending).Max();
-			var featureClass = maxStatus.ToString().ToLowerInvariant();
-			<li class="feature @featureClass" title="Feature: @feature.Name (@maxStatus)" data-tags="@string.Join(" ", feature.Specs.SelectMany(x => x.EffectiveTags()).Distinct())">
-				<a class="featureLink" href="#@AnchorName(feature)">@feature.Name</a>
-				<ul class="scenarios">
-					@foreach (var spec in feature.Specs.OrderBy(x => x.MethodName))
-					{
-						var scenarioClass = spec.Status.ToString().ToLowerInvariant();
-						<li class="@scenarioClass" title="Scenario: @spec.MethodName (@spec.Status)" data-tags="@string.Join(" ", spec.EffectiveTags())">
-							<a class="scenarioLink" href="#@AnchorName(feature, spec)">@spec.MethodName</a>
-						</li>
-					}
-				</ul>
-			</li>
-		}
-	</ul>
+                @FolderToc(child)
+            </li>
+        }
+        @foreach (var feature in folder.Classes.OrderBy(x => x.Name))
+        {
+            var maxStatus = feature.Specs.Select(x => x.Status).DefaultIfEmpty(Status.Pending).Max();
+            var featureClass = maxStatus.ToString().ToLowerInvariant();
+            <li class="feature @featureClass" title="Feature: @feature.Name (@maxStatus)" data-tags="@string.Join(" ", feature.Specs.SelectMany(x => x.EffectiveTags()).Distinct())">
+                <a class="featureLink" href="#@AnchorName(feature)">@feature.Name</a>
+                <ul class="scenarios">
+                    @foreach (var spec in feature.Specs.OrderBy(x => x.MethodName))
+                    {
+                        var scenarioClass = spec.Status.ToString().ToLowerInvariant();
+                        <li class="@scenarioClass" title="Scenario: @spec.MethodName (@spec.Status)" data-tags="@string.Join(" ", spec.EffectiveTags())">
+                            <a class="scenarioLink" href="#@AnchorName(feature, spec)">@spec.MethodName</a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
 }
 
 @functions
 {
 
-	string AnchorName(TestClassViewModel @class, SpecViewModel spec)
-	{
-		return "Scenario" + @class.Name.Replace(" ", "_") + spec.MethodName.Replace(" ", "_");
-	}
+    string AnchorName(TestClassViewModel @class, SpecViewModel spec)
+    {
+        return "Scenario" + @class.Name.Replace(" ", "_") + spec.MethodName.Replace(" ", "_");
+    }
 
-	string AnchorName(TestClassViewModel @class)
-	{
-		return "Feature" + @class.Name.Replace(" ", "_");
-	}
-
-
-	static readonly Dictionary<Status, string> StatusColours = new Dictionary<Status, string>
-	{
-		{Status.Passed, "rgba(86, 158, 78, 0.9)"},
-		{Status.Failed, "rgba(238, 66, 68, 0.9)"},
-		{Status.Skipped, "rgba(245, 184, 81, 0.9)"},
-		{Status.Pending, "rgba(245, 220, 95, 0.9)"},
-		{Status.NotRun, "transparent"},
-	};
-
-	static readonly Status[] HumanOrderedStatuses = {Status.Failed, Status.Passed, Status.Skipped, Status.Pending, Status.NotRun};
-
-	static string Gradient(IEnumerable<Status> statuses)
-	{
-		double tp = 0;
-		var s = "";
-		foreach (var status in HumanOrderedStatuses)
-		{
-			var colour = StatusColours[status];
-			s += string.Format(", {0} {1}%", colour, tp);
-			tp += statuses.Count(y => y == status)/(double) statuses.Count()*100;
-			s += string.Format(", {0} {1}%", colour, tp);
-		}
+    string AnchorName(TestClassViewModel @class)
+    {
+        return "Feature" + @class.Name.Replace(" ", "_");
+    }
 
 
-		return "background-image: linear-gradient(to right" + s + ")";
-	}
+    static readonly Dictionary<Status, string> StatusColours = new Dictionary<Status, string>
+    {
+        {Status.Passed, "rgba(86, 158, 78, 0.9)"},
+        {Status.Failed, "rgba(238, 66, 68, 0.9)"},
+        {Status.Skipped, "rgba(245, 184, 81, 0.9)"},
+        {Status.Pending, "rgba(245, 220, 95, 0.9)"},
+        {Status.NotRun, "transparent"},
+    };
+
+    static readonly Status[] HumanOrderedStatuses = {Status.Failed, Status.Passed, Status.Skipped, Status.Pending, Status.NotRun};
+
+    static string Gradient(IEnumerable<Status> statuses)
+    {
+        double tp = 0;
+        var s = "";
+        foreach (var status in HumanOrderedStatuses)
+        {
+            var colour = StatusColours[status];
+            s += string.Format(", {0} {1}%", colour, tp);
+            tp += statuses.Count(y => y == status)/(double) statuses.Count()*100;
+            s += string.Format(", {0} {1}%", colour, tp);
+        }
 
 
-	static string Title(IEnumerable<Status> statuses)
-	{
-		var v = from s in HumanOrderedStatuses
-			let count = statuses.Count(y => y == s)
-			where count > 0
-			select count + " " + s;
+        return "background-image: linear-gradient(to right" + s + ")";
+    }
 
-		return string.Join(", ", v);
-	}
+
+    static string Title(IEnumerable<Status> statuses)
+    {
+        var v = from s in HumanOrderedStatuses
+            let count = statuses.Count(y => y == s)
+            where count > 0
+            select count + " " + s;
+
+        return string.Join(", ", v);
+    }
 
 }

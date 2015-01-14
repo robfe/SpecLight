@@ -28,21 +28,21 @@ is True=is
         {
             var parameterQueue = new Queue<string>(args.Select((o, i) =>
             {
-	            var param = method.GetParameters().ElementAtOrDefault(i);
-	            if (param != null && param.ParameterType == typeof (bool) && o is bool && param.Name.Contains("Or"))
-	            {
-		            var options = param.Name.Split(new[] {"Or"}, StringSplitOptions.None);
-		            if (options.Length == 2)
-		            {
-			            return UnCamel(options[((bool) o) ? 0 : 1]).Trim();
-		            }
-	            }
-	            return (o??"<null>").ToString();
+                var param = method.GetParameters().ElementAtOrDefault(i);
+                if (param != null && param.ParameterType == typeof(bool) && o is bool && param.Name.Contains("Or"))
+                {
+                    var options = param.Name.Split(new[] { "Or" }, StringSplitOptions.None);
+                    if (options.Length == 2)
+                    {
+                        return UnCamel(options[((bool)o) ? 0 : 1]).Trim();
+                    }
+                }
+                return (o ?? "<null>").ToString();
             }));
-	        var uncameled = UnCamel(method.Name);
+            var uncameled = UnCamel(method.Name);
             var paramsSubsituted = Regex.Replace(uncameled, "_", x => parameterQueue.Any() ? " " + parameterQueue.Dequeue() + " " : " <missing parameter> ");
 
-            
+
             if (parameterQueue.Any())
             {
                 paramsSubsituted += "(" + string.Join(", ", parameterQueue) + ")";
@@ -57,10 +57,20 @@ is True=is
             return normalizeSpaces.Trim();
         }
 
-	    static string UnCamel(string s)
-	    {
-		    return Regex.Replace(s, "[A-Z]", x => " " + x.Value.ToLowerInvariant());
-	    }
+        static string UnCamel(string s)
+        {
+            return Regex.Replace(s, "[A-Z]", x => " " + x.Value.ToLowerInvariant());
+        }
+
+        internal static string FormatExtraData(this IDictionary<string, object> extraData)
+        {
+            var values = extraData.Where(x => x.Value is string).Select(x => x.Key + " = " + x.Value);
+            if (!values.Any())
+            {
+                return "";
+            }
+            return "{" + string.Join(", ", values) + "}";
+        }
     }
 
 }
