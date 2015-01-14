@@ -912,7 +912,7 @@ WriteLiteral("\t\t\t\t\t\t\t</ul>\r\n");
             
             #line default
             #line hidden
-WriteLiteral("\t\t\t\t\t\t\t\t<div class=\"errorMessage\">");
+WriteLiteral("\t\t\t\t\t\t\t\t<pre class=\"errorMessage\">");
 
 
             
@@ -922,7 +922,7 @@ WriteLiteral("\t\t\t\t\t\t\t\t<div class=\"errorMessage\">");
             
             #line default
             #line hidden
-WriteLiteral("</div>\r\n");
+WriteLiteral("</pre>\r\n");
 
 
             
