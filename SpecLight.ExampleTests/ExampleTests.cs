@@ -104,7 +104,7 @@ namespace SpecLight.ExampleTests
 
         void EmptyMethodWithArgument_(string arg)
         {
-            
+
         }
 
         void IEnter_(int obj)
@@ -118,12 +118,12 @@ namespace SpecLight.ExampleTests
         public override void StepSetup(Step step)
         {
             //since this class is time-sensitive, access the dictionary not the bag. Warmup can be as high as 200ms for dynamic invokes.
-            step.DataDictionary["Timer"] = Stopwatch.StartNew(); //this won't get printed as it's not a string. 
+            step.DataDictionary["Timer"] = Stopwatch.StartNew(); //this won't get printed as it's not a string.
         }
 
         public override void StepTeardown(Step step)
         {
-            var stopwatch = (Stopwatch) step.DataDictionary["Timer"];
+            var stopwatch = (Stopwatch)step.DataDictionary["Timer"];
             stopwatch.Stop();
             step.DataBag.ExecutionTime = stopwatch.ElapsedMilliseconds + "ms"; //this goes into the output as it's a string
 
@@ -136,7 +136,7 @@ namespace SpecLight.ExampleTests
         public override void SpecTeardown(Spec spec)
         {
             //note that the spec would have actually taken a lot longer to execute (speclight reflection overhead), but the following number is accurate for user code
-            var total = spec.Steps.Select(x => (Stopwatch) x.DataBag.Timer).Sum(x => x.ElapsedMilliseconds);
+            var total = spec.Steps.Select(x => (Stopwatch)x.DataBag.Timer).Sum(x => x.ElapsedMilliseconds);
             spec.DataBag.ExecutionTime = total + "ms";
         }
     }

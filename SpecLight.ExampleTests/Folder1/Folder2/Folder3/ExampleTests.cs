@@ -10,8 +10,8 @@ namespace SpecLight.ExampleTests.Folder1.Folder2.Folder3
         public void Empty()
         {
             new Spec(@"
-                    Sometimes you just want to write a step, and have it pass even though it does nothing
-					Speclight detects method that have no code and adds 'empty' to the status of 'passed'")
+Sometimes you just want to write a step, and have it pass even though it does nothing
+Speclight detects methods that have no code and adds 'empty' to the status of 'passed'")
                 .Given(EmptyMethodWithArgument_, "x")
                 .When(IPressAdd)
                 .Then(EmptyMethodWithArgument_, "x")
@@ -22,10 +22,10 @@ namespace SpecLight.ExampleTests.Folder1.Folder2.Folder3
         {
         }
 
-	    void EmptyMethodWithArgument_(string arg)
-	    {
-		    
-	    }
+        void EmptyMethodWithArgument_(string arg)
+        {
+
+        }
 
     }
 

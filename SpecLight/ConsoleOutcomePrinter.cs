@@ -17,14 +17,14 @@ namespace SpecLight
                 Console.WriteLine(String.Join(", ", spec.SpecTags.Select(x => "@" + x)));
             }
             Console.WriteLine(spec.Description);
-	        Console.WriteLine();
-	        
-			var specData = spec.DataDictionary.FormatExtraData();
-	        if (!string.IsNullOrWhiteSpace(specData))
-	        {
-		        Console.WriteLine(specData);
-				Console.WriteLine();
-	        }
+            Console.WriteLine();
+            
+            var specData = spec.DataDictionary.FormatExtraData();
+            if (!string.IsNullOrWhiteSpace(specData))
+            {
+                Console.WriteLine(specData);
+                Console.WriteLine();
+            }
 
             var maxMessageWidth = spec.Outcomes.Max(x => x.Step.Description.Length + x.Step.FormattedType.Length) + 3;
             foreach (var o in spec.Outcomes)
