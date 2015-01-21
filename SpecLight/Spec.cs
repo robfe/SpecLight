@@ -11,7 +11,10 @@ using System.Threading.Tasks;
 
 namespace SpecLight
 {
-    public partial class Spec
+    /// <summary>
+    /// A Spec is the core of Speclight. Construct it with some descriptive text (In order to / as a / I want) then use the Given/When/Then/And step methods. Then call Execute or ExecuteAsync to actually run the spec's steps.
+    /// </summary>
+    public partial class Spec : IAsyncSpec
     {
         Action _finalActions;
         readonly ExpandoObject _extraData = new ExpandoObject();
@@ -29,16 +32,16 @@ namespace SpecLight
         public MethodBase CallingMethod { get; set; }
         public string TestMethodNameOverride { get; set; }
         public List<Step> Steps { get; private set; }
-        
+
         /// <summary>
         /// A bag to attach random stuff to a step. Most likely used by an <see cref="ISpecFixture"/>. Refers to the same datastore as the <see cref="DataDictionary"/>. Any contents of type string will be printed to output.
         /// </summary>
-        public dynamic DataBag { get { return _extraData; }}
+        public dynamic DataBag { get { return _extraData; } }
 
         /// <summary>
         /// A dictionary to attach random stuff to a step. Most likely used by an <see cref="ISpecFixture"/>. Refers to the same datastore as the <see cref="DataBag"/>. Any contents of type string will be printed to output.
         /// </summary>
-        public IDictionary<string, object> DataDictionary { get { return _extraData; }}
+        public IDictionary<string, object> DataDictionary { get { return _extraData; } }
 
 
         internal List<StepOutcome> Outcomes { get; private set; }
@@ -59,9 +62,9 @@ namespace SpecLight
 
             ExecuteAsyncImpl().Wait();
         }
-            
-            /// <summary>
-        ///     Run the spec, printing its results to the output windows, and re-throwing the first exception that it encountered
+
+        /// <summary>
+        ///     Run the spec async, printing its results to the output windows, and re-throwing the first exception that it encountered
         ///     (such as an Assert failure)
         ///     Be sure to call Execute from your unit test method directly so that it can detect its calling method correctly
         /// </summary>
@@ -104,7 +107,7 @@ namespace SpecLight
             var outcomes = new List<StepOutcome>();
             foreach (var step in steps)
             {
-                Console.WriteLine("> SpecLight {2} step: {0} {1}", step.Type, step.Description, skip?"skipping":"executing");
+                Console.WriteLine("> SpecLight {2} step: {0} {1}", step.Type, step.Description, skip ? "skipping" : "executing");
                 Fixtures.ForEach(x => x.StepSetup(step));
                 var o = await step.Execute(skip);
                 Fixtures.ForEach(x => x.StepTeardown(step));
@@ -126,10 +129,10 @@ namespace SpecLight
             Steps.Add(new Step
             {
                 Type = block,
-                Description = text, 
-                Action = action, 
-                OriginalDelegate = originalDelegate, 
-                Index = Steps.Count, 
+                Description = text,
+                Action = action,
+                OriginalDelegate = originalDelegate,
+                Index = Steps.Count,
                 Arguments = arguments,
                 Spec = this
             });

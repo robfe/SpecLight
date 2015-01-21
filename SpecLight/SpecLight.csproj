@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleOutcomePrinter.cs" />
+    <Compile Include="IAsyncSpec.cs" />
     <Compile Include="ISpecFixture.cs" />
     <Compile Include="Output\ViewModel\FolderViewModel.cs" />
     <Compile Include="Output\ViewModel\RootViewModel.cs" />
