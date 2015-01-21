@@ -24,7 +24,7 @@ is False=isn't
 is True=is
 ".Trim().Split('\n').Select(x => x.Trim().Split('=')).ToDictionary(x => x[0], x => x[1]);
 
-        internal static string CreateText(MethodInfo method, params object[] args)
+        internal static string CreateText(MethodInfo method, object[] args)
         {
             var parameterQueue = new Queue<string>(args.Select((o, i) =>
             {

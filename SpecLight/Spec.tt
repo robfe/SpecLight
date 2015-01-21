@@ -1,18 +1,19 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="$(TargetPath)" #>
-<#@ import namespace="SpecLight" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Linq" #>
 <#@ output extension=".designer.cs" #>
 <#
-    var descriptions = new Dictionary<ScenarioBlock, string>
+    var declarations = from kvp in new Dictionary<string, string>
     {
-        {ScenarioBlock.Given, "The given part describes the state of the world before you begin the behavior you're specifying in this scenario (like Arrange in AAA). The purpose of givens is to put the system in a known state before the user (or external system) starts interacting with the system (in the When steps). Avoid talking about user interaction in givens. If you had worked with usecases, you would call this preconditions."},
-        {ScenarioBlock.When, "What are the behaviours that happen to the SUT that we want to specify (Act). The purpose of When steps is to describe the key action the user performs (or, using Robert C. Martin’s metaphor, the state transition)."},
-        {ScenarioBlock.Then, "The then section describes the changes you expect due to the specified behavior (Assert). The purpose of Then steps is to observe outcomes. The observations should be related to the business value/benefit in your feature description. The observations should also be on some kind of output – that is something that comes out of the system (report, user interface, message) and not something that is deeply buried inside it (that has no business value)."},
-        {ScenarioBlock.And, "Add an additional Given, When or Then clause"},
-    };
+        {"Given", "The given part describes the state of the world before you begin the behavior you're specifying in this scenario (like Arrange in AAA). The purpose of givens is to put the system in a known state before the user (or external system) starts interacting with the system (in the When steps). Avoid talking about user interaction in givens. If you had worked with usecases, you would call this preconditions."},
+        {"When", "What are the behaviours that happen to the SUT that we want to specify (Act). The purpose of When steps is to describe the key action the user performs (or, using Robert C. Martin’s metaphor, the state transition)."},
+        {"Then", "The then section describes the changes you expect due to the specified behavior (Assert). The purpose of Then steps is to observe outcomes. The observations should be related to the business value/benefit in your feature description. The observations should also be on some kind of output – that is something that comes out of the system (report, user interface, message) and not something that is deeply buried inside it (that has no business value)."},
+        {"And", "Add an additional Given, When or Then clause"},
+    }
+        from a in Enumerable.Range(0, 8)
+        select new StepDeclaration(a, kvp.Key, kvp.Value);
+
 #>
 using System;
 using System.Linq.Expressions;
@@ -25,65 +26,25 @@ namespace SpecLight
     public partial class Spec
     {
 <#
-    foreach (var kvp in descriptions)
+
+
+    foreach (var d in declarations)
     {
-        var b = kvp.Key;
-
-        var comment = string.Format(@"        /// <summary>
-        /// {0}
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Be sure to describe the behaviour not the implementation.
-        /// This overload infers its text from the name of the parameter <paramref name=""action""/>
-        /// </remarks>
-        /// <param name=""action"">
-        /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
-        /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref=""object.ToString""/> of each respective argument.
-        /// Do not use a lambda or anonymous method here, as the name will not be human readable
-        /// </param>", kvp.Value);
 #>
 
-<#=comment#>
-        public Spec <#=b #>(Action action)
+<#=d.Comment#>
+        public Spec <#=d.ScenarioBlock #><#=d.TypeDeclaration #>(Action<#=d.TypeDeclaration #> action<#= d.TypedParameters #>)
         {
-            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method), async () => action(), action, new object[0]);
+            AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.Method, new object[]{<#=d.ParameterValues#>}), async () => action(<#=d.ParameterValues #>), action, new object[]{<#=d.ParameterValues#>});
             return this;
         }
 
-<#=comment#>
-        public Spec <#=b #>Async(Func<Task> action)
+<#=d.Comment#>
+        public Spec <#=d.ScenarioBlock #>Async<#=d.TypeDeclaration #>(Func<#=d.AsyncTypeDeclaration #> action<#= d.TypedParameters #>)
         {
-            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method), async () => await action(), action, new object[0]);
+            AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.Method, new object[]{<#=d.ParameterValues#>}), async () => await action(<#=d.ParameterValues #>), action, new object[]{<#=d.ParameterValues#>});
             return this;
         }
-
-<#
-        foreach (var i in Enumerable.Range(1, 8))
-        {
-            var all = Enumerable.Range(1, i);
-            var tdec = string.Join(", ", all.Select(x => "T" + x));
-            var tpar = string.Join(", ", all.Select(x => string.Format("T{0} p{0}", x)));
-            var tvals = string.Join(", ", all.Select(x => "p" + x));
-#>
-
-<#=comment#>
-        public Spec <#=b #><<#=tdec #>>(Action<<#=tdec #>> action, <#= tpar #>)
-        {
-            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method, <#=tvals #>), async () => action(<#=tvals #>), action, new object[]{<#=tvals#>});
-            return this;
-        }
-
-<#=comment#>
-        public Spec <#=b #>Async<<#=tdec #>>(Func<<#=tdec #>, Task> action, <#= tpar #>)
-        {
-            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method, <#=tvals #>), async () => await action(<#=tvals #>), action, new object[]{<#=tvals#>});
-            return this;
-        }
-
-<#
-        }
-#>
 
 <#
     }
@@ -94,3 +55,63 @@ namespace SpecLight
 
 }
 
+<#+
+
+    public class StepDeclaration
+    {
+        readonly int _typeArguments;
+        readonly string _description;
+        readonly IEnumerable<int> _eachTypeArgument;
+       
+
+        public StepDeclaration(int typeArguments, string scenarioBlock, string description)
+        {
+            _typeArguments = typeArguments;
+            ScenarioBlock = scenarioBlock;
+            _description = description;
+            _eachTypeArgument = Enumerable.Range(1, _typeArguments);
+        }
+
+        public string ScenarioBlock { get; private set; }
+
+        public string TypeDeclaration
+        {
+            get { return _typeArguments == 0 ? "" : "<" + string.Join(", ", _eachTypeArgument.Select(x => "T" + x)) + ">"; }
+        }
+
+        public string AsyncTypeDeclaration
+        {
+            get { return _typeArguments == 0 ? "<Task>" : "<" + string.Join(", ", _eachTypeArgument.Select(x => "T" + x).Concat(new[]{"Task"})) + ">"; }
+        }
+
+        public string TypedParameters
+        {
+            get { return _typeArguments == 0 ? "" : string.Concat(_eachTypeArgument.Select(x => string.Format(", T{0} p{0}", x))); }
+        }
+
+        public string ParameterValues
+        {
+            get { return string.Join(", ", _eachTypeArgument.Select(x => "p" + x)); }
+        }
+
+        public string Comment
+        {
+            get
+            {
+                return string.Format(@"        /// <summary>
+        /// {0}
+        /// </summary>
+        /// <remarks>
+        /// Be sure to describe the behaviour not the implementation.
+        /// This overload infers its text from the name of the parameter <paramref name=""action""/>
+        /// </remarks>
+        /// <param name=""action"">
+        /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+        /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref=""object.ToString""/> of each respective argument.
+        /// Do not use a lambda or anonymous method here, as the name will not be human readable
+        /// </param>", _description);
+            }
+        }
+    }
+
+#>
