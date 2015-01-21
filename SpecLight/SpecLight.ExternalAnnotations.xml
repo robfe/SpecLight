@@ -1,650 +1,489 @@
-﻿<assembly name="SpecLight">
-    <member name="M:SpecLight.Spec.Given(System.Action)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``1(System.Func{``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``1(System.Action{``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``2(System.Func{``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``2(System.Action{``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``3(System.Func{``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``3(System.Action{``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``4(System.Func{``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``5(System.Func{``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``6(System.Func{``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``7(System.Func{``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``8(System.Func{``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Given``9(System.Func{``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When(System.Action)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``1(System.Func{``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``1(System.Action{``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``2(System.Func{``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``2(System.Action{``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``3(System.Func{``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``3(System.Action{``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``4(System.Func{``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``5(System.Func{``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``6(System.Func{``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``7(System.Func{``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``8(System.Func{``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.When``9(System.Func{``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then(System.Action)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``1(System.Func{``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``1(System.Action{``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``2(System.Func{``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``2(System.Action{``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``3(System.Func{``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``3(System.Action{``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``4(System.Func{``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``5(System.Func{``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``6(System.Func{``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``7(System.Func{``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``8(System.Func{``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.Then``9(System.Func{``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And(System.Action)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``1(System.Func{``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``1(System.Action{``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``2(System.Func{``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``2(System.Action{``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``3(System.Func{``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``3(System.Action{``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``4(System.Func{``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``5(System.Func{``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``6(System.Func{``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``7(System.Func{``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``8(System.Func{``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec.And``9(System.Func{``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given(System.Action)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``1(System.Func{``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given(System.Action{`0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``1(System.Func{`0,``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``1(System.Action{``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``2(System.Func{``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``1(System.Action{`0,``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``2(System.Func{`0,``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``2(System.Action{``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``3(System.Func{``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``2(System.Action{`0,``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``3(System.Func{`0,``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``3(System.Action{``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``4(System.Func{``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``3(System.Action{`0,``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``4(System.Func{`0,``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``5(System.Func{``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``4(System.Action{`0,``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``5(System.Func{`0,``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``6(System.Func{``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``5(System.Action{`0,``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``6(System.Func{`0,``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``7(System.Func{``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``6(System.Action{`0,``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``7(System.Func{`0,``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``8(System.Func{``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``7(System.Action{`0,``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``8(System.Func{`0,``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``9(System.Func{``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``8(System.Action{`0,``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Given``9(System.Func{`0,``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When(System.Action)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``1(System.Func{``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When(System.Action{`0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``1(System.Func{`0,``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``1(System.Action{``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``2(System.Func{``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``1(System.Action{`0,``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``2(System.Func{`0,``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``2(System.Action{``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``3(System.Func{``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``2(System.Action{`0,``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``3(System.Func{`0,``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``3(System.Action{``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``4(System.Func{``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``3(System.Action{`0,``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``4(System.Func{`0,``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``5(System.Func{``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``4(System.Action{`0,``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``5(System.Func{`0,``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``6(System.Func{``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``5(System.Action{`0,``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``6(System.Func{`0,``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``7(System.Func{``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``6(System.Action{`0,``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``7(System.Func{`0,``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``8(System.Func{``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``7(System.Action{`0,``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``8(System.Func{`0,``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``9(System.Func{``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``8(System.Action{`0,``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.When``9(System.Func{`0,``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then(System.Action)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``1(System.Func{``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then(System.Action{`0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``1(System.Func{`0,``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``1(System.Action{``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``2(System.Func{``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``1(System.Action{`0,``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``2(System.Func{`0,``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``2(System.Action{``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``3(System.Func{``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``2(System.Action{`0,``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``3(System.Func{`0,``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``3(System.Action{``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``4(System.Func{``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``3(System.Action{`0,``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``4(System.Func{`0,``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``5(System.Func{``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``4(System.Action{`0,``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``5(System.Func{`0,``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``6(System.Func{``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``5(System.Action{`0,``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``6(System.Func{`0,``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``7(System.Func{``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``6(System.Action{`0,``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``7(System.Func{`0,``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``8(System.Func{``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``7(System.Action{`0,``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``8(System.Func{`0,``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``9(System.Func{``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``8(System.Action{`0,``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.Then``9(System.Func{`0,``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And(System.Action)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``1(System.Func{``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And(System.Action{`0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``1(System.Func{`0,``0})">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``1(System.Action{``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``2(System.Func{``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``1(System.Action{`0,``0},``0)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``2(System.Func{`0,``1,``0},``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``2(System.Action{``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``3(System.Func{``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``2(System.Action{`0,``0,``1},``0,``1)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``3(System.Func{`0,``1,``2,``0},``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``3(System.Action{``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``4(System.Func{``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``3(System.Action{`0,``0,``1,``2},``0,``1,``2)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``4(System.Func{`0,``1,``2,``3,``0},``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``5(System.Func{``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``4(System.Action{`0,``0,``1,``2,``3},``0,``1,``2,``3)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``5(System.Func{`0,``1,``2,``3,``4,``0},``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``6(System.Func{``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``5(System.Action{`0,``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``6(System.Func{`0,``1,``2,``3,``4,``5,``0},``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``7(System.Func{``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``6(System.Action{`0,``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``7(System.Func{`0,``1,``2,``3,``4,``5,``6,``0},``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``8(System.Func{``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``7(System.Action{`0,``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``8(System.Func{`0,``1,``2,``3,``4,``5,``6,``7,``0},``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``9(System.Func{``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``8(System.Action{`0,``0,``1,``2,``3,``4,``5,``6,``7},``0,``1,``2,``3,``4,``5,``6,``7)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
-    <member name="M:SpecLight.Spec`1.And``9(System.Func{`0,``1,``2,``3,``4,``5,``6,``7,``8,``0},``1,``2,``3,``4,``5,``6,``7,``8)">
-        <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
-    </member>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<assembly name="SpecLight">
+  <member name="M:SpecLight.IAsyncSpec.Given(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Given``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Given``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Given``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Given``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Given``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Given``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Given``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.When(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.When``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.When``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.When``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.When``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.When``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.When``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.When``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Then(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Then``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Then``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Then``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Then``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Then``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Then``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.Then``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.And(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.And``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.And``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.And``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.And``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.And``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.And``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.And``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.GivenAsync(System.Func{System.Threading.Tasks.Task})">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.GivenAsync``1(System.Func{``0,System.Threading.Tasks.Task},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.GivenAsync``2(System.Func{``0,``1,System.Threading.Tasks.Task},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.GivenAsync``3(System.Func{``0,``1,``2,System.Threading.Tasks.Task},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.GivenAsync``4(System.Func{``0,``1,``2,``3,System.Threading.Tasks.Task},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.GivenAsync``5(System.Func{``0,``1,``2,``3,``4,System.Threading.Tasks.Task},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.GivenAsync``6(System.Func{``0,``1,``2,``3,``4,``5,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.GivenAsync``7(System.Func{``0,``1,``2,``3,``4,``5,``6,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.WhenAsync(System.Func{System.Threading.Tasks.Task})">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.WhenAsync``1(System.Func{``0,System.Threading.Tasks.Task},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.WhenAsync``2(System.Func{``0,``1,System.Threading.Tasks.Task},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.WhenAsync``3(System.Func{``0,``1,``2,System.Threading.Tasks.Task},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.WhenAsync``4(System.Func{``0,``1,``2,``3,System.Threading.Tasks.Task},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.WhenAsync``5(System.Func{``0,``1,``2,``3,``4,System.Threading.Tasks.Task},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.WhenAsync``6(System.Func{``0,``1,``2,``3,``4,``5,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.WhenAsync``7(System.Func{``0,``1,``2,``3,``4,``5,``6,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.ThenAsync(System.Func{System.Threading.Tasks.Task})">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.ThenAsync``1(System.Func{``0,System.Threading.Tasks.Task},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.ThenAsync``2(System.Func{``0,``1,System.Threading.Tasks.Task},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.ThenAsync``3(System.Func{``0,``1,``2,System.Threading.Tasks.Task},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.ThenAsync``4(System.Func{``0,``1,``2,``3,System.Threading.Tasks.Task},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.ThenAsync``5(System.Func{``0,``1,``2,``3,``4,System.Threading.Tasks.Task},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.ThenAsync``6(System.Func{``0,``1,``2,``3,``4,``5,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.ThenAsync``7(System.Func{``0,``1,``2,``3,``4,``5,``6,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.AndAsync(System.Func{System.Threading.Tasks.Task})">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.AndAsync``1(System.Func{``0,System.Threading.Tasks.Task},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.AndAsync``2(System.Func{``0,``1,System.Threading.Tasks.Task},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.AndAsync``3(System.Func{``0,``1,``2,System.Threading.Tasks.Task},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.AndAsync``4(System.Func{``0,``1,``2,``3,System.Threading.Tasks.Task},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.AndAsync``5(System.Func{``0,``1,``2,``3,``4,System.Threading.Tasks.Task},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.AndAsync``6(System.Func{``0,``1,``2,``3,``4,``5,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.AndAsync``7(System.Func{``0,``1,``2,``3,``4,``5,``6,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Given(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Given``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Given``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Given``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Given``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Given``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Given``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Given``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.When(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.When``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.When``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.When``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.When``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.When``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.When``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.When``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Then(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Then``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Then``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Then``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Then``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Then``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Then``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.Then``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.And(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.And``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.And``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.And``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.And``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.And``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.And``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.And``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.GivenAsync(System.Func{System.Threading.Tasks.Task})">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.GivenAsync``1(System.Func{``0,System.Threading.Tasks.Task},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.GivenAsync``2(System.Func{``0,``1,System.Threading.Tasks.Task},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.GivenAsync``3(System.Func{``0,``1,``2,System.Threading.Tasks.Task},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.GivenAsync``4(System.Func{``0,``1,``2,``3,System.Threading.Tasks.Task},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.GivenAsync``5(System.Func{``0,``1,``2,``3,``4,System.Threading.Tasks.Task},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.GivenAsync``6(System.Func{``0,``1,``2,``3,``4,``5,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.GivenAsync``7(System.Func{``0,``1,``2,``3,``4,``5,``6,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.WhenAsync(System.Func{System.Threading.Tasks.Task})">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.WhenAsync``1(System.Func{``0,System.Threading.Tasks.Task},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.WhenAsync``2(System.Func{``0,``1,System.Threading.Tasks.Task},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.WhenAsync``3(System.Func{``0,``1,``2,System.Threading.Tasks.Task},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.WhenAsync``4(System.Func{``0,``1,``2,``3,System.Threading.Tasks.Task},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.WhenAsync``5(System.Func{``0,``1,``2,``3,``4,System.Threading.Tasks.Task},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.WhenAsync``6(System.Func{``0,``1,``2,``3,``4,``5,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.WhenAsync``7(System.Func{``0,``1,``2,``3,``4,``5,``6,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.ThenAsync(System.Func{System.Threading.Tasks.Task})">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.ThenAsync``1(System.Func{``0,System.Threading.Tasks.Task},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.ThenAsync``2(System.Func{``0,``1,System.Threading.Tasks.Task},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.ThenAsync``3(System.Func{``0,``1,``2,System.Threading.Tasks.Task},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.ThenAsync``4(System.Func{``0,``1,``2,``3,System.Threading.Tasks.Task},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.ThenAsync``5(System.Func{``0,``1,``2,``3,``4,System.Threading.Tasks.Task},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.ThenAsync``6(System.Func{``0,``1,``2,``3,``4,``5,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.ThenAsync``7(System.Func{``0,``1,``2,``3,``4,``5,``6,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.AndAsync(System.Func{System.Threading.Tasks.Task})">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.AndAsync``1(System.Func{``0,System.Threading.Tasks.Task},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.AndAsync``2(System.Func{``0,``1,System.Threading.Tasks.Task},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.AndAsync``3(System.Func{``0,``1,``2,System.Threading.Tasks.Task},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.AndAsync``4(System.Func{``0,``1,``2,``3,System.Threading.Tasks.Task},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.AndAsync``5(System.Func{``0,``1,``2,``3,``4,System.Threading.Tasks.Task},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.AndAsync``6(System.Func{``0,``1,``2,``3,``4,``5,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.AndAsync``7(System.Func{``0,``1,``2,``3,``4,``5,``6,System.Threading.Tasks.Task},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Given(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Given``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Given``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Given``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Given``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Given``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Given``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Given``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#When(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#When``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#When``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#When``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#When``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#When``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#When``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#When``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Then(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Then``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Then``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Then``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Then``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Then``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Then``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#Then``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#And(System.Action)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#And``1(System.Action{``0},``0)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#And``2(System.Action{``0,``1},``0,``1)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#And``3(System.Action{``0,``1,``2},``0,``1,``2)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#And``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#And``5(System.Action{``0,``1,``2,``3,``4},``0,``1,``2,``3,``4)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#And``6(System.Action{``0,``1,``2,``3,``4,``5},``0,``1,``2,``3,``4,``5)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.SpecLight#IAsyncSpec#And``7(System.Action{``0,``1,``2,``3,``4,``5,``6},``0,``1,``2,``3,``4,``5,``6)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.IAsyncSpec.ExecuteAsync(System.String)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
+  <member name="M:SpecLight.Spec.ExecuteAsync(System.String)">
+    <attribute ctor="M:JetBrains.Annotations.PureAttribute.#ctor" />
+  </member>
 </assembly>

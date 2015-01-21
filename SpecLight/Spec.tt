@@ -1,7 +1,11 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" #>
+<#@ assembly name="System.Xml.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
 <#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml.Linq" #>
 <#@ output extension=".designer.cs" #>
 <#
     var declarations = from kvp in new Dictionary<string, string>
@@ -13,6 +17,28 @@
     }
         from a in Enumerable.Range(0, 8)
         select new StepDeclaration(a, kvp.Key, kvp.Value);
+
+    //write the ExternalAnnotations file - enabling resharper to warn users when they forget to call Execute or wait on ExecuteAsync
+
+    var annotationMembers = from c in new[]
+                            {
+                                "IAsyncSpec.{0}", 
+                                "IAsyncSpec.{0}Async",
+                                "Spec.{0}", 
+                                "Spec.{0}Async",
+                                "Spec.SpecLight#IAsyncSpec#{0}",
+                            }
+                            from d in declarations
+                            select d.BuildMethodDecl(c);
+
+    annotationMembers = annotationMembers.Concat(new[] {"M:SpecLight.IAsyncSpec.ExecuteAsync(System.String)", "M:SpecLight.Spec.ExecuteAsync(System.String)"});
+
+    var doc = new XDocument(new XElement("assembly", 
+        new XAttribute("name", "SpecLight"), 
+        annotationMembers.Select(x => new XElement("member", 
+            new XAttribute("name", x), new XElement("attribute", new XAttribute("ctor", "M:JetBrains.Annotations.PureAttribute.#ctor"))))));
+
+    doc.Save(Host.ResolvePath("SpecLight.ExternalAnnotations.xml"));
 
 #>
 using System;
@@ -87,34 +113,34 @@ namespace SpecLight
 
     public class StepDeclaration
     {
-        readonly int _typeArguments;
         readonly string _description;
         readonly IEnumerable<int> _eachTypeArgument;
        
 
         public StepDeclaration(int typeArguments, string scenarioBlock, string description)
         {
-            _typeArguments = typeArguments;
+            TypeArguments = typeArguments;
             ScenarioBlock = scenarioBlock;
             _description = description;
-            _eachTypeArgument = Enumerable.Range(1, _typeArguments);
+            _eachTypeArgument = Enumerable.Range(1, TypeArguments);
         }
 
         public string ScenarioBlock { get; private set; }
+        public int TypeArguments { get; private set; }
 
         public string TypeDeclaration
         {
-            get { return _typeArguments == 0 ? "" : "<" + string.Join(", ", _eachTypeArgument.Select(x => "T" + x)) + ">"; }
+            get { return TypeArguments == 0 ? "" : "<" + string.Join(", ", _eachTypeArgument.Select(x => "T" + x)) + ">"; }
         }
 
         public string AsyncTypeDeclaration
         {
-            get { return _typeArguments == 0 ? "<Task>" : "<" + string.Join(", ", _eachTypeArgument.Select(x => "T" + x).Concat(new[]{"Task"})) + ">"; }
+            get { return TypeArguments == 0 ? "<Task>" : "<" + string.Join(", ", _eachTypeArgument.Select(x => "T" + x).Concat(new[]{"Task"})) + ">"; }
         }
 
         public string TypedParameters
         {
-            get { return _typeArguments == 0 ? "" : string.Concat(_eachTypeArgument.Select(x => string.Format(", T{0} p{0}", x))); }
+            get { return TypeArguments == 0 ? "" : string.Concat(_eachTypeArgument.Select(x => string.Format(", T{0} p{0}", x))); }
         }
 
         public string ParameterValues
@@ -140,6 +166,25 @@ namespace SpecLight
         /// </param>", _description);
             }
         }
+
+        public string BuildMethodDecl(string template)
+        {
+            var name = "M:SpecLight." + string.Format(template, ScenarioBlock);
+            string nums = string.Join(",", _eachTypeArgument.Select(x => "``"+(x-1)));
+            if (template.EndsWith("Async"))
+            {
+                var p = TypeArguments == 0 ? "(System.Func{System.Threading.Tasks.Task})" : string.Format("``{0}(System.Func{{{1},System.Threading.Tasks.Task}},{1})", TypeArguments, nums);
+                return name + p;
+            }
+            else
+            {
+                var p = TypeArguments == 0 ? "(System.Action)" : string.Format("``{0}(System.Action{{{1}}},{1})", TypeArguments, nums);
+                return name + p;
+            }
+
+        }
     }
+
+   
 
 #>
