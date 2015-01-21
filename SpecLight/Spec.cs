@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace SpecLight
 {
@@ -53,10 +54,30 @@ namespace SpecLight
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void Execute([CallerMemberName] string testMethodNameOverride = null)
         {
+            CallingMethod = CallingMethod ?? new StackFrame(1, false).GetMethod();
+            TestMethodNameOverride = testMethodNameOverride;
+
+            ExecuteAsyncImpl().Wait();
+        }
+            
+            /// <summary>
+        ///     Run the spec, printing its results to the output windows, and re-throwing the first exception that it encountered
+        ///     (such as an Assert failure)
+        ///     Be sure to call Execute from your unit test method directly so that it can detect its calling method correctly
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public Task ExecuteAsync([CallerMemberName] string testMethodNameOverride = null)
+        {
             //run me
             CallingMethod = CallingMethod ?? new StackFrame(1, false).GetMethod();
             TestMethodNameOverride = testMethodNameOverride;
-            Outcomes = RunOutcomes(Steps);
+
+            return ExecuteAsyncImpl();
+        }
+
+        async Task ExecuteAsyncImpl()
+        {
+            Outcomes = await RunOutcomes(Steps);
 
             if (_finalActions != null)
             {
@@ -76,7 +97,7 @@ namespace SpecLight
             }
         }
 
-        List<StepOutcome> RunOutcomes(IEnumerable<Step> steps)
+        async Task<List<StepOutcome>> RunOutcomes(IEnumerable<Step> steps)
         {
             Fixtures.ForEach(x => x.SpecSetup(this));
             var skip = false;
@@ -85,7 +106,7 @@ namespace SpecLight
             {
                 Console.WriteLine("> SpecLight {2} step: {0} {1}", step.Type, step.Description, skip?"skipping":"executing");
                 Fixtures.ForEach(x => x.StepSetup(step));
-                var o = step.Execute(skip);
+                var o = await step.Execute(skip);
                 Fixtures.ForEach(x => x.StepTeardown(step));
                 outcomes.Add(o);
                 switch (o.Status)
@@ -100,7 +121,7 @@ namespace SpecLight
             return outcomes;
         }
 
-        void AddStep(ScenarioBlock block, string text, Action action, Delegate originalDelegate, object[] arguments)
+        void AddStep(ScenarioBlock block, string text, Func<Task> action, Delegate originalDelegate, object[] arguments)
         {
             Steps.Add(new Step
             {

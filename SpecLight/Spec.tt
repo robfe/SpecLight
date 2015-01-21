@@ -16,35 +16,45 @@
 #>
 using System;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace SpecLight
 {
 #pragma warning disable 1573
+#pragma warning disable 1998
     public partial class Spec
     {
 <#
     foreach (var kvp in descriptions)
     {
         var b = kvp.Key;
-        var desc = kvp.Value;
-#>
 
-        /// <summary>
-        /// <#=desc #>
+        var comment = string.Format(@"        /// <summary>
+        /// {0}
         /// 
         /// </summary>
         /// <remarks>
         /// Be sure to describe the behaviour not the implementation.
-        /// This overload infers its text from the name of the parameter <paramref name="action"/>
+        /// This overload infers its text from the name of the parameter <paramref name=""action""/>
         /// </remarks>
-        /// <param name="action">
+        /// <param name=""action"">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
-        /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
+        /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref=""object.ToString""/> of each respective argument.
         /// Do not use a lambda or anonymous method here, as the name will not be human readable
-        /// </param>
+        /// </param>", kvp.Value);
+#>
+
+<#=comment#>
         public Spec <#=b #>(Action action)
         {
-            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method), action, action, new object[0]);
+            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method), async () => action(), action, new object[0]);
+            return this;
+        }
+
+<#=comment#>
+        public Spec <#=b #>Async(Func<Task> action)
+        {
+            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method), async () => await action(), action, new object[0]);
             return this;
         }
 
@@ -57,22 +67,17 @@ namespace SpecLight
             var tvals = string.Join(", ", all.Select(x => "p" + x));
 #>
 
-        /// <summary>
-        /// <#=desc #>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Be sure to describe the behaviour not the implementation.
-        /// This overload infers its text from the name of the parameter <paramref name="action"/>
-        /// </remarks>
-        /// <param name="action">
-        /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
-        /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
-        /// Do not use a lambda or anonymous method here, as the name will not be human readable
-        /// </param>
+<#=comment#>
         public Spec <#=b #><<#=tdec #>>(Action<<#=tdec #>> action, <#= tpar #>)
         {
-            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method, <#=tvals #>), () => action(<#=tvals #>), action, new object[]{<#=tvals#>});
+            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method, <#=tvals #>), async () => action(<#=tvals #>), action, new object[]{<#=tvals#>});
+            return this;
+        }
+
+<#=comment#>
+        public Spec <#=b #>Async<<#=tdec #>>(Func<<#=tdec #>, Task> action, <#= tpar #>)
+        {
+            AddStep(ScenarioBlock.<#=b #>, StringHelpers.CreateText(action.Method, <#=tvals #>), async () => await action(<#=tvals #>), action, new object[]{<#=tvals#>});
             return this;
         }
 
@@ -85,6 +90,7 @@ namespace SpecLight
 #>
     }
 #pragma warning restore 1573
+#pragma warning restore 1998
 
 }
 

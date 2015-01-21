@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Threading.Tasks;
 
 namespace SpecLight
 {
@@ -37,7 +38,7 @@ namespace SpecLight
         /// </summary>
         public IDictionary<string, object> DataDictionary { get { return _extraData; }}
 
-        internal Action Action { get; set; }
+        internal Func<Task> Action { get; set; }
         internal Delegate OriginalDelegate { get; set; }
 
         internal string FormattedType
@@ -46,7 +47,7 @@ namespace SpecLight
         }
 
 
-        internal StepOutcome Execute(bool shouldSkip)
+        internal async Task<StepOutcome> Execute(bool shouldSkip)
         {
             var outcome = new StepOutcome {Step = this};
             if (shouldSkip)
@@ -57,7 +58,7 @@ namespace SpecLight
 
             try
             {
-                Action();
+                await Action();
                 outcome.Status = Status.Passed;
                 outcome.Empty = MethodIsEmpty(OriginalDelegate.GetMethodInfo());
             }
