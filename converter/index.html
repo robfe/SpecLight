@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title>Speclight Converter</title>
+	<style type="text/css">
+		textarea{
+		  width:50%;
+		  padding: 10px;
+		  box-sizing: border-box;
+		  margin: 0;
+		  display: block;
+		  float:left;
+		}
+	</style>
+	
+
+</head>
+<body>
+	<h3>Speclight Converter</h3>
+	<textarea id="src" cols="80" rows="40">
+This converts plaintext BDD specifications into Speclight C# syntax (https://github.com/robfe/SpecLight). Any line that starts with Given, When, Then or And will turn into a step call, and you can make any word into a parameter by:
+* quoting it with "doublequotes" (best for strings, as the quotes will be included) 
+* quoting it with `backticks`
+* prefixing it with $dollarsign. 
+
+All other lines will be gathered into the spec description. Here is an example spec:
+
+In order to make a big hype about the game when it's released
+As Fred, the Marketing guy
+I want users to register for an email about the release.
+Given a user has just bought `1` game @here-is-a-tag
+When they tick the "notify me" checkbox
+And click $ok
+Then their email is saved to the marketing database</textarea>
+	<textarea id="target" cols="80" rows="40" readonly></textarea>
+
+	<script type="text/javascript" src="speclightconverter.js"></script>
+	<script type="text/javascript">
+		var src = document.getElementById("src");	
+		var target = document.getElementById("target");	
+		function convert(){
+			 target.value = SpeclightConverter.convert(src.value);
+		}
+		convert();
+		src.addEventListener("keyup", convert);
+		src.addEventListener("paste", convert);
+	</script>
+</body>
+</html>
