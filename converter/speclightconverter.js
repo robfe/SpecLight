@@ -14,6 +14,17 @@ var SpeclightConverter;
     function camelCase(s) {
         return s.replace(/ *\b./g, function (s) { return s.toUpperCase().trim(); });
     }
+    function distinct(s) {
+        var u = {}, a = [];
+        for (var i = 0, l = s.length; i < l; ++i) {
+            if (u.hasOwnProperty(s[i])) {
+                continue;
+            }
+            a.push(s[i]);
+            u[s[i]] = 1;
+        }
+        return a;
+    }
     var Spec = (function () {
         function Spec() {
             this.description = [];
@@ -31,7 +42,8 @@ var SpeclightConverter;
         Spec.prototype.render = function () {
             var d = this.description.join("\n");
             var s = this.steps.map(function (v) { return v.render(); }).join("\n");
-            return "new Spec(@\"" + d + "\")\n" + s + "\n    .Execute();";
+            var m = distinct(this.steps.map(function (v) { return v.renderMethod(); })).join("\n");
+            return "new Spec(@\"" + d + "\")\n" + s + "\n    .Execute();\n\n" + m;
         };
         return Spec;
     })();
@@ -61,6 +73,10 @@ var SpeclightConverter;
             var p = this.parameters.map(function (v) { return (", " + v.text); }).join("");
             var t = this.tags.map(function (v) { return (".Tag(\"" + v + "\")"); }).join("");
             return "    ." + camelCase(this.block) + "(" + this.methodName + p + ")" + t;
+        };
+        Step.prototype.renderMethod = function () {
+            var p = this.parameters.map(function (v, i) { return ("object o" + i); }).join(", ");
+            return "\n    void " + this.methodName + "(" + p + "){\n        throw new NotImplementedException();\n    }";
         };
         return Step;
     })();

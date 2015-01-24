@@ -19,6 +19,18 @@ module SpeclightConverter{
         return s.replace(/ *\b./g,  s=>s.toUpperCase().trim());
     }
 
+    function distinct(s:string[]):string[]{
+		var u = {}, a = [];
+		for(var i = 0, l = s.length; i < l; ++i){
+			if(u.hasOwnProperty(s[i])) {
+				continue;
+			}
+			a.push(s[i]);
+			u[s[i]] = 1;
+		}
+		return a;
+    }
+
 	class Spec{
 		description : string[] = [];
 		steps: Step[] = [];
@@ -35,10 +47,13 @@ module SpeclightConverter{
 		render(){
 			var d = this.description.join("\n");
 			var s = this.steps.map(v=>v.render()).join("\n");
+			var m = distinct(this.steps.map(v=>v.renderMethod())).join("\n");
 
 			return `new Spec(@"${d}")
 ${s}
-    .Execute();`;
+    .Execute();
+
+${m}`;
 		}
 	}
 
@@ -68,10 +83,18 @@ ${s}
 	        this.methodName = camelCase(s);
 		}
 
-		render(){
+		render():string{
 			var p = this.parameters.map(v=>`, ${v.text}`).join("");
 			var t = this.tags.map(v=>`.Tag("${v}")`).join("");
 			return `    .${camelCase(this.block)}(${this.methodName}${p})${t}`;
+		}
+
+		renderMethod():string{
+			var p = this.parameters.map((v, i)=>`object o${i}`).join(", ");
+			return `
+    void ${this.methodName}(${p}){
+        throw new NotImplementedException();
+    }`;
 		}
 	}
 
