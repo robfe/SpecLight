@@ -26,6 +26,11 @@ namespace SpecLight
                 Console.WriteLine();
             }
 
+            if (!spec.Outcomes.Any())
+            {
+                return;
+            }
+
             var maxMessageWidth = spec.Outcomes.Max(x => x.Step.Description.Length + x.Step.FormattedType.Length) + 3;
             foreach (var o in spec.Outcomes)
             {

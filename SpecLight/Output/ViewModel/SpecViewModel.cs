@@ -8,7 +8,7 @@ namespace SpecLight.Output.ViewModel
         public SpecViewModel(Spec spec)
         {
             Spec = spec;
-            Status = spec.Outcomes.Max(x => x.Status);
+            Status = spec.Outcomes.Select(x => x.Status).DefaultIfEmpty(Status.Passed).Max();
             MethodName = Spec.TestMethodNameOverride;
         }
 
