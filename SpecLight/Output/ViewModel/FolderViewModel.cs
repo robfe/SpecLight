@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -46,12 +47,12 @@ namespace SpecLight.Output.ViewModel
             return folder.SubFolder(split.ElementAtOrDefault(1));
         }
 
-        public TestClassViewModel Class(string name)
+        public TestClassViewModel Class(Type type)
         {
-            var c = Classes.SingleOrDefault(x => x.Name == name);
+            var c = Classes.SingleOrDefault(x => x.Name == type.Name);
             if (c == null)
             {
-                c = new TestClassViewModel(name);
+                c = new TestClassViewModel(type.Name, type.Namespace);
                 Classes.Add(c);
             }
             return c;

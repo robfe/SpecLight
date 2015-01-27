@@ -22,7 +22,7 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
         <meta charset="utf-8" />
         <title>Speclight report</title>
         <style type="text/css">
-            @IncludeEmbeddedResource("Style.min.css") 
+            @IncludeEmbeddedResource("Style.min.css")
         </style>
         <script type="text/javascript">
             @IncludeEmbeddedResource("jquery-1.10.2.min.js")
@@ -186,14 +186,14 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
 @functions
 {
 
-    string AnchorName(TestClassViewModel @class, SpecViewModel spec)
+    string AnchorName(TestClassViewModel c, SpecViewModel spec)
     {
-        return "Scenario" + @class.Name.Replace(" ", "_") + spec.MethodName.Replace(" ", "_");
+        return "Scenario-" + (c.NameSpace + "." + c.Name + "-" + spec.MethodName).Replace(" ", "_");
     }
 
-    string AnchorName(TestClassViewModel @class)
+    string AnchorName(TestClassViewModel c)
     {
-        return "Feature" + @class.Name.Replace(" ", "_");
+        return "Feature-" + (c.NameSpace + "." + c.Name).Replace(" ", "_");
     }
 
 

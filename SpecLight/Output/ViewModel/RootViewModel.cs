@@ -11,7 +11,7 @@ namespace SpecLight.Output.ViewModel
             foreach (var spec in specs)
             {
                 var c = spec.CallingMethod.DeclaringType;
-                var testClassViewModel = RootFolder.SubFolder(c.Namespace).Class(c.Name);
+                var testClassViewModel = RootFolder.SubFolder(c.Namespace).Class(c);
                 testClassViewModel.Specs.Add(new SpecViewModel(spec));
             }
 

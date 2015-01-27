@@ -421,14 +421,14 @@ WriteLiteralTo(@__razor_helper_writer, "    </ul>\r\n");
         #line 187 "..\..\Output\SinglePageRazorTemplate.cshtml"
 
 
-    string AnchorName(TestClassViewModel @class, SpecViewModel spec)
+    string AnchorName(TestClassViewModel c, SpecViewModel spec)
     {
-        return "Scenario" + @class.Name.Replace(" ", "_") + spec.MethodName.Replace(" ", "_");
+        return "Scenario-" + (c.NameSpace + "." + c.Name + "-" + spec.MethodName).Replace(" ", "_");
     }
 
-    string AnchorName(TestClassViewModel @class)
+    string AnchorName(TestClassViewModel c)
     {
-        return "Feature" + @class.Name.Replace(" ", "_");
+        return "Feature-" + (c.NameSpace + "." + c.Name).Replace(" ", "_");
     }
 
 
@@ -513,7 +513,7 @@ WriteLiteral("<!DOCTYPE html>\r\n<html lang=\"en\" xmlns=\"http://www.w3.org/199
             
             #line default
             #line hidden
-WriteLiteral(" \r\n        </style>\r\n        <script type=\"text/javascript\">\r\n            ");
+WriteLiteral("\r\n        </style>\r\n        <script type=\"text/javascript\">\r\n            ");
 
 
             
@@ -1006,6 +1006,8 @@ WriteLiteral("\r\n\r\n");
 
 WriteLiteral("\r\n\r\n");
 
+
+WriteLiteral("\r\n");
 
 
         }
