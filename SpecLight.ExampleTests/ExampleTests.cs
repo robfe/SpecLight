@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Xunit;
 using Xunit.Extensions;
 
@@ -10,18 +10,21 @@ namespace SpecLight.ExampleTests
     [Trait("category", "examples")]
     public class ExampleTests
     {
+        List<int> numbers = new List<int>();
         int total;
-
+            
         [Fact]
         public void Pending()
         {
             new Spec(@"
+                    Here is a spec where one of the steps will throw a NotImplementedException, causing the result of 'pending'.
+
                     In order to know how much money I can save
                     As a Math Idiot
                     I want to add two numbers").Tag("Pending")
                 .Given(IEnter_, 5)
                 .And(IEnter_, 6)
-                .When(IPressAddPending).Tag("NotImplemented")
+                .When(ICallAMethodThatsNotImplemented).Tag("NotImplemented")
                 .Then(TheResultShouldBe_, 11)
                 .Execute();
         }
@@ -30,6 +33,8 @@ namespace SpecLight.ExampleTests
         public void Passing()
         {
             new Spec(@"
+                    Here is a spec that should pass
+
                     In order to know how much money I can save
                     As a Math Idiot
                     I want to add two numbers").Tag("Money")
@@ -45,10 +50,9 @@ namespace SpecLight.ExampleTests
         {
             new Spec(@"
                     Sometimes you just want to write a step, and have it pass even though it does nothing
-                    Speclight detects method that have no code and adds 'empty' to the status of 'passed'")
+                    Speclight detects methods that have no code and adds 'empty' to the status of 'passed'")
                 .Given(EmptyMethodWithArgument_, "x")
-                .When(IPressAdd)
-                .Then(EmptyMethodWithArgument_, "x")
+                .And(EmptyMethodWithNoArgument)
                 .Execute();
         }
 
@@ -59,6 +63,8 @@ namespace SpecLight.ExampleTests
         public void Theory(int i1, int i2, int sum)
         {
             new Spec(@"
+                    Speclight supports parameterized tests, but it helps if you pass a 'name' to the Execute method
+
                     In order to know how much money I can save
                     As a Math Idiot
                     I want to add two numbers").Tag("Money")
@@ -73,6 +79,9 @@ namespace SpecLight.ExampleTests
         public void Failing()
         {
             new Spec(@"
+                    Here is a spec that should fail. Steps after the failing step are skipped
+                    
+
                     In order to know how much money I can save
                     As a Math Idiot
                     I want to add two numbers")
@@ -83,6 +92,7 @@ namespace SpecLight.ExampleTests
                 .And(IEnter_, 6)
                 .When(IPressAdd)
                 .Then(TheResultShouldBe_, -12013)
+                .And(ICallAMethodThatsNotImplemented)
                 .Finally(() => Console.WriteLine("Cleanup 2/2"))
                 .Execute();
         }
@@ -90,6 +100,7 @@ namespace SpecLight.ExampleTests
 
         void IPressAdd()
         {
+            total = numbers.Sum();
         }
 
         void TheResultShouldBe_(int obj)
@@ -97,7 +108,7 @@ namespace SpecLight.ExampleTests
             Assert.Equal(obj, total);
         }
 
-        void IPressAddPending()
+        void ICallAMethodThatsNotImplemented()
         {
             throw new NotImplementedException();
         }
@@ -107,9 +118,14 @@ namespace SpecLight.ExampleTests
 
         }
 
+        void EmptyMethodWithNoArgument()
+        {
+
+        }
+
         void IEnter_(int obj)
         {
-            total += obj;
+            numbers.Add(obj);
         }
     }
 

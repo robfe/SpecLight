@@ -5,9 +5,9 @@ using Xunit;
 
 namespace SpecLight.ExampleTests
 {
+    [Trait("category", "examples")]
     public class AsyncTests
     {
-
         [Fact]
         public Task Async()
         {
