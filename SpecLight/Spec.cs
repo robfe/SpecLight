@@ -57,7 +57,7 @@ namespace SpecLight
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void Execute([CallerMemberName] string testMethodNameOverride = null)
         {
-            CallingMethod = CallingMethod ?? new StackFrame(1, false).GetMethod();
+            FindCallingMethod();
             TestMethodNameOverride = testMethodNameOverride;
 
             ExecuteAsyncImpl().Wait();
@@ -71,11 +71,30 @@ namespace SpecLight
         [MethodImpl(MethodImplOptions.NoInlining)]
         public Task ExecuteAsync([CallerMemberName] string testMethodNameOverride = null)
         {
-            //run me
-            CallingMethod = CallingMethod ?? new StackFrame(1, false).GetMethod();
+            FindCallingMethod();
             TestMethodNameOverride = testMethodNameOverride;
 
             return ExecuteAsyncImpl();
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private void FindCallingMethod()
+        {
+            if (CallingMethod != null)
+            {
+                return;
+            }
+            var st = new StackTrace(2, false);
+            var v = from f in st.GetFrames()
+                    select f.GetMethod()
+                    into m
+                    let t = m.DeclaringType
+                    where !t.Name.Contains("<")
+                    where !(t.Namespace ?? "System.Runtime.CompilerServices").StartsWith("System.Runtime.CompilerServices")
+                    select m;
+
+            CallingMethod = v.First();
+
         }
 
         async Task ExecuteAsyncImpl()
