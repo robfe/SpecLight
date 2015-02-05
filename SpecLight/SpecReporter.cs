@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Configuration;
 using System.IO;
 using SpecLight.Output;
 using SpecLight.Output.ViewModel;
@@ -12,7 +13,7 @@ namespace SpecLight
 
         static SpecReporter()
         {
-            FileName = "Speclight.html";
+            FileName = ConfigurationManager.AppSettings["SpeclightReportFile"] ?? "Speclight.html";
             AppDomain.CurrentDomain.DomainUnload += (sender, args) => WriteSpecs();
         }
 
