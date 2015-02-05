@@ -89,12 +89,17 @@ namespace SpecLight
                     select f.GetMethod()
                     into m
                     let t = m.DeclaringType
-                    where !t.Name.Contains("<")
+                    where !TypeIsCompilerGenerated(t)
                     where !(t.Namespace ?? "System.Runtime.CompilerServices").StartsWith("System.Runtime.CompilerServices")
                     select m;
 
             CallingMethod = v.First();
 
+        }
+
+        static bool TypeIsCompilerGenerated(Type t)
+        {
+            return t.Name.Contains("<");
         }
 
         async Task ExecuteAsyncImpl()
@@ -145,6 +150,11 @@ namespace SpecLight
 
         void AddStep(ScenarioBlock block, string text, Func<Task> action, Delegate originalDelegate, object[] arguments)
         {
+            if (TypeIsCompilerGenerated(originalDelegate.Method.DeclaringType))
+            {
+                throw new Exception("Don't call speclight step methods with delegates/lambdas, it can't produce a human-friendly description from those.");
+            }
+
             Steps.Add(new Step
             {
                 Type = block,

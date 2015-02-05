@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using PowerAssert;
 using Xunit;
 
@@ -22,6 +23,13 @@ namespace SpecLight.Tests
             spec.ExecuteAsync().Wait();
             PAssert.IsTrue(() => spec.CallingMethod.DeclaringType == typeof(ReflectionTests));
             PAssert.IsTrue(() => spec.CallingMethod.Name == "NormalMethodFindsRightTestClass");
+        }
+
+        [Fact]
+        public void AddingADelegateStepThrowsAnException()
+        {
+            var spec = new Spec("");
+            PAssert.Throws<Exception>(() => spec.And(() => { }));
         }
     }
 }
