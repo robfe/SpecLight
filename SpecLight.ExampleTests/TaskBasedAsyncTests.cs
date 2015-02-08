@@ -12,12 +12,12 @@ namespace SpecLight.ExampleTests
 
 [SpecLight](https://github.com/robfe/speclight) can be used to create async tests. 
 
-Calling `(Given/When/Then/And)Async` lets you return a Task from your Step method, which SpecLight will wait for before calling the next Step
+Calling `(Given/When/Then/And)Async` lets you return a Task from your step method, which SpecLight will wait for before calling the next step
 
 Then you should `ExecuteAsync` the Spec instead of simply calling `Execute`, so that you can pass the parent task up to your test framework.
 ")]
 
-    public class AsyncTests
+    public class TaskBasedAsyncTests
     {
         [Fact]
         public Task Async()
