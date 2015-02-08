@@ -85,34 +85,50 @@ software, even if advised of the possibility of such damage.
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Text;
 using System.Text.RegularExpressions;
 
+// ReSharper disable once CheckNamespace
 namespace MarkdownSharp
 {
-
-    public class MarkdownOptions
+    /// <summary>
+    /// Markdown is a text-to-HTML conversion tool for web writers. 
+    /// Markdown allows you to write using an easy-to-read, easy-to-write plain text format, 
+    /// then convert it to structurally valid XHTML (or HTML).
+    /// </summary>
+    class Markdown
     {
+
+        public static readonly Markdown Instance = new Markdown{AutoHyperlink = true, AutoNewLines = true, StrictBoldItalic = true};
+        private const string _version = "1.13";
+
+        #region Constructors and Options
+
         /// <summary>
-        /// when true, (most) bare plain URLs are auto-hyperlinked  
-        /// WARNING: this is a significant deviation from the markdown spec
+        /// Create a new Markdown instance using default options
         /// </summary>
-        public bool AutoHyperlink { get; set; }
-        /// <summary>
-        /// when true, RETURN becomes a literal newline  
-        /// WARNING: this is a significant deviation from the markdown spec
-        /// </summary>
-        public bool AutoNewlines { get; set; }
+        public Markdown()
+        {
+            AutoHyperlink = false;
+            AutoNewLines = false;
+            AsteriskIntraWordEmphasis = false;
+            StrictBoldItalic = false;
+            LinkEmails = true;
+            EmptyElementSuffix = " />";
+        }
+
+
         /// <summary>
         /// use ">" for HTML output, or " />" for XHTML output
         /// </summary>
         public string EmptyElementSuffix { get; set; }
+
         /// <summary>
         /// when false, email addresses will never be auto-linked  
         /// WARNING: this is a significant deviation from the markdown spec
         /// </summary>
         public bool LinkEmails { get; set; }
+
         /// <summary>
         /// when true, bold and italic require non-word characters on either side  
         /// WARNING: this is a significant deviation from the markdown spec
@@ -124,148 +140,18 @@ namespace MarkdownSharp
         /// this does nothing if StrictBoldItalic is false
         /// </summary>
         public bool AsteriskIntraWordEmphasis { get; set; }
-    }
-
-
-    /// <summary>
-    /// Markdown is a text-to-HTML conversion tool for web writers. 
-    /// Markdown allows you to write using an easy-to-read, easy-to-write plain text format, 
-    /// then convert it to structurally valid XHTML (or HTML).
-    /// </summary>
-    public class Markdown
-    {
-        private const string _version = "1.13";
-
-        #region Constructors and Options
-
-        /// <summary>
-        /// Create a new Markdown instance using default options
-        /// </summary>
-        public Markdown() : this(false)
-        {
-        }
-
-        /// <summary>
-        /// Create a new Markdown instance and optionally load options from a configuration
-        /// file. There they should be stored in the appSettings section, available options are:
-        /// 
-        ///     Markdown.StrictBoldItalic (true/false)
-        ///     Markdown.EmptyElementSuffix (">" or " />" without the quotes)
-        ///     Markdown.LinkEmails (true/false)
-        ///     Markdown.AutoNewLines (true/false)
-        ///     Markdown.AutoHyperlink (true/false)
-        ///     Markdown.AsteriskIntraWordEmphasis (true/false)
-        ///     
-        /// </summary>
-        public Markdown(bool loadOptionsFromConfigFile)
-        {
-            if (!loadOptionsFromConfigFile) return;
-
-            var settings = ConfigurationManager.AppSettings;
-            foreach (string key in settings.Keys)
-            {
-                switch (key)
-                {
-                    case "Markdown.AutoHyperlink":
-                        _autoHyperlink = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.AutoNewlines":
-                        _autoNewlines = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.EmptyElementSuffix":
-                        _emptyElementSuffix = settings[key];
-                        break;
-                    case "Markdown.LinkEmails":
-                        _linkEmails = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.StrictBoldItalic":
-                        _strictBoldItalic = Convert.ToBoolean(settings[key]);
-                        break;
-                    case "Markdown.AsteriskIntraWordEmphasis":
-                        _asteriskIntraWordEmphasis = Convert.ToBoolean(settings[key]);
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Create a new Markdown instance and set the options from the MarkdownOptions object.
-        /// </summary>
-        public Markdown(MarkdownOptions options)
-        {
-            _autoHyperlink = options.AutoHyperlink;
-            _autoNewlines = options.AutoNewlines;
-            _emptyElementSuffix = options.EmptyElementSuffix;
-            _linkEmails = options.LinkEmails;
-            _strictBoldItalic = options.StrictBoldItalic;
-            _asteriskIntraWordEmphasis = options.AsteriskIntraWordEmphasis;
-        }
-
-
-        /// <summary>
-        /// use ">" for HTML output, or " />" for XHTML output
-        /// </summary>
-        public string EmptyElementSuffix
-        {
-            get { return _emptyElementSuffix; }
-            set { _emptyElementSuffix = value; }
-        }
-        private string _emptyElementSuffix = " />";
-
-        /// <summary>
-        /// when false, email addresses will never be auto-linked  
-        /// WARNING: this is a significant deviation from the markdown spec
-        /// </summary>
-        public bool LinkEmails
-        {
-            get { return _linkEmails; }
-            set { _linkEmails = value; }
-        }
-        private bool _linkEmails = true;
-
-        /// <summary>
-        /// when true, bold and italic require non-word characters on either side  
-        /// WARNING: this is a significant deviation from the markdown spec
-        /// </summary>
-        public bool StrictBoldItalic
-        {
-            get { return _strictBoldItalic; }
-            set { _strictBoldItalic = value; }
-        }
-        private bool _strictBoldItalic = false;
-
-        /// <summary>
-        /// when true, asterisks may be used for intraword emphasis
-        /// this does nothing if StrictBoldItalic is false
-        /// </summary>
-        public bool AsteriskIntraWordEmphasis
-        {
-            get { return _asteriskIntraWordEmphasis; }
-            set { _asteriskIntraWordEmphasis = value; }
-        }
-        private bool _asteriskIntraWordEmphasis = false;
 
         /// <summary>
         /// when true, RETURN becomes a literal newline  
         /// WARNING: this is a significant deviation from the markdown spec
         /// </summary>
-        public bool AutoNewLines
-        {
-            get { return _autoNewlines; }
-            set { _autoNewlines = value; }
-        }
-        private bool _autoNewlines = false;
+        public bool AutoNewLines { get; set; }
 
         /// <summary>
         /// when true, (most) bare plain URLs are auto-hyperlinked  
         /// WARNING: this is a significant deviation from the markdown spec
         /// </summary>
-        public bool AutoHyperlink
-        {
-            get { return _autoHyperlink; }
-            set { _autoHyperlink = value; }
-        }
-        private bool _autoHyperlink = false;
+        public bool AutoHyperlink { get; set; }
 
         #endregion
 
@@ -1067,7 +953,7 @@ namespace MarkdownSharp
                 title = AttributeEncode(EscapeBoldItalic(title));
                 result += string.Format(" title=\"{0}\"", title);
             }
-            result += _emptyElementSuffix;
+            result += EmptyElementSuffix;
             return result;
         }
 
@@ -1149,7 +1035,7 @@ namespace MarkdownSharp
         /// </remarks>
         private string DoHorizontalRules(string text)
         {
-            return _horizontalRules.Replace(text, "<hr" + _emptyElementSuffix + "\n");
+            return _horizontalRules.Replace(text, "<hr" + EmptyElementSuffix + "\n");
         }
 
         private static string _wholeList = string.Format(@"
@@ -1388,9 +1274,9 @@ namespace MarkdownSharp
             if (!(text.Contains("*") || text.Contains("_")))
                 return text;
             // <strong> must go first, then <em>
-            if (_strictBoldItalic)
+            if (StrictBoldItalic)
             {
-                if (_asteriskIntraWordEmphasis)
+                if (AsteriskIntraWordEmphasis)
                 {
                     text = _semiStrictBold.Replace(text, "$1<strong>$3</strong>");
                     text = _semiStrictItalic.Replace(text, "$1<em>$3</em>");
@@ -1416,10 +1302,10 @@ namespace MarkdownSharp
         /// </summary>
         private string DoHardBreaks(string text)
         {
-            if (_autoNewlines)
-                text = Regex.Replace(text, @"\n", string.Format("<br{0}\n", _emptyElementSuffix));
+            if (AutoNewLines)
+                text = Regex.Replace(text, @"\n", string.Format("<br{0}\n", EmptyElementSuffix));
             else
-                text = Regex.Replace(text, @" {2,}\n", string.Format("<br{0}\n", _emptyElementSuffix));
+                text = Regex.Replace(text, @" {2,}\n", string.Format("<br{0}\n", EmptyElementSuffix));
             return text;
         }
 
@@ -1529,7 +1415,7 @@ namespace MarkdownSharp
         private string DoAutoLinks(string text)
         {
 
-            if (_autoHyperlink)
+            if (AutoHyperlink)
             {
                 // fixup arbitrary URLs by adding Markdown < > so they get linked as well
                 // note that at this point, all other URL in the text are already hyperlinked as <a href=""></a>
@@ -1540,7 +1426,7 @@ namespace MarkdownSharp
             // Hyperlinks: <http://foo.com>
             text = Regex.Replace(text, "<((https?|ftp):[^'\">\\s]+)>", new MatchEvaluator(HyperlinkEvaluator));
 
-            if (_linkEmails)
+            if (LinkEmails)
             {
                 // Email addresses: <address@domain.foo>
                 string pattern =
@@ -1749,7 +1635,7 @@ namespace MarkdownSharp
                 {
                     value = value.Replace(@"\", _escapeTable[@"\"]);
                     
-                    if (_autoHyperlink && value.StartsWith("<!")) // escape slashes in comments to prevent autolinking there -- http://meta.stackexchange.com/questions/95987/html-comment-containing-url-breaks-if-followed-by-another-html-comment
+                    if (AutoHyperlink && value.StartsWith("<!")) // escape slashes in comments to prevent autolinking there -- http://meta.stackexchange.com/questions/95987/html-comment-containing-url-breaks-if-followed-by-another-html-comment
                         value = value.Replace("/", _escapeTable["/"]);
                     
                     value = Regex.Replace(value, "(?<=.)</?code>(?=.)", _escapeTable[@"`"]);
