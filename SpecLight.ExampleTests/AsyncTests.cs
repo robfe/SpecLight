@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -6,13 +7,38 @@ using Xunit;
 namespace SpecLight.ExampleTests
 {
     [Trait("category", "examples")]
+    [Description(@"
+# Async support
+
+[SpecLight](https://github.com/robfe/speclight) can be used to create async tests. 
+
+Calling `(Given/When/Then/And)Async` lets you return a Task from your Step method, which SpecLight will wait for before calling the next Step
+
+Then you should `ExecuteAsync` the Spec instead of simply calling `Execute`, so that you can pass the parent task up to your test framework.
+")]
+
     public class AsyncTests
     {
         [Fact]
         public Task Async()
         {
+            //return a task
             return new Spec(@"
-Speclight can be used to execute async methods, chaining the Task awaiting all the way up to the test framework")
+SpecLight can be used to execute async methods, chaining the Task awaiting all the way up to the test framework")
+                .WithFixture<ExecutionTimer>()
+                .Tag("async")
+                .GivenAsync(ICallAnAsyncMethod)
+                .WhenAsync(ICallAnotherAsyncMethodThatWaitsFor_Msec, 15)
+                .Then(ICanStillCallASynchronousMethod)
+                .ExecuteAsync();
+        }        
+        
+        [Fact]
+        public async Task AwaitableAsync()
+        {
+            //await a task
+            await new Spec(@"
+It's up to you whether you `await` the call to `ExecuteAsync()` or return it directly")
                 .WithFixture<ExecutionTimer>()
                 .Tag("async")
                 .GivenAsync(ICallAnAsyncMethod)
@@ -24,7 +50,7 @@ Speclight can be used to execute async methods, chaining the Task awaiting all t
         [Fact]
         public void AsyncWarnsIfYouDontCallAsync()
         {
-            new Spec(@"Testing frameworks like to be given a Task if you're using them, so Speclight will warn you (with Obsolete) if you call Execute on a spec that's used an async step")
+            new Spec(@"Testing frameworks like to be given a Task if you're using them, so SpecLight will warn you (with Obsolete) if you call Execute on a spec that's used an async step")
                 .WithFixture<ExecutionTimer>()
                 .Tag("async")
                 .GivenAsync(ICallAnAsyncMethod)

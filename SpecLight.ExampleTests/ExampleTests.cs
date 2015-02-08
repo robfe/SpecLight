@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using Xunit;
@@ -8,6 +9,21 @@ using Xunit.Extensions;
 namespace SpecLight.ExampleTests
 {
     [Trait("category", "examples")]
+    [Description(@"
+# Simple examples
+
+These tests demonstrate how [SpecLight](https://github.com/robfe/speclight) works. Some of them fail on purpose, so that you can see how SpecLight behaves for failing tests.
+
+They demonstrate:
+
+* Failing steps
+* Pending steps
+* Passing steps
+* Empty steps (If a step has no implementation, it will pass but SpecLight will tell you it was empty)
+* Parameterised tests (`TheoryAttribute` in `xUnit`, but the same principle applies to other frameworks). These *replace* BDD-style `Scenario Outlines`
+* Fixtures (Aspects that can be attached to Specs by calling WithFixture)
+
+")]
     public class ExampleTests
     {
         List<int> numbers = new List<int>();
@@ -50,7 +66,7 @@ namespace SpecLight.ExampleTests
         {
             new Spec(@"
                     Sometimes you just want to write a step, and have it pass even though it does nothing
-                    Speclight detects methods that have no code and adds 'empty' to the status of 'passed'")
+                    SpecLight detects methods that have no code and adds 'empty' to the status of 'passed'")
                 .Given(EmptyMethodWithArgument_, "x")
                 .And(EmptyMethodWithNoArgument)
                 .Execute();
@@ -63,7 +79,7 @@ namespace SpecLight.ExampleTests
         public void Theory(int i1, int i2, int sum)
         {
             new Spec(@"
-                    Speclight supports parameterized tests, but it helps if you pass a 'name' to the Execute method
+                    SpecLight supports parameterized tests, but it helps if you pass a 'name' to the Execute method
 
                     In order to know how much money I can save
                     As a Math Idiot
@@ -151,7 +167,7 @@ namespace SpecLight.ExampleTests
 
         public override void SpecTeardown(Spec spec)
         {
-            //note that the spec would have actually taken a lot longer to execute (speclight reflection overhead), but the following number is accurate for user code
+            //note that the spec would have actually taken a lot longer to execute (SpecLight reflection overhead), but the following number is accurate for user code
             var total = spec.Steps.Select(x => (Stopwatch)x.DataBag.Timer).Sum(x => x.ElapsedMilliseconds);
             spec.DataBag.ExecutionTime = total + "ms";
         }
