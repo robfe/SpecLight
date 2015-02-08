@@ -303,3 +303,17 @@ table td.number {
   font-size: 90%;
   font-weight: bold;
 }
+.class-description {
+  margin: 15px;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #e0e0e5;
+}
+.markdown-host code {
+  background: #d2d2da;
+  border: 1px solid #a8a8b7;
+  border-radius: 2px;
+}
+.markdown-host ul > br {
+  display: none;
+}

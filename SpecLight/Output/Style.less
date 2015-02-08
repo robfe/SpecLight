@@ -383,3 +383,23 @@ table {
     font-size: 90%;
     font-weight: bold;
 }
+
+.class-description{
+    margin: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: darken(@bg, 5%);
+
+}
+
+.markdown-host{    
+    code{
+        background:darken(@bg, 10%);
+        border: 1px solid darken(@bg, 25%);
+        border-radius: 2px;
+    }
+
+    ul > br{ //go home markdownsharp, you're drunk
+        display:none;
+    }
+}

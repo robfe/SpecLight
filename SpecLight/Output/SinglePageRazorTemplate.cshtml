@@ -18,19 +18,19 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
 }
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta charset="utf-8" />
-        <title>Speclight report</title>
-        <style type="text/css">
-            @IncludeEmbeddedResource("Style.min.css")
-        </style>
-        <script type="text/javascript">
+	<head>
+		<meta charset="utf-8" />
+		<title>SpecLight report</title>
+		<style type="text/css">
+			@IncludeEmbeddedResource("Style.min.css")
+			</style>
+		<script type="text/javascript">
             @IncludeEmbeddedResource("jquery-1.10.2.min.js")
         </script>
 
 
 
-        <script type="text/javascript">
+		<script type="text/javascript">
             $(function() {
                 //folder collapsing
                 $("li.folder > span.folderName").click(function() {
@@ -64,66 +64,79 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
                 });
             });
         </script>
-    </head>
-    <body>
-        <div id="TableOfContents">
-            <div class="graph" style="@Gradient(statusCounts)" title="Status breakdown for all scenarios">@Title(statusCounts)</div>
-            <div class="tagCloud">
-                @foreach (var tag in tags)
-                {
-                    var fatness = (tag.Statuses.Count() - 1)/fattestTagCount;
-                    var size = 90 + fatness*60;
+	</head>
+	<body>
+		<div id="TableOfContents">
+			<div class="graph" style="@Gradient(statusCounts)" title="Status breakdown for all scenarios">@Title(statusCounts)</div>
+			<div class="tagCloud">
+				@foreach (var tag in tags)
+				{
+					var fatness = (tag.Statuses.Count() - 1)/fattestTagCount;
+					var size = 90 + fatness*60;
 
-                    <input id="tagCheckbox-@tag.Name" type="checkbox" data-tag-controller="@tag.Name"/>
-                    <label for="tagCheckbox-@tag.Name" title="Tag '@tag.Name' (@Title(tag.Statuses)) - Click to filter" style="@Gradient(tag.Statuses); font-size: @(size)%">@@@tag.Name</label>
-                }
-            </div>
-            @FolderToc(TemplateModel.RootFolder)
+					<input id="tagCheckbox-@tag.Name" type="checkbox" data-tag-controller="@tag.Name"/>
+					<label for="tagCheckbox-@tag.Name" title="Tag '@tag.Name' (@Title(tag.Statuses)) - Click to filter" style="@Gradient(tag.Statuses); font-size: @(size)%">@@@tag.Name</label>
+				}
+			</div>
+			@FolderToc(TemplateModel.RootFolder)
 
-        </div>
-        <div id="Content">
-            <h1>Speclight report</h1>
+		</div>
+		<div id="Content">
+			<h1>Speclight report</h1>
 
-            @foreach (var testClass in TemplateModel.RootFolder.DescendantClasses())
-            {
-                <div class="feature" data-tags="@string.Join(" ", testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct())">
-                    <h2 id="@AnchorName(testClass)">Class: @testClass.Name</h2>
-                    @TagBox(testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct())
-                    @foreach (var spec in testClass.Specs.OrderBy(x => x.MethodName))
-                    {
-                        var firstError = spec.Spec.Outcomes.Select(x => x.Error).FirstOrDefault(x => x != null);
-                        <div class="scenario @spec.Status.ToString().ToLowerInvariant()" data-tags="@string.Join(" ", spec.EffectiveTags())">
-                            <h3 id="@AnchorName(testClass, spec)">Method: @spec.MethodName  (@spec.Status.ToString())</h3>
-                            @TagBox(spec.Spec.SpecTags)
-                            <p class="description">@spec.Spec.Description</p>
-                            @ExtraData(spec.Spec.DataDictionary)
-                            <ul>
-                                @foreach (var o in spec.Spec.Outcomes)
-                                {
-                                    <li class="@o.Status.ToString().ToLowerInvariant() @(o.Empty?"empty":"")" title="@o.Error">
-                                        <em>@o.Step.Type</em>
-                                        @o.Step.Description
-                                        @if (o.Empty)
-                                        {
-                                            <strong title="Test step contained no code">(Empty)</strong>
-                                        }
-                                        @TagBox(o.Step.Tags)
-                                        @ExtraData(o.Step.DataDictionary)
-                                    </li>
-                                }
-                            </ul>
-                            @if (firstError != null)
-                            {
-                                <pre class="errorMessage">@firstError</pre>
-                            }
-                        </div>
-                    }
-                </div>
-            }
-        </div>
+			@foreach (var testClass in TemplateModel.RootFolder.DescendantClasses())
+			{
+				<div class="feature" data-tags="@string.Join(" ", testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct())">
+					<h2 id="@AnchorName(testClass)">Class: @testClass.Name</h2>
+					@TagBox(testClass.Specs.SelectMany(x => x.EffectiveTags()).Distinct())
+					@if (testClass.Description != null)
+					{
+						<div class="class-description markdown-host">
+							@RenderMarkdown(testClass.Description)
+						</div>
+					}
+					
+					@foreach (var spec in testClass.Specs.OrderBy(x => x.MethodName))
+					{
+						var firstError = spec.Spec.Outcomes.Select(x => x.Error).FirstOrDefault(x => x != null);
+						<div class="scenario @spec.Status.ToString().ToLowerInvariant()" data-tags="@string.Join(" ", spec.EffectiveTags())">
+							<h3 id="@AnchorName(testClass, spec)">Method: @spec.MethodName  (@spec.Status.ToString())</h3>
+							@TagBox(spec.Spec.SpecTags)
+							<p class="description markdown-host">@RenderMarkdown(spec.Spec.Description)</p>
+							@ExtraData(spec.Spec.DataDictionary)
+							<ul>
+								@foreach (var o in spec.Spec.Outcomes)
+								{
+									<li class="@o.Status.ToString().ToLowerInvariant() @(o.Empty?"empty":"")" title="@o.Error">
+										<em>@o.Step.Type</em>
+										@o.Step.Description
+										@if (o.Empty)
+										{
+											<strong title="Test step contained no code">(Empty)</strong>
+										}
+										@TagBox(o.Step.Tags)
+										@ExtraData(o.Step.DataDictionary)
+									</li>
+								}
+							</ul>
+							@if (firstError != null)
+							{
+								<pre class="errorMessage">@firstError</pre>
+							}
+						</div>
+					}
+				</div>
+			}
+		</div>
 
-    </body>
+	</body>
 </html>
+
+@helper RenderMarkdown(string s)
+{
+	var html = MarkdownSharp.Markdown.Instance.Transform(s);
+	@RawHtml(html)
+}
 
 @helper TagBox(IEnumerable<string> tags)
 {

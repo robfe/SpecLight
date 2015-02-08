@@ -52,7 +52,7 @@ namespace SpecLight.Output.ViewModel
             var c = Classes.SingleOrDefault(x => x.Name == type.Name);
             if (c == null)
             {
-                c = new TestClassViewModel(type.Name, type.Namespace);
+                c = new TestClassViewModel(type);
                 Classes.Add(c);
             }
             return c;
