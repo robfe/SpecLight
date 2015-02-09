@@ -96,7 +96,7 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
 						</div>
 					}
 					
-					@foreach (var spec in testClass.Specs.OrderBy(x => x.MethodName))
+					@foreach (var spec in testClass.Specs)
 					{
 						var firstError = spec.Spec.Outcomes.Select(x => x.Error).FirstOrDefault(x => x != null);
 						<div class="scenario @spec.Status.ToString().ToLowerInvariant()" data-tags="@string.Join(" ", spec.EffectiveTags())">
@@ -183,7 +183,7 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
             <li class="feature @featureClass" title="Feature: @feature.Name (@maxStatus)" data-tags="@string.Join(" ", feature.Specs.SelectMany(x => x.EffectiveTags()).Distinct())">
                 <a class="featureLink" href="#@AnchorName(feature)">@feature.Name</a>
                 <ul class="scenarios">
-                    @foreach (var spec in feature.Specs.OrderBy(x => x.MethodName))
+                    @foreach (var spec in feature.Specs)
                     {
                         var scenarioClass = spec.Status.ToString().ToLowerInvariant();
                         <li class="@scenarioClass" title="Scenario: @spec.MethodName (@spec.Status)" data-tags="@string.Join(" ", spec.EffectiveTags())">
@@ -201,12 +201,12 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
 
     string AnchorName(TestClassViewModel c, SpecViewModel spec)
     {
-        return "Scenario-" + (c.NameSpace + "." + c.Name + "-" + spec.MethodName).Replace(" ", "_");
+        return "Scenario-" + (c.Namespace + "." + c.Name + "-" + spec.MethodName).Replace(" ", "_");
     }
 
     string AnchorName(TestClassViewModel c)
     {
-        return "Feature-" + (c.NameSpace + "." + c.Name).Replace(" ", "_");
+        return "Feature-" + (c.Namespace + "." + c.Name).Replace(" ", "_");
     }
 
 

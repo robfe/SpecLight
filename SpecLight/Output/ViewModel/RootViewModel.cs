@@ -16,6 +16,11 @@ namespace SpecLight.Output.ViewModel
             }
 
             RootFolder.MergeSingleFolders();
+
+            foreach (var c in RootFolder.DescendantClasses())
+            {
+                c.TrySortTestsByClassLayout();
+            }
         }
 
         public FolderViewModel RootFolder { get; set; }

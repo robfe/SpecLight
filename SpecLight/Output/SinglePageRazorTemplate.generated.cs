@@ -349,7 +349,7 @@ WriteLiteralTo(@__razor_helper_writer, "</a>\r\n                <ul class=\"scen
 
 
 #line 186 "..\..\Output\SinglePageRazorTemplate.cshtml"
-                     foreach (var spec in feature.Specs.OrderBy(x => x.MethodName))
+                     foreach (var spec in feature.Specs)
                     {
                         var scenarioClass = spec.Status.ToString().ToLowerInvariant();
 
@@ -455,12 +455,12 @@ WriteLiteralTo(@__razor_helper_writer, "    </ul>\r\n");
 
     string AnchorName(TestClassViewModel c, SpecViewModel spec)
     {
-        return "Scenario-" + (c.NameSpace + "." + c.Name + "-" + spec.MethodName).Replace(" ", "_");
+        return "Scenario-" + (c.Namespace + "." + c.Name + "-" + spec.MethodName).Replace(" ", "_");
     }
 
     string AnchorName(TestClassViewModel c)
     {
-        return "Feature-" + (c.NameSpace + "." + c.Name).Replace(" ", "_");
+        return "Feature-" + (c.Namespace + "." + c.Name).Replace(" ", "_");
     }
 
 
@@ -803,7 +803,7 @@ WriteLiteral("\t\t\t\t\t\r\n");
 
             
             #line 99 "..\..\Output\SinglePageRazorTemplate.cshtml"
- 					foreach (var spec in testClass.Specs.OrderBy(x => x.MethodName))
+ 					foreach (var spec in testClass.Specs)
 					{
 						var firstError = spec.Spec.Outcomes.Select(x => x.Error).FirstOrDefault(x => x != null);
 
