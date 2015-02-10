@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Net;
 using System.Text;
 using System.Web.WebPages;
 using SpecLight.Output.ViewModel;
@@ -35,7 +34,7 @@ namespace SpecLight.Output
                 return;
             }
             var helperResult = value as HelperResult;
-            WriteLiteral(helperResult != null ? helperResult.ToHtmlString() : WebUtility.HtmlEncode(Convert.ToString(value, CultureInfo.InvariantCulture)));
+            WriteLiteral(helperResult != null ? helperResult.ToHtmlString() : Convert.ToString(value, CultureInfo.InvariantCulture));
         }
 
         public string RenderBody()
@@ -74,7 +73,7 @@ namespace SpecLight.Output
             }
             else
             {
-                writer.Write(WebUtility.HtmlEncode(Convert.ToString(value, CultureInfo.InvariantCulture)));
+                writer.Write(Convert.ToString(value, CultureInfo.InvariantCulture));
             }
         }
 

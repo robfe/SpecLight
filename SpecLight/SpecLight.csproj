@@ -61,6 +61,7 @@
     <Compile Include="IAsyncSpec.cs" />
     <Compile Include="ISpecFixture.cs" />
     <Compile Include="Markdown.cs" />
+    <Compile Include="Output\SystemWeb.cs" />
     <Compile Include="Output\ViewModel\FolderViewModel.cs" />
     <Compile Include="Output\ViewModel\RootViewModel.cs" />
     <Compile Include="Output\SinglePageRazorTemplate.generated.cs">
