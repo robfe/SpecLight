@@ -29,7 +29,21 @@ namespace SpecLight.Tests
         public void AddingADelegateStepThrowsAnException()
         {
             var spec = new Spec("");
-            PAssert.Throws<Exception>(() => spec.And(() => { }));
+            try
+            {
+                //can't use Assert.Throws here as that would introduce an extra lambda
+                spec.And(() => Foo("x"));
+            }
+            catch (ArgumentException e)
+            {
+                return; //pass
+            }
+            throw new Exception("Expected method to throw exception");
+        }
+
+        void Foo(string s)
+        {
+            
         }
     }
 }

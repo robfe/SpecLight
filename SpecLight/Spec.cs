@@ -89,7 +89,7 @@ namespace SpecLight
                     select f.GetMethod()
                     into m
                     let t = m.DeclaringType
-                    where !TypeIsCompilerGenerated(t)
+                    where !NameIsCompilerGenerated(t.Name)
                     where !(t.Namespace ?? "System.Runtime.CompilerServices").StartsWith("System.Runtime.CompilerServices")
                     select m;
 
@@ -97,9 +97,9 @@ namespace SpecLight
 
         }
 
-        static bool TypeIsCompilerGenerated(Type t)
+        static bool NameIsCompilerGenerated(string s)
         {
-            return t.Name.Contains("<");
+            return s.Contains("<");
         }
 
         async Task ExecuteAsyncImpl()
@@ -150,9 +150,18 @@ namespace SpecLight
 
         void AddStep(ScenarioBlock block, string text, Func<Task> action, Delegate originalDelegate, object[] arguments)
         {
-            if (TypeIsCompilerGenerated(originalDelegate.Method.DeclaringType))
+            if (NameIsCompilerGenerated(originalDelegate.Method.Name) || NameIsCompilerGenerated(originalDelegate.Method.DeclaringType.Name))
             {
-                throw new Exception("Don't call speclight step methods with delegates/lambdas, it can't produce a human-friendly description from those.");
+                throw new ArgumentException(@"Don't call speclight step methods with delegates/lambdas, it can't produce a human-friendly description from those.
+If you want to pass arguments to steps, just call the overloaded methods that take steps:
+
+    .And(()=>IEnterTheUsername(""Bob""))
+
+becomes
+
+    .And(IEnterTheUsername, ""Bob"")
+
+");
             }
 
             Steps.Add(new Step
