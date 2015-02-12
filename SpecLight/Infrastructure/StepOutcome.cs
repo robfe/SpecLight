@@ -1,6 +1,6 @@
 using System;
 
-namespace SpecLight
+namespace SpecLight.Infrastructure
 {
     internal class StepOutcome
     {

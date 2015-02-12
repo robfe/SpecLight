@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConventionTests.cs" />
     <Compile Include="ReflectionTests.cs" />
     <Compile Include="StringHelpersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

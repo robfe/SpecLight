@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpecLight
+namespace SpecLight.Infrastructure
 {
     internal static class SpecFixtureRepository<T> where T : ISpecFixture, new()
     {

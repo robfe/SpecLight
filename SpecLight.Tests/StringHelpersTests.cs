@@ -1,4 +1,5 @@
 ﻿using System;
+using SpecLight.Infrastructure;
 using Xunit;
 
 namespace SpecLight.Tests

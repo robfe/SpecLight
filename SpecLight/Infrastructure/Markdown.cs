@@ -89,7 +89,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 // ReSharper disable once CheckNamespace
-namespace MarkdownSharp
+namespace SpecLight.Infrastructure
 {
     /// <summary>
     /// Markdown is a text-to-HTML conversion tool for web writers. 

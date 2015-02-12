@@ -9,6 +9,7 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
 @using System.Collections.Generic
 @using System.Linq
 @using SpecLight
+@using SpecLight.Infrastructure
 @using SpecLight.Output.ViewModel
 @inherits SpecLight.Output.RazorTemplateBase
 @{
@@ -134,7 +135,7 @@ Note that no nuget packages were needed as we have our own RazorTemplateBase
 
 @helper RenderMarkdown(string s)
 {
-	var html = MarkdownSharp.Markdown.Instance.Transform(s);
+	var html = Markdown.Instance.Transform(s);
 	@RawHtml(html)
 }
 

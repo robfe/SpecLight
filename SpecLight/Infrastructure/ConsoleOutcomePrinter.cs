@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace SpecLight
+namespace SpecLight.Infrastructure
 {
     static class ConsoleOutcomePrinter
     {

@@ -6,7 +6,7 @@ using System.Reflection;
 using SpecLight.Output;
 using SpecLight.Output.ViewModel;
 
-namespace SpecLight
+namespace SpecLight.Infrastructure
 {
     internal static class SpecReporter
     {
