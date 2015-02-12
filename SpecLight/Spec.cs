@@ -51,7 +51,65 @@ namespace SpecLight
         internal List<string> SpecTags { get; private set; }
         internal List<ISpecFixture> Fixtures { get; private set; }
 
+        void AddStep(ScenarioBlock block, string text, Func<Task> action, Delegate originalDelegate, object[] arguments)
+        {
+            if (Reflector.NameIsCompilerGenerated(originalDelegate.Method.Name) || Reflector.NameIsCompilerGenerated(originalDelegate.Method.DeclaringType.Name))
+            {
+                throw new ArgumentException(@"Don't call speclight step methods with delegates/lambdas, it can't produce a human-friendly description from those.
+If you want to pass arguments to steps, just call the overloaded methods that take steps:
 
+    .And(()=>IEnterTheUsername(""Bob""))
+
+becomes
+
+    .And(IEnterTheUsername, ""Bob"")
+
+");
+            }
+
+            Steps.Add(new Step
+            {
+                Type = block,
+                Description = text,
+                Action = action,
+                OriginalDelegate = originalDelegate,
+                Index = Steps.Count,
+                Arguments = arguments,
+                Spec = this
+            });
+        }
+
+        public Spec Tag(params string[] tags)
+        {
+            var step = Steps.LastOrDefault();
+            var list = step == null ? SpecTags : step.Tags;
+            list.AddRange(tags);
+            return this;
+        }
+
+        public Spec Finally(IDisposable disposable)
+        {
+            return Finally(disposable.Dispose);
+        }
+
+        public Spec Finally(Action finalAction)
+        {
+            _finalActions += finalAction;
+            return this;
+        }
+
+        public Spec WithFixture<T>() where T : ISpecFixture, new()
+        {
+            Fixtures.Add(SpecFixtureRepository<T>.Fixture);
+            return this;
+        }
+
+
+
+
+
+
+        
         /// <summary>
         ///     Run the spec, printing its results to the output windows, and re-throwing the first exception that it encountered
         ///     (such as an Assert failure)
@@ -123,59 +181,6 @@ namespace SpecLight
             }
             Fixtures.ForEach(x => x.SpecTeardown(this));
             return outcomes;
-        }
-
-        void AddStep(ScenarioBlock block, string text, Func<Task> action, Delegate originalDelegate, object[] arguments)
-        {
-            if (Reflector.NameIsCompilerGenerated(originalDelegate.Method.Name) || Reflector.NameIsCompilerGenerated(originalDelegate.Method.DeclaringType.Name))
-            {
-                throw new ArgumentException(@"Don't call speclight step methods with delegates/lambdas, it can't produce a human-friendly description from those.
-If you want to pass arguments to steps, just call the overloaded methods that take steps:
-
-    .And(()=>IEnterTheUsername(""Bob""))
-
-becomes
-
-    .And(IEnterTheUsername, ""Bob"")
-
-");
-            }
-
-            Steps.Add(new Step
-            {
-                Type = block,
-                Description = text,
-                Action = action,
-                OriginalDelegate = originalDelegate,
-                Index = Steps.Count,
-                Arguments = arguments,
-                Spec = this
-            });
-        }
-
-        public Spec Tag(params string[] tags)
-        {
-            var step = Steps.LastOrDefault();
-            var list = step == null ? SpecTags : step.Tags;
-            list.AddRange(tags);
-            return this;
-        }
-
-        public Spec Finally(IDisposable disposable)
-        {
-            return Finally(disposable.Dispose);
-        }
-
-        public Spec Finally(Action finalAction)
-        {
-            _finalActions += finalAction;
-            return this;
-        }
-
-        public Spec WithFixture<T>() where T : ISpecFixture, new()
-        {
-            Fixtures.Add(SpecFixtureRepository<T>.Fixture);
-            return this;
         }
 
     }
