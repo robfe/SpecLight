@@ -26,6 +26,9 @@ namespace SpecLight
             Steps = new List<Step>();
             SpecTags = new List<string>();
             Fixtures = new List<ISpecFixture>();
+
+            //this fixture is added to all specs by default:
+            WithFixture<PrintCurrentStepFixture>();
         }
 
         public string Description { get; private set; }
@@ -106,7 +109,7 @@ namespace SpecLight
             var outcomes = new List<StepOutcome>();
             foreach (var step in steps)
             {
-                Console.WriteLine("> SpecLight {2} step: {0} {1}", step.Type, step.Description, skip ? "skipping" : "executing");
+                step.WillBeSkipped = skip;
                 Fixtures.ForEach(x => x.StepSetup(step));
                 var o = await step.Execute(skip);
                 Fixtures.ForEach(x => x.StepTeardown(step));

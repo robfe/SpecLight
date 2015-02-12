@@ -22,6 +22,8 @@ namespace SpecLight
         public object[] Arguments { get; internal set; }
         public Spec Spec { get; internal set; }
         public int Index { get; internal set; }
+        public bool WillBeSkipped { get; internal set; }
+
 
         /// <summary>
         /// A bag to attach random stuff to a step. Most likely used by an <see cref="ISpecFixture"/>. Refers to the same datastore as the <see cref="DataDictionary"/>. Any contents of type string will be printed to output.

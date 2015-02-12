@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Infrastructure\ConsoleOutcomePrinter.cs" />
     <Compile Include="IAsyncSpec.cs" />
+    <Compile Include="Infrastructure\PrintCurrentStepFixture.cs" />
     <Compile Include="Infrastructure\Reflector.cs" />
     <Compile Include="ISpecFixture.cs" />
     <Compile Include="Infrastructure\Markdown.cs" />
