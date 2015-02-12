@@ -109,3 +109,4 @@ UpgradeLog*.XML
 /_NCrunch_SpecShow/StoredText
 
 *.nupkg
+_NCrunch*

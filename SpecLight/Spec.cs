@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
@@ -58,7 +57,7 @@ namespace SpecLight
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void Execute([CallerMemberName] string testMethodNameOverride = null)
         {
-            FindCallingMethod();
+            CallingMethod = CallingMethod ?? Reflector.FindCallingMethod();
             TestMethodNameOverride = testMethodNameOverride;
 
             ExecuteAsyncImpl().Wait();
@@ -72,35 +71,10 @@ namespace SpecLight
         [MethodImpl(MethodImplOptions.NoInlining)]
         public Task ExecuteAsync([CallerMemberName] string testMethodNameOverride = null)
         {
-            FindCallingMethod();
+            CallingMethod = CallingMethod ?? Reflector.FindCallingMethod();
             TestMethodNameOverride = testMethodNameOverride;
 
             return ExecuteAsyncImpl();
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private void FindCallingMethod()
-        {
-            if (CallingMethod != null)
-            {
-                return;
-            }
-            var st = new StackTrace(2, false);
-            var v = from f in st.GetFrames()
-                    select f.GetMethod()
-                    into m
-                    let t = m.DeclaringType
-                    where !NameIsCompilerGenerated(t.Name)
-                    where !(t.Namespace ?? "System.Runtime.CompilerServices").StartsWith("System.Runtime.CompilerServices")
-                    select m;
-
-            CallingMethod = v.First();
-
-        }
-
-        static bool NameIsCompilerGenerated(string s)
-        {
-            return s.Contains("<");
         }
 
         async Task ExecuteAsyncImpl()
@@ -151,7 +125,7 @@ namespace SpecLight
 
         void AddStep(ScenarioBlock block, string text, Func<Task> action, Delegate originalDelegate, object[] arguments)
         {
-            if (NameIsCompilerGenerated(originalDelegate.Method.Name) || NameIsCompilerGenerated(originalDelegate.Method.DeclaringType.Name))
+            if (Reflector.NameIsCompilerGenerated(originalDelegate.Method.Name) || Reflector.NameIsCompilerGenerated(originalDelegate.Method.DeclaringType.Name))
             {
                 throw new ArgumentException(@"Don't call speclight step methods with delegates/lambdas, it can't produce a human-friendly description from those.
 If you want to pass arguments to steps, just call the overloaded methods that take steps:

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using PowerAssert;
+using SpecLight.Infrastructure;
 using Xunit;
 
 namespace SpecLight.Tests
@@ -39,6 +40,15 @@ namespace SpecLight.Tests
                 return; //pass
             }
             throw new Exception("Expected method to throw exception");
+        }
+
+        [Fact]
+        public void MethodIsEmpty()
+        {
+            //might not pass if you've got code coverage on
+            var foo = new Action<string>(Foo).Method;
+            PAssert.IsTrue(() => Reflector.MethodIsEmpty(foo));
+
         }
 
         void Foo(string s)

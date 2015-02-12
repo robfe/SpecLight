@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 using System.Threading.Tasks;
 using SpecLight.Infrastructure;
 
@@ -12,9 +9,6 @@ namespace SpecLight
 {
     public class Step
     {
-        static readonly List<string> SkipExceptions = new List<string>("NUnit.Framework.InconclusiveException".Split(','));//todo: any more?
-        static readonly ConcurrentDictionary<MethodInfo, bool> MethodIsEmptyCache = new ConcurrentDictionary<MethodInfo, bool>();
-
         readonly ExpandoObject _extraData = new ExpandoObject();
 
         public Step()
@@ -61,7 +55,7 @@ namespace SpecLight
             {
                 await Action();
                 outcome.Status = Status.Passed;
-                outcome.Empty = MethodIsEmpty(OriginalDelegate.GetMethodInfo());
+                outcome.Empty = Reflector.MethodIsEmpty(OriginalDelegate.GetMethodInfo());
             }
             catch (NotImplementedException e)
             {
@@ -70,23 +64,12 @@ namespace SpecLight
             }
             catch (Exception e)
             {
-                outcome.Status = SkipExceptions.Contains(e.GetType().FullName) ? Status.Skipped : Status.Failed;
+                outcome.Status = Reflector.SkipExceptionNames.Contains(e.GetType().FullName) ? Status.Skipped : Status.Failed;
                 outcome.Error = e;
             }
            
 
             return outcome;
-        }
-
-        bool MethodIsEmpty(MethodInfo methodInfo)
-        {
-            return MethodIsEmptyCache.GetOrAdd(methodInfo, info =>
-            {
-                var il = info.GetMethodBody().GetILAsByteArray();
-
-                //it's probably just [Nop, Ret]
-                return il.Length < 10 && il.All(x => x == OpCodes.Nop.Value || x == OpCodes.Ret.Value);
-            });
         }
     }
 }
