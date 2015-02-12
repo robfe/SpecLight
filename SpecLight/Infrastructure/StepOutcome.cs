@@ -9,8 +9,13 @@ namespace SpecLight.Infrastructure
         public Exception Error { get; set; }
 
         /// <summary>
-        /// Was the passing method actually empty
+        /// Was the passing method actually devoid of code?
         /// </summary>
         public bool Empty { get; set; }
+
+        /// <summary>
+        /// Should we start skipping steps now?
+        /// </summary>
+        public bool CausesSkip { get { return Status == Status.Failed || Status == Status.Pending; } }
     }
 }

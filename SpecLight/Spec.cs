@@ -82,8 +82,13 @@ namespace SpecLight
 
         async Task ExecuteAsyncImpl()
         {
-            Outcomes = await RunOutcomes(Steps);
+            Outcomes = await RunOutcomesAsync(Steps);
 
+            AfterExecute();
+        }
+
+        void AfterExecute()
+        {
             if (_finalActions != null)
             {
                 //we're doing this here because if it throws, the test is actually invalid, and all the user should see is the exception from cleanup
@@ -102,7 +107,7 @@ namespace SpecLight
             }
         }
 
-        async Task<List<StepOutcome>> RunOutcomes(IEnumerable<Step> steps)
+        async Task<List<StepOutcome>> RunOutcomesAsync(IEnumerable<Step> steps)
         {
             Fixtures.ForEach(x => x.SpecSetup(this));
             var skip = false;
@@ -111,16 +116,10 @@ namespace SpecLight
             {
                 step.WillBeSkipped = skip;
                 Fixtures.ForEach(x => x.StepSetup(step));
-                var o = await step.Execute(skip);
-                Fixtures.ForEach(x => x.StepTeardown(step));
+                var o = await step.ExecuteAsync();
                 outcomes.Add(o);
-                switch (o.Status)
-                {
-                    case Status.Failed:
-                    case Status.Pending:
-                        skip = true;
-                        break;
-                }
+                skip = skip || o.CausesSkip;
+                Fixtures.ForEach(x => x.StepTeardown(step));
             }
             Fixtures.ForEach(x => x.SpecTeardown(this));
             return outcomes;

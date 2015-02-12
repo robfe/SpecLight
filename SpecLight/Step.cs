@@ -44,10 +44,10 @@ namespace SpecLight
         }
 
 
-        internal async Task<StepOutcome> Execute(bool shouldSkip)
+        internal async Task<StepOutcome> ExecuteAsync()
         {
             var outcome = new StepOutcome {Step = this};
-            if (shouldSkip)
+            if (WillBeSkipped)
             {
                 outcome.Status = Status.Skipped;
                 return outcome;
