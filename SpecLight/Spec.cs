@@ -111,7 +111,7 @@ becomes
 
 
 
-        
+
         /// <summary>
         ///     Run the spec, printing its results to the output windows, and re-throwing the first exception that it encountered
         ///     (such as an Assert failure)
@@ -131,7 +131,11 @@ becomes
             {
                 RunOutcomes();
             }
-            AfterExecute();
+            var thrower = CleanupAndGetThrower();
+            if (thrower != null)
+            {
+                thrower.Throw();
+            }
         }
 
         /// <summary>
@@ -144,10 +148,19 @@ becomes
         {
             CallingMethod = CallingMethod ?? Reflector.FindCallingMethod();
             TestMethodNameOverride = testMethodNameOverride;
-            return RunOutcomesAsync().ContinueWith(x => AfterExecute());
+            return RunOutcomesAsync().ContinueWith(ProcessOutcomes);
         }
 
-        void AfterExecute()
+        void ProcessOutcomes(Task t)
+        {
+            var thrower = CleanupAndGetThrower();
+            if (thrower != null)
+            {
+                thrower.Throw();
+            }
+        }
+
+        ExceptionDispatchInfo CleanupAndGetThrower()
         {
             if (_finalActions != null)
             {
@@ -157,11 +170,7 @@ becomes
             ConsoleOutcomePrinter.PrintOutcomes(this);
 
             //rethrow the first error if any
-            var firstWithException = Outcomes.FirstOrDefault(x => x.Error != null);
-            if (firstWithException != null)
-            {
-                firstWithException.ExceptionDispatchInfo.Throw();
-            }
+            return Outcomes.Select(x => x.ExceptionDispatchInfo).FirstOrDefault(x => x != null);
         }
 
         async Task RunOutcomesAsync()

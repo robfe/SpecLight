@@ -10,7 +10,7 @@ namespace SpecLight.Infrastructure
 {
     internal static class Reflector
     {
-        public static readonly List<string> SkipExceptionNames = new List<string>("NUnit.Framework.InconclusiveException".Split(','));//todo: any more?
+        public static readonly List<string> PendingExceptionNames = new List<string>("System.NotImplementedException,NUnit.Framework.InconclusiveException".Split(','));//todo: any more?
 
         public static readonly ConcurrentDictionary<MethodInfo, bool> MethodIsEmptyCache = new ConcurrentDictionary<MethodInfo, bool>();
 

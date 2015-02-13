@@ -75,6 +75,7 @@ SpecLight can be used to execute async methods, chaining the Task awaiting all t
 
         Task ICallAFailingAsyncMethod()
         {
+//            throw new Exception();
             return Task.Factory.StartNew(() => { throw new Exception(); });
         }
 

@@ -55,68 +55,72 @@ namespace SpecLight
         }
 
 
-        internal async Task<StepOutcome> ExecuteAsync()
+        internal Task<StepOutcome> ExecuteAsync()
         {
-            var outcome = new StepOutcome {Step = this};
             if (WillBeSkipped)
             {
-                outcome.Status = Status.Skipped;
-                return outcome;
+                return Task.FromResult(Skip());
             }
 
             try
             {
-                await AsyncAction();
-                outcome.Status = Status.Passed;
-                outcome.Empty = Reflector.MethodIsEmpty(OriginalDelegate.GetMethodInfo());
-            }
-            catch (NotImplementedException e)
-            {
-                outcome.Status = Status.Pending;
-                outcome.Error = e;
-                outcome.ExceptionDispatchInfo = ExceptionDispatchInfo.Capture(e);
+                return AsyncAction().ContinueWith<StepOutcome>(task => !task.IsFaulted ? Pass() : Error(Unwrap(task.Exception)));
             }
             catch (Exception e)
             {
-                outcome.Status = Reflector.SkipExceptionNames.Contains(e.GetType().FullName) ? Status.Skipped : Status.Failed;
-                outcome.Error = e;
-                outcome.ExceptionDispatchInfo = ExceptionDispatchInfo.Capture(e);
+                return Task.FromResult(Error(e));
             }
-           
+        }
 
-            return outcome;
+        Exception Unwrap(AggregateException exception)
+        {
+            return exception.InnerExceptions.Count == 1 ? exception.InnerException : exception;
         }
 
         internal StepOutcome Execute()
         {
-            var outcome = new StepOutcome {Step = this};
             if (WillBeSkipped)
             {
-                outcome.Status = Status.Skipped;
-                return outcome;
+               return Skip();
             }
 
             try
             {
                 SynchronousAction();
-                outcome.Status = Status.Passed;
-                outcome.Empty = Reflector.MethodIsEmpty(OriginalDelegate.GetMethodInfo());
-            }
-            catch (NotImplementedException e)
-            {
-                outcome.Status = Status.Pending;
-                outcome.Error = e;
-                outcome.ExceptionDispatchInfo = ExceptionDispatchInfo.Capture(e);
+                return Pass();
             }
             catch (Exception e)
             {
-                outcome.Status = Reflector.SkipExceptionNames.Contains(e.GetType().FullName) ? Status.Skipped : Status.Failed;
-                outcome.Error = e;
-                outcome.ExceptionDispatchInfo = ExceptionDispatchInfo.Capture(e);
+                return Error(e);
             }
-           
+        }
 
-            return outcome;
+        StepOutcome Pass()
+        {
+            return new StepOutcome(this)
+            {
+                Status = Status.Passed,
+                Empty = Reflector.MethodIsEmpty(OriginalDelegate.GetMethodInfo())
+            };
+        }
+
+        StepOutcome Skip()
+        {
+            return new StepOutcome(this)
+            {
+                Status = Status.Skipped
+            };
+        }
+
+
+        StepOutcome Error(Exception e)
+        {
+            return new StepOutcome(this)
+            {
+                Error = e,
+                ExceptionDispatchInfo = ExceptionDispatchInfo.Capture(e),
+                Status = Reflector.PendingExceptionNames.Contains(e.GetType().FullName) ? Status.Pending : Status.Failed
+            };
         }
     }
 }
