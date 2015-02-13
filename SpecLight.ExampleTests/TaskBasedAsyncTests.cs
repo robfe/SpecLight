@@ -59,6 +59,26 @@ It's up to you whether you `await` the call to `ExecuteAsync()` or return it dir
                 .Execute(); //heed this warning
         }
 
+        [Fact]
+        public Task AsyncFailure()
+        {
+            //return a task
+            return new Spec(@"
+SpecLight can be used to execute async methods, chaining the Task awaiting all the way up to the test framework")
+                .WithFixture<ExecutionTimer>()
+                .Tag("async")
+                .GivenAsync(ICallAnAsyncMethod)
+                .WhenAsync(ICallAnotherAsyncMethodThatWaitsFor_Msec, 15)
+                .ThenAsync(ICallAFailingAsyncMethod)
+                .ExecuteAsync();
+        }
+
+        Task ICallAFailingAsyncMethod()
+        {
+            return Task.Factory.StartNew(() => { throw new Exception(); });
+        }
+
+
         async Task ICallAnAsyncMethod()
         {
             Console.Out.WriteLine(Thread.CurrentThread.ManagedThreadId);

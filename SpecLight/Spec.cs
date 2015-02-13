@@ -151,19 +151,16 @@ becomes
         {
             if (_finalActions != null)
             {
-                //we're doing this here because if it throws, the test is actually invalid, and all the user should see is the exception from cleanup
                 _finalActions();
             }
             SpecReporter.Add(this);
-
-            //print it all
             ConsoleOutcomePrinter.PrintOutcomes(this);
 
             //rethrow the first error if any
-            var firstException = Outcomes.Select(x => x.Error).FirstOrDefault(x => x != null);
-            if (firstException != null)
+            var firstWithException = Outcomes.FirstOrDefault(x => x.Error != null);
+            if (firstWithException != null)
             {
-                ExceptionDispatchInfo.Capture(firstException).Throw();
+                firstWithException.ExceptionDispatchInfo.Throw();
             }
         }
 

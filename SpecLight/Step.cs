@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 using SpecLight.Infrastructure;
 
@@ -47,6 +48,7 @@ namespace SpecLight
 
         internal Delegate OriginalDelegate { get; set; }
 
+
         internal string FormattedType
         {
             get { return Type.ToString().PadLeft(5, ' '); }
@@ -72,11 +74,13 @@ namespace SpecLight
             {
                 outcome.Status = Status.Pending;
                 outcome.Error = e;
+                outcome.ExceptionDispatchInfo = ExceptionDispatchInfo.Capture(e);
             }
             catch (Exception e)
             {
                 outcome.Status = Reflector.SkipExceptionNames.Contains(e.GetType().FullName) ? Status.Skipped : Status.Failed;
                 outcome.Error = e;
+                outcome.ExceptionDispatchInfo = ExceptionDispatchInfo.Capture(e);
             }
            
 
@@ -102,11 +106,13 @@ namespace SpecLight
             {
                 outcome.Status = Status.Pending;
                 outcome.Error = e;
+                outcome.ExceptionDispatchInfo = ExceptionDispatchInfo.Capture(e);
             }
             catch (Exception e)
             {
                 outcome.Status = Reflector.SkipExceptionNames.Contains(e.GetType().FullName) ? Status.Skipped : Status.Failed;
                 outcome.Error = e;
+                outcome.ExceptionDispatchInfo = ExceptionDispatchInfo.Capture(e);
             }
            
 

@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.ExceptionServices;
 
 namespace SpecLight.Infrastructure
 {
@@ -7,6 +8,7 @@ namespace SpecLight.Infrastructure
         public Step Step { get; set; }
         public Status Status { get; set; }
         public Exception Error { get; set; }
+        public ExceptionDispatchInfo ExceptionDispatchInfo { get; set; }
 
         /// <summary>
         /// Was the passing method actually devoid of code?
