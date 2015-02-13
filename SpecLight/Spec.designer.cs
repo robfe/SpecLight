@@ -24,7 +24,7 @@ namespace SpecLight
         /// </param>
         public Spec Given(Action action)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), action, new object[]{});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
             return this;
         }
         
@@ -42,7 +42,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given(Action action)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), action, new object[]{});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
             return this;
         }
 
@@ -60,7 +60,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync(Func<Task> action)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{}), async () => await action(), action, new object[]{});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{}), () => action(), null, action, new object[]{});
             return this;
         }
 
@@ -80,7 +80,7 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1>(Action<T1> action, T1 p1)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
             return this;
         }
         
@@ -98,7 +98,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1>(Action<T1> action, T1 p1)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
             return this;
         }
 
@@ -116,7 +116,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1>(Func<T1, Task> action, T1 p1)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => await action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1}), () => action(p1), null, action, new object[]{p1});
             return this;
         }
 
@@ -136,7 +136,7 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
             return this;
         }
         
@@ -154,7 +154,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
             return this;
         }
 
@@ -172,7 +172,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2>(Func<T1, T2, Task> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => await action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
             return this;
         }
 
@@ -192,7 +192,7 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
             return this;
         }
         
@@ -210,7 +210,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
             return this;
         }
 
@@ -228,7 +228,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2, T3>(Func<T1, T2, T3, Task> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => await action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
             return this;
         }
 
@@ -248,7 +248,7 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
             return this;
         }
         
@@ -266,7 +266,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
             return this;
         }
 
@@ -284,7 +284,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2, T3, T4>(Func<T1, T2, T3, T4, Task> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => await action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
             return this;
         }
 
@@ -304,7 +304,7 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
         
@@ -322,7 +322,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
 
@@ -340,7 +340,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2, T3, T4, T5>(Func<T1, T2, T3, T4, T5, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => await action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
 
@@ -360,7 +360,7 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
         
@@ -378,7 +378,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
 
@@ -396,7 +396,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2, T3, T4, T5, T6>(Func<T1, T2, T3, T4, T5, T6, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => await action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
 
@@ -416,7 +416,7 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
         
@@ -434,7 +434,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
 
@@ -452,7 +452,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2, T3, T4, T5, T6, T7>(Func<T1, T2, T3, T4, T5, T6, T7, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => await action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
 
@@ -472,7 +472,7 @@ namespace SpecLight
         /// </param>
         public Spec When(Action action)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), action, new object[]{});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
             return this;
         }
         
@@ -490,7 +490,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When(Action action)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), action, new object[]{});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
             return this;
         }
 
@@ -508,7 +508,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync(Func<Task> action)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{}), async () => await action(), action, new object[]{});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{}), () => action(), null, action, new object[]{});
             return this;
         }
 
@@ -528,7 +528,7 @@ namespace SpecLight
         /// </param>
         public Spec When<T1>(Action<T1> action, T1 p1)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
             return this;
         }
         
@@ -546,7 +546,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1>(Action<T1> action, T1 p1)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
             return this;
         }
 
@@ -564,7 +564,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1>(Func<T1, Task> action, T1 p1)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => await action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1}), () => action(p1), null, action, new object[]{p1});
             return this;
         }
 
@@ -584,7 +584,7 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
             return this;
         }
         
@@ -602,7 +602,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
             return this;
         }
 
@@ -620,7 +620,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2>(Func<T1, T2, Task> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => await action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
             return this;
         }
 
@@ -640,7 +640,7 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
             return this;
         }
         
@@ -658,7 +658,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
             return this;
         }
 
@@ -676,7 +676,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2, T3>(Func<T1, T2, T3, Task> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => await action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
             return this;
         }
 
@@ -696,7 +696,7 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
             return this;
         }
         
@@ -714,7 +714,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
             return this;
         }
 
@@ -732,7 +732,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2, T3, T4>(Func<T1, T2, T3, T4, Task> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => await action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
             return this;
         }
 
@@ -752,7 +752,7 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
         
@@ -770,7 +770,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
 
@@ -788,7 +788,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2, T3, T4, T5>(Func<T1, T2, T3, T4, T5, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => await action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
 
@@ -808,7 +808,7 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
         
@@ -826,7 +826,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
 
@@ -844,7 +844,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2, T3, T4, T5, T6>(Func<T1, T2, T3, T4, T5, T6, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => await action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
 
@@ -864,7 +864,7 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
         
@@ -882,7 +882,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
 
@@ -900,7 +900,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2, T3, T4, T5, T6, T7>(Func<T1, T2, T3, T4, T5, T6, T7, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => await action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
 
@@ -920,7 +920,7 @@ namespace SpecLight
         /// </param>
         public Spec Then(Action action)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), action, new object[]{});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
             return this;
         }
         
@@ -938,7 +938,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then(Action action)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), action, new object[]{});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
             return this;
         }
 
@@ -956,7 +956,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync(Func<Task> action)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{}), async () => await action(), action, new object[]{});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{}), () => action(), null, action, new object[]{});
             return this;
         }
 
@@ -976,7 +976,7 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1>(Action<T1> action, T1 p1)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
             return this;
         }
         
@@ -994,7 +994,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1>(Action<T1> action, T1 p1)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
             return this;
         }
 
@@ -1012,7 +1012,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1>(Func<T1, Task> action, T1 p1)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => await action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1}), () => action(p1), null, action, new object[]{p1});
             return this;
         }
 
@@ -1032,7 +1032,7 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
             return this;
         }
         
@@ -1050,7 +1050,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
             return this;
         }
 
@@ -1068,7 +1068,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2>(Func<T1, T2, Task> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => await action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
             return this;
         }
 
@@ -1088,7 +1088,7 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
             return this;
         }
         
@@ -1106,7 +1106,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
             return this;
         }
 
@@ -1124,7 +1124,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2, T3>(Func<T1, T2, T3, Task> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => await action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
             return this;
         }
 
@@ -1144,7 +1144,7 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
             return this;
         }
         
@@ -1162,7 +1162,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
             return this;
         }
 
@@ -1180,7 +1180,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2, T3, T4>(Func<T1, T2, T3, T4, Task> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => await action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
             return this;
         }
 
@@ -1200,7 +1200,7 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
         
@@ -1218,7 +1218,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
 
@@ -1236,7 +1236,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2, T3, T4, T5>(Func<T1, T2, T3, T4, T5, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => await action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
 
@@ -1256,7 +1256,7 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
         
@@ -1274,7 +1274,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
 
@@ -1292,7 +1292,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2, T3, T4, T5, T6>(Func<T1, T2, T3, T4, T5, T6, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => await action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
 
@@ -1312,7 +1312,7 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
         
@@ -1330,7 +1330,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
 
@@ -1348,7 +1348,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2, T3, T4, T5, T6, T7>(Func<T1, T2, T3, T4, T5, T6, T7, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => await action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
 
@@ -1368,7 +1368,7 @@ namespace SpecLight
         /// </param>
         public Spec And(Action action)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), action, new object[]{});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
             return this;
         }
         
@@ -1386,7 +1386,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And(Action action)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), action, new object[]{});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
             return this;
         }
 
@@ -1404,7 +1404,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync(Func<Task> action)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{}), async () => await action(), action, new object[]{});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{}), () => action(), null, action, new object[]{});
             return this;
         }
 
@@ -1424,7 +1424,7 @@ namespace SpecLight
         /// </param>
         public Spec And<T1>(Action<T1> action, T1 p1)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
             return this;
         }
         
@@ -1442,7 +1442,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1>(Action<T1> action, T1 p1)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
             return this;
         }
 
@@ -1460,7 +1460,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1>(Func<T1, Task> action, T1 p1)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => await action(p1), action, new object[]{p1});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1}), () => action(p1), null, action, new object[]{p1});
             return this;
         }
 
@@ -1480,7 +1480,7 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
             return this;
         }
         
@@ -1498,7 +1498,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
             return this;
         }
 
@@ -1516,7 +1516,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2>(Func<T1, T2, Task> action, T1 p1, T2 p2)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => await action(p1, p2), action, new object[]{p1, p2});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
             return this;
         }
 
@@ -1536,7 +1536,7 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
             return this;
         }
         
@@ -1554,7 +1554,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
             return this;
         }
 
@@ -1572,7 +1572,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2, T3>(Func<T1, T2, T3, Task> action, T1 p1, T2 p2, T3 p3)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => await action(p1, p2, p3), action, new object[]{p1, p2, p3});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
             return this;
         }
 
@@ -1592,7 +1592,7 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
             return this;
         }
         
@@ -1610,7 +1610,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
             return this;
         }
 
@@ -1628,7 +1628,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2, T3, T4>(Func<T1, T2, T3, T4, Task> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => await action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
             return this;
         }
 
@@ -1648,7 +1648,7 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
         
@@ -1666,7 +1666,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
 
@@ -1684,7 +1684,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2, T3, T4, T5>(Func<T1, T2, T3, T4, T5, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => await action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
             return this;
         }
 
@@ -1704,7 +1704,7 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
         
@@ -1722,7 +1722,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
 
@@ -1740,7 +1740,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2, T3, T4, T5, T6>(Func<T1, T2, T3, T4, T5, T6, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => await action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
             return this;
         }
 
@@ -1760,7 +1760,7 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
         
@@ -1778,7 +1778,7 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
 
@@ -1796,7 +1796,7 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2, T3, T4, T5, T6, T7>(Func<T1, T2, T3, T4, T5, T6, T7, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
-            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => await action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
             return this;
         }
 

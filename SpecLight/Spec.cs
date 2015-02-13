@@ -26,6 +26,7 @@ namespace SpecLight
             Steps = new List<Step>();
             SpecTags = new List<string>();
             Fixtures = new List<ISpecFixture>();
+            Outcomes = new List<StepOutcome>();
 
             //this fixture is added to all specs by default:
             WithFixture<PrintCurrentStepFixture>();
@@ -51,7 +52,7 @@ namespace SpecLight
         internal List<string> SpecTags { get; private set; }
         internal List<ISpecFixture> Fixtures { get; private set; }
 
-        void AddStep(ScenarioBlock block, string text, Func<Task> action, Delegate originalDelegate, object[] arguments)
+        void AddStep(ScenarioBlock block, string text, Func<Task> asyncAction, Action synchronousAction, Delegate originalDelegate, object[] arguments)
         {
             if (Reflector.NameIsCompilerGenerated(originalDelegate.Method.Name) || Reflector.NameIsCompilerGenerated(originalDelegate.Method.DeclaringType.Name))
             {
@@ -71,7 +72,8 @@ becomes
             {
                 Type = block,
                 Description = text,
-                Action = action,
+                AsyncAction = asyncAction,
+                SynchronousAction = synchronousAction,
                 OriginalDelegate = originalDelegate,
                 Index = Steps.Count,
                 Arguments = arguments,
@@ -120,8 +122,16 @@ becomes
         {
             CallingMethod = CallingMethod ?? Reflector.FindCallingMethod();
             TestMethodNameOverride = testMethodNameOverride;
-
-            ExecuteAsyncImpl().Wait();
+            if (Steps.Any(x => x.SynchronousAction == null))
+            {
+                //not ideal, user should have called ExecuteAsync, but we can still go ahead
+                RunOutcomesAsync().Wait();
+            }
+            else
+            {
+                RunOutcomes();
+            }
+            AfterExecute();
         }
 
         /// <summary>
@@ -134,15 +144,7 @@ becomes
         {
             CallingMethod = CallingMethod ?? Reflector.FindCallingMethod();
             TestMethodNameOverride = testMethodNameOverride;
-
-            return ExecuteAsyncImpl();
-        }
-
-        async Task ExecuteAsyncImpl()
-        {
-            Outcomes = await RunOutcomesAsync(Steps);
-
-            AfterExecute();
+            return RunOutcomesAsync().ContinueWith(x => AfterExecute());
         }
 
         void AfterExecute()
@@ -165,22 +167,36 @@ becomes
             }
         }
 
-        async Task<List<StepOutcome>> RunOutcomesAsync(IEnumerable<Step> steps)
+        async Task RunOutcomesAsync()
         {
             Fixtures.ForEach(x => x.SpecSetup(this));
             var skip = false;
-            var outcomes = new List<StepOutcome>();
-            foreach (var step in steps)
+            foreach (var step in Steps)
             {
                 step.WillBeSkipped = skip;
                 Fixtures.ForEach(x => x.StepSetup(step));
                 var o = await step.ExecuteAsync();
-                outcomes.Add(o);
+                Outcomes.Add(o);
                 skip = skip || o.CausesSkip;
                 Fixtures.ForEach(x => x.StepTeardown(step));
             }
             Fixtures.ForEach(x => x.SpecTeardown(this));
-            return outcomes;
+        }
+
+        void RunOutcomes()
+        {
+            Fixtures.ForEach(x => x.SpecSetup(this));
+            var skip = false;
+            foreach (var step in Steps)
+            {
+                step.WillBeSkipped = skip;
+                Fixtures.ForEach(x => x.StepSetup(step));
+                var o = step.Execute();
+                Outcomes.Add(o);
+                skip = skip || o.CausesSkip;
+                Fixtures.ForEach(x => x.StepTeardown(step));
+            }
+            Fixtures.ForEach(x => x.SpecTeardown(this));
         }
 
     }

@@ -35,7 +35,16 @@ namespace SpecLight
         /// </summary>
         public IDictionary<string, object> DataDictionary { get { return _extraData; }}
 
-        internal Func<Task> Action { get; set; }
+        /// <summary>
+        /// Runs this step asynchronously - can't be null
+        /// </summary>
+        internal Func<Task> AsyncAction { get; set; }
+
+        /// <summary>
+        /// Runs this step synchronously - will be null if the original delegate did not have a return type of task. The intention is that if any of the steps are missing this then the whole spec has to be run asynchronously.
+        /// </summary>
+        internal Action SynchronousAction { get; set; }
+
         internal Delegate OriginalDelegate { get; set; }
 
         internal string FormattedType
@@ -55,7 +64,37 @@ namespace SpecLight
 
             try
             {
-                await Action();
+                await AsyncAction();
+                outcome.Status = Status.Passed;
+                outcome.Empty = Reflector.MethodIsEmpty(OriginalDelegate.GetMethodInfo());
+            }
+            catch (NotImplementedException e)
+            {
+                outcome.Status = Status.Pending;
+                outcome.Error = e;
+            }
+            catch (Exception e)
+            {
+                outcome.Status = Reflector.SkipExceptionNames.Contains(e.GetType().FullName) ? Status.Skipped : Status.Failed;
+                outcome.Error = e;
+            }
+           
+
+            return outcome;
+        }
+
+        internal StepOutcome Execute()
+        {
+            var outcome = new StepOutcome {Step = this};
+            if (WillBeSkipped)
+            {
+                outcome.Status = Status.Skipped;
+                return outcome;
+            }
+
+            try
+            {
+                SynchronousAction();
                 outcome.Status = Status.Passed;
                 outcome.Empty = Reflector.MethodIsEmpty(OriginalDelegate.GetMethodInfo());
             }

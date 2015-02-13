@@ -61,21 +61,21 @@ namespace SpecLight
 <#=d.Comment#>
         public Spec <#=d.ScenarioBlock #><#=d.TypeDeclaration #>(Action<#=d.TypeDeclaration #> action<#= d.TypedParameters #>)
         {
-            AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.Method, new object[]{<#=d.ParameterValues#>}), async () => action(<#=d.ParameterValues #>), action, new object[]{<#=d.ParameterValues#>});
+            AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.Method, new object[]{<#=d.ParameterValues#>}), async () => action(<#=d.ParameterValues #>), () => action(<#=d.ParameterValues #>), action, new object[]{<#=d.ParameterValues#>});
             return this;
         }
         
 <#=d.Comment#>
         IAsyncSpec IAsyncSpec.<#=d.ScenarioBlock #><#=d.TypeDeclaration #>(Action<#=d.TypeDeclaration #> action<#= d.TypedParameters #>)
         {
-            AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.Method, new object[]{<#=d.ParameterValues#>}), async () => action(<#=d.ParameterValues #>), action, new object[]{<#=d.ParameterValues#>});
+            AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.Method, new object[]{<#=d.ParameterValues#>}), async () => action(<#=d.ParameterValues #>), () => action(<#=d.ParameterValues #>), action, new object[]{<#=d.ParameterValues#>});
             return this;
         }
 
 <#=d.Comment#>
         public IAsyncSpec <#=d.ScenarioBlock #>Async<#=d.TypeDeclaration #>(Func<#=d.AsyncTypeDeclaration #> action<#= d.TypedParameters #>)
         {
-            AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.Method, new object[]{<#=d.ParameterValues#>}), async () => await action(<#=d.ParameterValues #>), action, new object[]{<#=d.ParameterValues#>});
+            AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.Method, new object[]{<#=d.ParameterValues#>}), () => action(<#=d.ParameterValues #>), null, action, new object[]{<#=d.ParameterValues#>});
             return this;
         }
 
