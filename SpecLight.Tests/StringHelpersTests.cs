@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 using SpecLight.Infrastructure;
 using Xunit;
 
@@ -24,7 +26,9 @@ namespace SpecLight.Tests
         {
             Assert.Equal("the thing passes", StringHelpers.CreateText(((Action<bool>)TheThing_).Method, new object []{true}));
             Assert.Equal("the thing fails really badly", StringHelpers.CreateText(((Action<bool>)TheThing_).Method, new object []{false}));
-            Assert.Equal("the date parameters 1/01/0001 12:00 a.m. Monday", StringHelpers.CreateText(((Action<DateTime, DateTime, DateTime>)TheDateParameters___).Method, new object []{new DateTime(), new DateTime(), new DateTime()}));
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Assert.Equal("the date parameters 1/1/0001 12:00 AM Monday", StringHelpers.CreateText(((Action<DateTime, DateTime, DateTime>)TheDateParameters___).Method, new object []{new DateTime(), new DateTime(), new DateTime()}));
         }
 
         [Fact]
