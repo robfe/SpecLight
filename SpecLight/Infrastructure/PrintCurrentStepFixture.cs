@@ -2,7 +2,7 @@
 
 namespace SpecLight.Infrastructure
 {
-    public class PrintCurrentStepFixture : SpecFixtureBase
+    internal class PrintCurrentStepFixture : SpecFixtureBase
     {
         public override void StepSetup(Step step)
         {

@@ -14,6 +14,8 @@ i=I
 i've=I've
 should False=shouldn't
 should True=should
+does False=doesn't
+does True=does
 will False=won't
 will True=will
 can False=can't
@@ -29,15 +31,7 @@ is True=is
             var parameterQueue = new Queue<string>(args.Select((o, i) =>
             {
                 var param = method.GetParameters().ElementAtOrDefault(i);
-                if (param != null && param.ParameterType == typeof(bool) && o is bool && param.Name.Contains("Or"))
-                {
-                    var options = param.Name.Split(new[] { "Or" }, StringSplitOptions.None);
-                    if (options.Length == 2)
-                    {
-                        return UnCamel(options[((bool)o) ? 0 : 1]).Trim();
-                    }
-                }
-                return (o ?? "<null>").ToString();
+                return FormatValue(param, o);
             }));
             var uncameled = UnCamel(method.Name);
             var paramsSubsituted = Regex.Replace(uncameled, "_", x => parameterQueue.Any() ? " " + parameterQueue.Dequeue() + " " : " <missing parameter> ");
@@ -55,6 +49,44 @@ is True=is
             }
             var normalizeSpaces = Regex.Replace(sb.ToString(), "\\s+", " ");
             return normalizeSpaces.Trim();
+        }
+
+        static string FormatValue(ParameterInfo param, object v)
+        {
+            //special case for `bool awesomeOrSucks`
+            if (param != null && param.ParameterType == typeof (bool) && v is bool && param.Name.Contains("Or"))
+            {
+                var options = param.Name.Split(new[] {"Or"}, StringSplitOptions.None);
+                if (options.Length == 2)
+                {
+                    return UnCamel(options[((bool) v) ? 0 : 1]).Trim();
+                }
+            }
+
+            //special case for named dates
+            if (param != null && (param.ParameterType == typeof (DateTime) || param.ParameterType == typeof (DateTime?)) && v is DateTime)
+            {
+                switch (param.Name)
+                {
+                    case "date":
+                        return ((DateTime) v).ToShortDateString();
+                    case "time":
+                        return ((DateTime) v).ToShortTimeString();
+                    case "day":
+                        return ((DateTime) v).ToString("dddd");
+                    case "dayOfMonth":
+                        return ((DateTime) v).ToString("ddd");
+                    case "month":
+                        return ((DateTime) v).ToString("MMMM");
+                    case "year":
+                        return ((DateTime) v).ToString("yyyy");
+                    case "hour":
+                        return ((DateTime) v).ToString("hh tt");
+                    case "minute":
+                        return ((DateTime) v).ToString("mm");
+                }
+            }
+            return (v ?? "<null>").ToString();
         }
 
         static string UnCamel(string s)
