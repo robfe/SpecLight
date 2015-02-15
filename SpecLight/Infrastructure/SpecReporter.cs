@@ -14,7 +14,7 @@ namespace SpecLight.Infrastructure
 
         static SpecReporter()
         {
-            FileName = ConfigurationManager.AppSettings["SpeclightReportFile"] ?? "Speclight.html";
+            FileName = Environment.GetEnvironmentVariable("SpeclightReportFile") ?? ConfigurationManager.AppSettings["SpeclightReportFile"] ?? "Speclight.html";
             AppDomain.CurrentDomain.DomainUnload += (sender, args) => WriteSpecs();
         }
 
