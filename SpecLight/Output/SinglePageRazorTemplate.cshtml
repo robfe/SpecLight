@@ -132,9 +132,10 @@
 
 		<div id="environment">
 			<ul>
+				<li><b>Generated At: </b>@DateTime.Now.ToString()</li>
 				@foreach (string key in Environment.GetEnvironmentVariables().Keys
 					.Cast<string>()
-					.Where(x => x.StartsWith("build", StringComparison.InvariantCultureIgnoreCase))) //todo: make this configurable?
+					.Where(x => x.StartsWith("build", StringComparison.InvariantCultureIgnoreCase)))
 				{
 					<li>
 						<b>@key: </b>
