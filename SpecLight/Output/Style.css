@@ -317,3 +317,6 @@ table td.number {
 .markdown-host ul > br {
   display: none;
 }
+#environment {
+  color: #a8a8b7;
+}
