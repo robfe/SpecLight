@@ -40,11 +40,12 @@ namespace SpecLight.Infrastructure
 
                 try
                 {
+                    Console.Out.WriteLine("Writing SpecLight report to '{0}'", filePath);
                     File.WriteAllText(filePath, template.TransformText());
                 }
                 catch (Exception e)
                 {
-                    Console.Error.WriteLine("Failed to write speclight report to '{0}'", filePath);
+                    Console.Error.WriteLine("Failed to write SpecLight report to '{0}'", filePath);
                     Console.Error.WriteLine(e);
                 }
             }
