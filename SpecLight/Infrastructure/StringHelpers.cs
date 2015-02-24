@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -86,6 +87,13 @@ is True=is
                         return ((DateTime) v).ToString("mm");
                 }
             }
+
+            if (v != null && v.GetType().IsArray)
+            {
+                var items = ((IEnumerable)v).OfType<object>().Select(x => FormatValue(param, x));
+                return "[" + string.Join(", ", items) + "]";
+            }
+
             return (v ?? "<null>").ToString();
         }
 

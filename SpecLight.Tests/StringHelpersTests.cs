@@ -37,6 +37,12 @@ namespace SpecLight.Tests
             Assert.Equal("the <null> is one word", StringHelpers.CreateText(((Action<string>)The_IsOneWord).Method, new object[] { null }));
         }
 
+        [Fact]
+        public void ArraysGetFormatted()
+        {
+            Assert.Equal("takes an array [one, two]", StringHelpers.CreateText(((Action<string[]>)TakesAnArray_).Method, new object[] { new string[]{"one, two"} }));
+        }
+
         void The_IsOneWord(string s)
         {
         }
@@ -52,8 +58,14 @@ namespace SpecLight.Tests
         private void TheThing_(bool passesOrFailsReallyBadly)
         {
         }
+
         private void TheDateParameters___(DateTime date, DateTime time, DateTime day)
         {
+        }
+
+        private void TakesAnArray_(string[] array)
+        {
+            
         }
     }
 }
