@@ -18,3 +18,5 @@ Look at the Tests project for examples:
 
 
 Once your tests have run, SpecLight generates an html report for you next to your test DLL called "Speclight.html"
+
+There is a converter tool at http://robfe.github.io/SpecLight/converter
