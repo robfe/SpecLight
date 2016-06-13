@@ -25,6 +25,8 @@ shall False=shan't
 shall True=shall
 is False=isn't
 is True=is
+are False=aren't
+are True=are
 ".Trim().Split('\n').Select(x => x.Trim().Split('=')).ToDictionary(x => x[0], x => x[1]);
 
         internal static string CreateText(MethodInfo method, object[] args)
