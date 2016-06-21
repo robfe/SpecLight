@@ -38,6 +38,13 @@ namespace SpecLight.Tests
         }
 
         [Fact]
+        public void CurrencyGetsFormatted()
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Assert.Equal("the total is $9.99", StringHelpers.CreateText(((Action<decimal>)TheTotalIs_).Method, new object []{9.99m}));
+        }
+
+        [Fact]
         public void ArraysGetFormatted()
         {
             Assert.Equal("takes an array [one, two]", StringHelpers.CreateText(((Action<string[]>)TakesAnArray_).Method, new object[] { new string[]{"one, two"} }));
@@ -60,6 +67,10 @@ namespace SpecLight.Tests
         }
 
         private void TheDateParameters___(DateTime date, DateTime time, DateTime day)
+        {
+        }
+
+        private void TheTotalIs_(decimal amount)
         {
         }
 

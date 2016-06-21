@@ -90,6 +90,12 @@ are True=are
                 }
             }
 
+            //special case for `decimal amount`
+            if (param != null && param.ParameterType == typeof(decimal) && param.Name.ToLower().Contains("amount") && v is decimal)
+            {
+                return ((decimal) v).ToString("C");
+            }
+
             if (v != null && v.GetType().IsArray)
             {
                 var items = ((IEnumerable)v).OfType<object>().Select(x => FormatValue(param, x));
