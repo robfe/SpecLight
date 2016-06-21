@@ -29,6 +29,15 @@ are False=aren't
 are True=are
 ".Trim().Split('\n').Select(x => x.Trim().Split('=')).ToDictionary(x => x[0], x => x[1]);
 
+        static readonly HashSet<Type> NumericTypes = new HashSet<Type>
+        {
+            typeof(decimal),
+            typeof(double),
+            typeof(float),
+            typeof(int),
+            typeof(long)
+        };
+
         internal static string CreateText(MethodInfo method, object[] args)
         {
             var parameterQueue = new Queue<string>(args.Select((o, i) =>
@@ -90,10 +99,9 @@ are True=are
                 }
             }
 
-            //special case for `decimal amount`
-            if (param != null && param.ParameterType == typeof(decimal) && param.Name.ToLower().Contains("amount") && v is decimal)
-            {
-                return ((decimal) v).ToString("C");
+            //special case for `numeric amount`
+            if (v != null && param != null && IsNumeric(param.ParameterType) && param.Name.ToLower().Contains("amount")) {
+                return string.Format("{0:C}", v);
             }
 
             if (v != null && v.GetType().IsArray)
@@ -118,6 +126,11 @@ are True=are
                 return "";
             }
             return "{" + string.Join(", ", values) + "}";
+        }
+
+        static bool IsNumeric(Type type)
+        {
+            return NumericTypes.Contains(Nullable.GetUnderlyingType(type) ?? type);
         }
     }
 

@@ -41,7 +41,7 @@ namespace SpecLight.Tests
         public void CurrencyGetsFormatted()
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            Assert.Equal("the total is $9.99", StringHelpers.CreateText(((Action<decimal>)TheTotalIs_).Method, new object []{9.99m}));
+            Assert.Equal("the total is $9.99", StringHelpers.CreateText(((Action<decimal?>)TheTotalIs_).Method, new object []{9.99m}));
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace SpecLight.Tests
         {
         }
 
-        private void TheTotalIs_(decimal amount)
+        private void TheTotalIs_(decimal? amount)
         {
         }
 
