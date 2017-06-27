@@ -1,7 +1,8 @@
-﻿using System;
+﻿using SpecLight.Infrastructure;
+using System;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
-using SpecLight.Infrastructure;
 
 namespace SpecLight
 {
@@ -24,7 +25,11 @@ namespace SpecLight
         /// </param>
         public Spec Given(Action action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), async () => action(), () => action(), action, new object[]{});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
+#endif
             return this;
         }
         
@@ -42,7 +47,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given(Action action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), async () => action(), () => action(), action, new object[]{});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
+#endif
             return this;
         }
 
@@ -60,7 +69,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync(Func<Task> action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), () => action(), null, action, new object[]{});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{}), () => action(), null, action, new object[]{});
+#endif
             return this;
         }
 
@@ -80,7 +93,11 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1>(Action<T1> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#endif
             return this;
         }
         
@@ -98,7 +115,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1>(Action<T1> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#endif
             return this;
         }
 
@@ -116,7 +137,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1>(Func<T1, Task> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), () => action(p1), null, action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1}), () => action(p1), null, action, new object[]{p1});
+#endif
             return this;
         }
 
@@ -136,7 +161,11 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#endif
             return this;
         }
         
@@ -154,7 +183,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#endif
             return this;
         }
 
@@ -172,7 +205,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2>(Func<T1, T2, Task> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
+#endif
             return this;
         }
 
@@ -192,7 +229,11 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
         
@@ -210,7 +251,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
 
@@ -228,7 +273,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2, T3>(Func<T1, T2, T3, Task> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
 
@@ -248,7 +297,11 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
         
@@ -266,7 +319,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
 
@@ -284,7 +341,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2, T3, T4>(Func<T1, T2, T3, T4, Task> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
 
@@ -304,7 +365,11 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
         
@@ -322,7 +387,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
 
@@ -340,7 +409,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2, T3, T4, T5>(Func<T1, T2, T3, T4, T5, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
 
@@ -360,7 +433,11 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
         
@@ -378,7 +455,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
 
@@ -396,7 +477,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2, T3, T4, T5, T6>(Func<T1, T2, T3, T4, T5, T6, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
 
@@ -416,7 +501,11 @@ namespace SpecLight
         /// </param>
         public Spec Given<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
         
@@ -434,7 +523,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Given<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
 
@@ -452,7 +545,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec GivenAsync<T1, T2, T3, T4, T5, T6, T7>(Func<T1, T2, T3, T4, T5, T6, T7, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.Given, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
 
@@ -472,7 +569,11 @@ namespace SpecLight
         /// </param>
         public Spec When(Action action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), async () => action(), () => action(), action, new object[]{});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
+#endif
             return this;
         }
         
@@ -490,7 +591,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When(Action action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), async () => action(), () => action(), action, new object[]{});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
+#endif
             return this;
         }
 
@@ -508,7 +613,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync(Func<Task> action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), () => action(), null, action, new object[]{});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{}), () => action(), null, action, new object[]{});
+#endif
             return this;
         }
 
@@ -528,7 +637,11 @@ namespace SpecLight
         /// </param>
         public Spec When<T1>(Action<T1> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#endif
             return this;
         }
         
@@ -546,7 +659,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1>(Action<T1> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#endif
             return this;
         }
 
@@ -564,7 +681,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1>(Func<T1, Task> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), () => action(p1), null, action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1}), () => action(p1), null, action, new object[]{p1});
+#endif
             return this;
         }
 
@@ -584,7 +705,11 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#endif
             return this;
         }
         
@@ -602,7 +727,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#endif
             return this;
         }
 
@@ -620,7 +749,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2>(Func<T1, T2, Task> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
+#endif
             return this;
         }
 
@@ -640,7 +773,11 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
         
@@ -658,7 +795,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
 
@@ -676,7 +817,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2, T3>(Func<T1, T2, T3, Task> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
 
@@ -696,7 +841,11 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
         
@@ -714,7 +863,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
 
@@ -732,7 +885,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2, T3, T4>(Func<T1, T2, T3, T4, Task> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
 
@@ -752,7 +909,11 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
         
@@ -770,7 +931,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
 
@@ -788,7 +953,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2, T3, T4, T5>(Func<T1, T2, T3, T4, T5, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
 
@@ -808,7 +977,11 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
         
@@ -826,7 +999,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
 
@@ -844,7 +1021,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2, T3, T4, T5, T6>(Func<T1, T2, T3, T4, T5, T6, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
 
@@ -864,7 +1045,11 @@ namespace SpecLight
         /// </param>
         public Spec When<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
         
@@ -882,7 +1067,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.When<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
 
@@ -900,7 +1089,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec WhenAsync<T1, T2, T3, T4, T5, T6, T7>(Func<T1, T2, T3, T4, T5, T6, T7, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.When, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
 
@@ -920,7 +1113,11 @@ namespace SpecLight
         /// </param>
         public Spec Then(Action action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), async () => action(), () => action(), action, new object[]{});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
+#endif
             return this;
         }
         
@@ -938,7 +1135,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then(Action action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), async () => action(), () => action(), action, new object[]{});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
+#endif
             return this;
         }
 
@@ -956,7 +1157,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync(Func<Task> action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), () => action(), null, action, new object[]{});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{}), () => action(), null, action, new object[]{});
+#endif
             return this;
         }
 
@@ -976,7 +1181,11 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1>(Action<T1> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#endif
             return this;
         }
         
@@ -994,7 +1203,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1>(Action<T1> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#endif
             return this;
         }
 
@@ -1012,7 +1225,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1>(Func<T1, Task> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), () => action(p1), null, action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1}), () => action(p1), null, action, new object[]{p1});
+#endif
             return this;
         }
 
@@ -1032,7 +1249,11 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#endif
             return this;
         }
         
@@ -1050,7 +1271,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#endif
             return this;
         }
 
@@ -1068,7 +1293,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2>(Func<T1, T2, Task> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
+#endif
             return this;
         }
 
@@ -1088,7 +1317,11 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
         
@@ -1106,7 +1339,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
 
@@ -1124,7 +1361,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2, T3>(Func<T1, T2, T3, Task> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
 
@@ -1144,7 +1385,11 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
         
@@ -1162,7 +1407,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
 
@@ -1180,7 +1429,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2, T3, T4>(Func<T1, T2, T3, T4, Task> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
 
@@ -1200,7 +1453,11 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
         
@@ -1218,7 +1475,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
 
@@ -1236,7 +1497,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2, T3, T4, T5>(Func<T1, T2, T3, T4, T5, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
 
@@ -1256,7 +1521,11 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
         
@@ -1274,7 +1543,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
 
@@ -1292,7 +1565,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2, T3, T4, T5, T6>(Func<T1, T2, T3, T4, T5, T6, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
 
@@ -1312,7 +1589,11 @@ namespace SpecLight
         /// </param>
         public Spec Then<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
         
@@ -1330,7 +1611,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.Then<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
 
@@ -1348,7 +1633,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec ThenAsync<T1, T2, T3, T4, T5, T6, T7>(Func<T1, T2, T3, T4, T5, T6, T7, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.Then, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
 
@@ -1368,7 +1657,11 @@ namespace SpecLight
         /// </param>
         public Spec And(Action action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), async () => action(), () => action(), action, new object[]{});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
+#endif
             return this;
         }
         
@@ -1386,7 +1679,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And(Action action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), async () => action(), () => action(), action, new object[]{});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{}), async () => action(), () => action(), action, new object[]{});
+#endif
             return this;
         }
 
@@ -1404,7 +1701,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync(Func<Task> action)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{}), () => action(), null, action, new object[]{});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{}), () => action(), null, action, new object[]{});
+#endif
             return this;
         }
 
@@ -1424,7 +1725,11 @@ namespace SpecLight
         /// </param>
         public Spec And<T1>(Action<T1> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#endif
             return this;
         }
         
@@ -1442,7 +1747,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1>(Action<T1> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1}), async () => action(p1), () => action(p1), action, new object[]{p1});
+#endif
             return this;
         }
 
@@ -1460,7 +1769,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1>(Func<T1, Task> action, T1 p1)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1}), () => action(p1), null, action, new object[]{p1});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1}), () => action(p1), null, action, new object[]{p1});
+#endif
             return this;
         }
 
@@ -1480,7 +1793,11 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#endif
             return this;
         }
         
@@ -1498,7 +1815,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2>(Action<T1, T2> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), async () => action(p1, p2), () => action(p1, p2), action, new object[]{p1, p2});
+#endif
             return this;
         }
 
@@ -1516,7 +1837,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2>(Func<T1, T2, Task> action, T1 p1, T2 p2)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2}), () => action(p1, p2), null, action, new object[]{p1, p2});
+#endif
             return this;
         }
 
@@ -1536,7 +1861,11 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
         
@@ -1554,7 +1883,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2, T3>(Action<T1, T2, T3> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), async () => action(p1, p2, p3), () => action(p1, p2, p3), action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
 
@@ -1572,7 +1905,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2, T3>(Func<T1, T2, T3, Task> action, T1 p1, T2 p2, T3 p3)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3}), () => action(p1, p2, p3), null, action, new object[]{p1, p2, p3});
+#endif
             return this;
         }
 
@@ -1592,7 +1929,11 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
         
@@ -1610,7 +1951,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), async () => action(p1, p2, p3, p4), () => action(p1, p2, p3, p4), action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
 
@@ -1628,7 +1973,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2, T3, T4>(Func<T1, T2, T3, T4, Task> action, T1 p1, T2 p2, T3 p3, T4 p4)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4}), () => action(p1, p2, p3, p4), null, action, new object[]{p1, p2, p3, p4});
+#endif
             return this;
         }
 
@@ -1648,7 +1997,11 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
         
@@ -1666,7 +2019,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), async () => action(p1, p2, p3, p4, p5), () => action(p1, p2, p3, p4, p5), action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
 
@@ -1684,7 +2041,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2, T3, T4, T5>(Func<T1, T2, T3, T4, T5, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5}), () => action(p1, p2, p3, p4, p5), null, action, new object[]{p1, p2, p3, p4, p5});
+#endif
             return this;
         }
 
@@ -1704,7 +2065,11 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
         
@@ -1722,7 +2087,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), async () => action(p1, p2, p3, p4, p5, p6), () => action(p1, p2, p3, p4, p5, p6), action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
 
@@ -1740,7 +2109,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2, T3, T4, T5, T6>(Func<T1, T2, T3, T4, T5, T6, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6}), () => action(p1, p2, p3, p4, p5, p6), null, action, new object[]{p1, p2, p3, p4, p5, p6});
+#endif
             return this;
         }
 
@@ -1760,7 +2133,11 @@ namespace SpecLight
         /// </param>
         public Spec And<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
         
@@ -1778,7 +2155,11 @@ namespace SpecLight
         /// </param>
         IAsyncSpec IAsyncSpec.And<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), async () => action(p1, p2, p3, p4, p5, p6, p7), () => action(p1, p2, p3, p4, p5, p6, p7), action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
 
@@ -1796,7 +2177,11 @@ namespace SpecLight
         /// </param>
         public IAsyncSpec AndAsync<T1, T2, T3, T4, T5, T6, T7>(Func<T1, T2, T3, T4, T5, T6, T7, Task> action, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
+#if NETCOREAPP1_1
+            AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#else
             AddStep(ScenarioBlock.And, StringHelpers.CreateText(action.Method, new object[]{p1, p2, p3, p4, p5, p6, p7}), () => action(p1, p2, p3, p4, p5, p6, p7), null, action, new object[]{p1, p2, p3, p4, p5, p6, p7});
+#endif
             return this;
         }
 
