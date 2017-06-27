@@ -26,6 +26,7 @@
 
     <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.1'">
         <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
+        <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
     </ItemGroup>
 
   <ItemGroup>
