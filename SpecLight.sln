@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecLight", "SpecLight\SpecLight.csproj", "{9A24DAAE-05A9-468F-BAED-3A3CBBDD73B0}"
 EndProject
@@ -25,20 +25,34 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecLight.ExampleTests", "S
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_Core|Any CPU = Debug_Core|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		Release_Core|Any CPU = Release_Core|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A24DAAE-05A9-468F-BAED-3A3CBBDD73B0}.Debug_Core|Any CPU.ActiveCfg = Debug_Core|Any CPU
+		{9A24DAAE-05A9-468F-BAED-3A3CBBDD73B0}.Debug_Core|Any CPU.Build.0 = Debug_Core|Any CPU
 		{9A24DAAE-05A9-468F-BAED-3A3CBBDD73B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A24DAAE-05A9-468F-BAED-3A3CBBDD73B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A24DAAE-05A9-468F-BAED-3A3CBBDD73B0}.Release_Core|Any CPU.ActiveCfg = Release_Core|Any CPU
+		{9A24DAAE-05A9-468F-BAED-3A3CBBDD73B0}.Release_Core|Any CPU.Build.0 = Release_Core|Any CPU
 		{9A24DAAE-05A9-468F-BAED-3A3CBBDD73B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A24DAAE-05A9-468F-BAED-3A3CBBDD73B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD7597B2-088C-412F-9604-CE56DD28CF87}.Debug_Core|Any CPU.ActiveCfg = Debug_Core|Any CPU
+		{AD7597B2-088C-412F-9604-CE56DD28CF87}.Debug_Core|Any CPU.Build.0 = Debug_Core|Any CPU
 		{AD7597B2-088C-412F-9604-CE56DD28CF87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD7597B2-088C-412F-9604-CE56DD28CF87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD7597B2-088C-412F-9604-CE56DD28CF87}.Release_Core|Any CPU.ActiveCfg = Release_Core|Any CPU
+		{AD7597B2-088C-412F-9604-CE56DD28CF87}.Release_Core|Any CPU.Build.0 = Release_Core|Any CPU
 		{AD7597B2-088C-412F-9604-CE56DD28CF87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD7597B2-088C-412F-9604-CE56DD28CF87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Debug_Core|Any CPU.ActiveCfg = Debug_Core|Any CPU
+		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Debug_Core|Any CPU.Build.0 = Debug_Core|Any CPU
 		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Release_Core|Any CPU.ActiveCfg = Release_Core|Any CPU
+		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Release_Core|Any CPU.Build.0 = Release_Core|Any CPU
 		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F434FC7-4C74-43BD-9F11-6833655B1F22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
