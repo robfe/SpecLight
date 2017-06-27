@@ -28,6 +28,13 @@
         <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
     </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Output\SinglePageRazorTemplate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SinglePageRazorTemplate.generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
     <ItemGroup>
         <None Update="Spec.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
