@@ -29,7 +29,12 @@ namespace SpecLight.Infrastructure
 
         public static void Add(Spec item)
         {
+#if NETCOREAPP1_1
+            var a = item.CallingMethod.DeclaringType.GetTypeInfo().Assembly;
+#else
             var a = item.CallingMethod.DeclaringType.Assembly;
+#endif
+
             var bag = ExecutedSpecs.GetOrAdd(a, assembly => new ConcurrentBag<Spec>());
             bag.Add(item);
         }
