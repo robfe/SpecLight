@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp1.1;net40</TargetFrameworks>
+        <TargetFrameworks>netcoreapp1.1;net45</TargetFrameworks>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -12,7 +12,7 @@
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_Core|netcoreapp1.1|AnyCPU'" />
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+    <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
         <Reference Include="System" />
         <Reference Include="System.Configuration" />
         <Reference Include="System.Core" />
