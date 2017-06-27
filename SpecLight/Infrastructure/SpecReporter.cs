@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-#if NET40
+#if NET45
 using System.Configuration;
 #endif
 using System.IO;
