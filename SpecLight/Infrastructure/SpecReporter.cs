@@ -3,6 +3,9 @@ using System.Collections.Concurrent;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
+#if NETCOREAPP1_1
+using System.Runtime.Loader;
+#endif
 using SpecLight.Output;
 using SpecLight.Output.ViewModel;
 
@@ -15,7 +18,11 @@ namespace SpecLight.Infrastructure
         static SpecReporter()
         {
             FileName = Environment.GetEnvironmentVariable("SpeclightReportFile") ?? ConfigurationManager.AppSettings["SpeclightReportFile"] ?? "Speclight.html";
+#if NETCOREAPP1_1
+            AssemblyLoadContext.Default.Unloading += context => WriteSpecs();
+#else
             AppDomain.CurrentDomain.DomainUnload += (sender, args) => WriteSpecs();
+#endif
         }
 
         public static string FileName { get; set; }
