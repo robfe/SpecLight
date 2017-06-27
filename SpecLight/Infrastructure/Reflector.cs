@@ -16,6 +16,9 @@ namespace SpecLight.Infrastructure
 
         public static bool MethodIsEmpty(MethodInfo methodInfo)
         {
+#if NETCOREAPP1_1
+            return false;
+#else
             return MethodIsEmptyCache.GetOrAdd(methodInfo, info =>
             {
                 var il = info.GetMethodBody().GetILAsByteArray();
@@ -23,11 +26,15 @@ namespace SpecLight.Infrastructure
                 //it's probably just [Nop, Ret]
                 return il.Length < 10 && il.All(x => x == OpCodes.Nop.Value || x == OpCodes.Ret.Value);
             });
+#endif
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static MethodBase FindCallingMethod()
         {
+#if NETCOREAPP1_1
+            return null;
+#else
             var st = new StackTrace(2, false);
             var v = from f in st.GetFrames()
                 select f.GetMethod()
@@ -38,6 +45,7 @@ namespace SpecLight.Infrastructure
                 select m;
 
             return v.First();
+#endif
 
         }
 

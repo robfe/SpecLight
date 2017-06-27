@@ -1,99 +1,45 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9A24DAAE-05A9-468F-BAED-3A3CBBDD73B0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpecLight</RootNamespace>
-    <AssemblyName>SpecLight</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\SpecLight.XML</DocumentationFile>
-    <NoWarn>1591</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\SpecLight.XML</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libraries\System.Web.WebPages.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp1.1;net45</TargetFrameworks>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_Core|netcoreapp1.1|AnyCPU'" />
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_Core|netcoreapp1.1|AnyCPU'" />
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+        <Reference Include="System" />
+        <Reference Include="System.Configuration" />
+        <Reference Include="System.Core" />
+        <Reference Include="Microsoft.CSharp" />
+        <Reference Include="System.Web" />
+        <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>..\Libraries\System.Web.WebPages.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.1'">
+        <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
+        <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
+    </ItemGroup>
+
   <ItemGroup>
     <None Include="Output\SinglePageRazorTemplate.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>SinglePageRazorTemplate.generated.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Output\Style.less" />
-    <None Include="Spec.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Spec.designer.cs</LastGenOutput>
-    </None>
-    <None Include="SpecLight.nuspec">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Infrastructure\ConsoleOutcomePrinter.cs" />
-    <Compile Include="IAsyncSpec.cs" />
-    <Compile Include="Infrastructure\PrintCurrentStepFixture.cs" />
-    <Compile Include="Infrastructure\Reflector.cs" />
-    <Compile Include="ISpecFixture.cs" />
-    <Compile Include="Infrastructure\Markdown.cs" />
-    <Compile Include="Output\ViewModel\FolderViewModel.cs" />
-    <Compile Include="Output\ViewModel\RootViewModel.cs" />
-    <Compile Include="Output\SinglePageRazorTemplate.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SinglePageRazorTemplate.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Output\RazorTemplateBase.cs" />
-    <Compile Include="Output\ViewModel\SpecViewModel.cs" />
-    <Compile Include="Output\ViewModel\TagViewModel.cs" />
-    <Compile Include="Output\ViewModel\TestClassViewModel.cs" />
-    <Compile Include="ScenarioBlock.cs" />
-    <Compile Include="Spec.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Spec.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Spec.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SpecFixtureBase.cs" />
-    <Compile Include="Infrastructure\SpecFixtureRepository.cs" />
-    <Compile Include="Infrastructure\SpecReporter.cs" />
-    <Compile Include="Step.cs" />
-    <Compile Include="Infrastructure\StepOutcome.cs" />
-    <Compile Include="Status.cs" />
-    <Compile Include="Infrastructure\StringHelpers.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
+
   <ItemGroup>
     <None Include="Output\images\cross.png" />
     <None Include="Output\images\error.png" />
@@ -107,15 +53,24 @@
       <DependentUpon>Style.less</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="SpecLight.ExternalAnnotations.xml" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+        <None Update="Spec.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>Spec.designer.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Spec.designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Spec.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
 </Project>

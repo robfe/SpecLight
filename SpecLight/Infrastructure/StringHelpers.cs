@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -81,9 +82,9 @@ are True=are
                 switch (param.Name)
                 {
                     case "date":
-                        return ((DateTime) v).ToShortDateString();
+                        return ((DateTime) v).ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern);
                     case "time":
-                        return ((DateTime) v).ToShortTimeString();
+                        return ((DateTime) v).ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern);
                     case "day":
                         return ((DateTime) v).ToString("dddd");
                     case "dayOfMonth":

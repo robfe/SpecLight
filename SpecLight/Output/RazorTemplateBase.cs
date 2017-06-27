@@ -2,9 +2,11 @@
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Web.WebPages;
 using SpecLight.Output.ViewModel;
+
 
 namespace SpecLight.Output
 {
@@ -97,9 +99,53 @@ namespace SpecLight.Output
             return new HelperResult(writer =>
             {
                 var type = GetType();
+#if NETCOREAPP1_1
+                var stream = type.GetTypeInfo().Assembly.GetManifestResourceStream(type.Namespace + "." + s);
+#else
                 var stream = type.Assembly.GetManifestResourceStream(type.Namespace + "." + s);
+#endif
                 WriteLiteralTo(writer, new StreamReader(stream).ReadToEnd());
             });
         }
     }
 }
+
+
+#if NETCOREAPP1_1
+namespace System.Web.WebPages
+{
+    public class HelperResult
+    {
+        private readonly Action<TextWriter> _action;
+
+        public HelperResult(Action<TextWriter> action)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException("action");
+            }
+            _action = action;
+        }
+
+        public string ToHtmlString()
+        {
+            return ToString();
+        }
+
+        public override string ToString()
+        {
+            using (var writer = new StringWriter(CultureInfo.InvariantCulture))
+            {
+                _action(writer);
+                return writer.ToString();
+            }
+        }
+
+        public void WriteTo(TextWriter writer)
+        {
+            _action(writer);
+        }
+    }
+
+}
+#endif

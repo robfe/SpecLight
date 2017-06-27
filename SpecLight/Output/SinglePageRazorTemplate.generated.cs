@@ -1105,7 +1105,7 @@ WriteLiteral("</li>\r\n");
             #line 136 "..\..\Output\SinglePageRazorTemplate.cshtml"
  				foreach (string key in Environment.GetEnvironmentVariables().Keys
 					.Cast<string>()
-					.Where(x => x.StartsWith("build", StringComparison.InvariantCultureIgnoreCase)))
+					.Where(x => x.StartsWith("build", StringComparison.OrdinalIgnoreCase)))
 				{
 
             
