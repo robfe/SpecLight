@@ -36,7 +36,25 @@
     </None>
   </ItemGroup>
 
-    <ItemGroup>
+  <ItemGroup>
+    <None Include="Output\Style.less" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Output\images\cross.png" />
+    <None Include="Output\images\error.png" />
+    <None Include="Output\images\pencil.png" />
+    <None Include="Output\images\tick.png" />
+    <EmbeddedResource Include="Output\jquery-1.10.2.min.js" />
+    <None Include="Output\Style.css">
+      <DependentUpon>Style.less</DependentUpon>
+    </None>
+    <EmbeddedResource Include="Output\Style.min.css">
+      <DependentUpon>Style.less</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
         <None Update="Spec.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>Spec.designer.cs</LastGenOutput>
