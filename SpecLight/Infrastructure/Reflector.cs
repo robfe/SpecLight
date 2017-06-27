@@ -32,6 +32,9 @@ namespace SpecLight.Infrastructure
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static MethodBase FindCallingMethod()
         {
+#if NETCOREAPP1_1
+            return null;
+#else
             var st = new StackTrace(2, false);
             var v = from f in st.GetFrames()
                 select f.GetMethod()
@@ -42,6 +45,7 @@ namespace SpecLight.Infrastructure
                 select m;
 
             return v.First();
+#endif
 
         }
 
