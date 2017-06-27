@@ -41,6 +41,7 @@
     doc.Save(Host.ResolvePath("SpecLight.ExternalAnnotations.xml"));
 
 #>
+using SpecLight.Infrastructure;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
