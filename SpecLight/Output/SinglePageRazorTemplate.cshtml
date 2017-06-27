@@ -135,7 +135,7 @@
 				<li><b>Generated At: </b>@DateTime.Now.ToString()</li>
 				@foreach (string key in Environment.GetEnvironmentVariables().Keys
 					.Cast<string>()
-					.Where(x => x.StartsWith("build", StringComparison.InvariantCultureIgnoreCase)))
+					.Where(x => x.StartsWith("build", StringComparison.OrdinalIgnoreCase)))
 				{
 					<li>
 						<b>@key: </b>
