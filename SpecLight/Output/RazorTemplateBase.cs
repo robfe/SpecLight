@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Web.WebPages;
 using SpecLight.Output.ViewModel;
@@ -97,7 +98,11 @@ namespace SpecLight.Output
             return new HelperResult(writer =>
             {
                 var type = GetType();
+#if NETCOREAPP1_1
+                var stream = type.GetTypeInfo().Assembly.GetManifestResourceStream(type.Namespace + "." + s);
+#else
                 var stream = type.Assembly.GetManifestResourceStream(type.Namespace + "." + s);
+#endif
                 WriteLiteralTo(writer, new StreamReader(stream).ReadToEnd());
             });
         }
