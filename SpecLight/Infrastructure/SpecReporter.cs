@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
+#if NET40
 using System.Configuration;
+#endif
 using System.IO;
 using System.Reflection;
 #if NETCOREAPP1_1
@@ -17,10 +19,11 @@ namespace SpecLight.Infrastructure
 
         static SpecReporter()
         {
-            FileName = Environment.GetEnvironmentVariable("SpeclightReportFile") ?? ConfigurationManager.AppSettings["SpeclightReportFile"] ?? "Speclight.html";
 #if NETCOREAPP1_1
+            FileName = Environment.GetEnvironmentVariable("SpeclightReportFile") ?? "Speclight.html";
             AssemblyLoadContext.Default.Unloading += context => WriteSpecs();
 #else
+            FileName = Environment.GetEnvironmentVariable("SpeclightReportFile") ?? ConfigurationManager.AppSettings["SpeclightReportFile"] ?? "Speclight.html";
             AppDomain.CurrentDomain.DomainUnload += (sender, args) => WriteSpecs();
 #endif
         }
