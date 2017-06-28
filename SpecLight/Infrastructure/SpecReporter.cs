@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
-#if NET45
+#if !NETCOREAPP1_1
 using System.Configuration;
 #endif
 using System.IO;
 using System.Reflection;
-#if NETCOREAPP1_1
-using System.Runtime.Loader;
-#endif
 using SpecLight.Output;
 using SpecLight.Output.ViewModel;
 
@@ -19,10 +16,7 @@ namespace SpecLight.Infrastructure
 
         static SpecReporter()
         {
-#if NETCOREAPP1_1
-            FileName = Environment.GetEnvironmentVariable("SpeclightReportFile") ?? "Speclight.html";
-            AssemblyLoadContext.Default.Unloading += context => WriteSpecs();
-#else
+#if !NETCOREAPP1_1
             FileName = Environment.GetEnvironmentVariable("SpeclightReportFile") ?? ConfigurationManager.AppSettings["SpeclightReportFile"] ?? "Speclight.html";
             AppDomain.CurrentDomain.DomainUnload += (sender, args) => WriteSpecs();
 #endif
@@ -32,14 +26,12 @@ namespace SpecLight.Infrastructure
 
         public static void Add(Spec item)
         {
-#if NETCOREAPP1_1
-            var a = item.CallingMethod.DeclaringType.GetTypeInfo().Assembly;
-#else
+#if !NETCOREAPP1_1
             var a = item.CallingMethod.DeclaringType.Assembly;
-#endif
 
             var bag = ExecutedSpecs.GetOrAdd(a, assembly => new ConcurrentBag<Spec>());
             bag.Add(item);
+#endif
         }
 
         static void WriteSpecs()
