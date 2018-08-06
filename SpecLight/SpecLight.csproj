@@ -1,30 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <None Include="Output\images\cross.png" />
-        <None Include="Output\images\error.png" />
-        <None Include="Output\images\pencil.png" />
-        <None Include="Output\images\tick.png" />
-        <EmbeddedResource Include="Output\jquery-1.10.2.min.js" />
-        <None Include="Output\Style.css">
-            <DependentUpon>Style.less</DependentUpon>
-        </None>
-        <EmbeddedResource Include="Output\Style.min.css">
-            <DependentUpon>Style.less</DependentUpon>
-        </EmbeddedResource>
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Update="Spec.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>Spec.designer.cs</LastGenOutput>
-        </None>
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <Authors>Rob Fonseca-Ensor</Authors>
+    <PackageProjectUrl>https://github.com/robfe/speclight</PackageProjectUrl>
+    <Description>SpecLight is an internal DSL for BDD testing in C#.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>BDD StoryQ Specflow</PackageTags>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Output\images\cross.png" />
+    <None Include="Output\images\error.png" />
+    <None Include="Output\images\pencil.png" />
+    <None Include="Output\images\tick.png" />
+    <EmbeddedResource Include="Output\jquery-1.10.2.min.js" />
+    <None Include="Output\Style.css">
+      <DependentUpon>Style.less</DependentUpon>
+    </None>
+    <EmbeddedResource Include="Output\Style.min.css">
+      <DependentUpon>Style.less</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Spec.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Spec.designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SpecLight.ExternalAnnotations.xml">
+      <Pack>true</Pack>
+      <PackagePath>\lib\netstandard2.0</PackagePath>
+    </Content>
+  </ItemGroup>
 </Project>
