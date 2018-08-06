@@ -8,21 +8,21 @@ namespace SpecLight.Infrastructure
         const string Empty = " (Empty)";
         public static readonly int MaxStepOutcomeNameLength = Enum.GetNames(typeof(Status)).Max(x => x.Length) + Empty.Length;
 
-        public static void PrintOutcomes(Spec spec)
+        public static void PrintOutcomes(Spec spec, Action<string> writeLine)
         {
-            Console.WriteLine("> SpecLight results:");
+            writeLine("> SpecLight results:");
             Console.WriteLine();
             if (spec.SpecTags.Any())
             {
-                Console.WriteLine(String.Join(", ", spec.SpecTags.Select(x => "@" + x)));
+                writeLine(String.Join(", ", spec.SpecTags.Select(x => "@" + x)));
             }
-            Console.WriteLine(spec.Description);
+            writeLine(spec.Description);
             Console.WriteLine();
-            
+
             var specData = spec.DataDictionary.FormatExtraData();
             if (!string.IsNullOrWhiteSpace(specData))
             {
-                Console.WriteLine(specData);
+                writeLine(specData);
                 Console.WriteLine();
             }
 
@@ -43,12 +43,12 @@ namespace SpecLight.Infrastructure
                 }
                 var cells = new[]
                 {
-                    message.PadRight(maxMessageWidth), 
-                    s.PadRight(MaxStepOutcomeNameLength + 1), 
+                    message.PadRight(maxMessageWidth),
+                    s.PadRight(MaxStepOutcomeNameLength + 1),
                     string.Join(", ", step.Tags.Select(x => "@" + x)),
                     step.DataDictionary.FormatExtraData()
                 };
-                Console.WriteLine(string.Join("\t", cells.Where(x => x != null)));
+                writeLine(string.Join("\t", cells.Where(x => x != null)));
             }
         }
     }

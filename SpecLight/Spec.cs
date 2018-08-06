@@ -17,9 +17,10 @@ namespace SpecLight
     public partial class Spec : IAsyncSpec
     {
         Action _finalActions;
+
         readonly ExpandoObject _extraData = new ExpandoObject();
 
-        public Spec(string description)
+        public Spec(string description, Action<string> writeLine = null)
         {
             //delete any leading whitespace from each line in description
             Description = Regex.Replace(description.Trim(), @"^\s+", "", RegexOptions.Multiline);
@@ -27,6 +28,7 @@ namespace SpecLight
             SpecTags = new List<string>();
             Fixtures = new List<ISpecFixture>();
             Outcomes = new List<StepOutcome>();
+            WriteLine = writeLine ?? Console.WriteLine;
 
             //this fixture is added to all specs by default:
             WithFixture<PrintCurrentStepFixture>();
@@ -36,6 +38,11 @@ namespace SpecLight
         public MethodBase CallingMethod { get; set; }
         public string TestMethodNameOverride { get; set; }
         public List<Step> Steps { get; private set; }
+
+        /// <summary>
+        /// Set this if you need to control where output is printed to. Default is Console.WriteLine
+        /// </summary>
+        public Action<string> WriteLine { get; set; }
 
         /// <summary>
         /// A bag to attach random stuff to a step. Most likely used by an <see cref="ISpecFixture"/>. Refers to the same datastore as the <see cref="DataDictionary"/>. Any contents of type string will be printed to output.
@@ -167,7 +174,7 @@ becomes
                 _finalActions();
             }
             SpecReporter.Add(this);
-            ConsoleOutcomePrinter.PrintOutcomes(this);
+            ConsoleOutcomePrinter.PrintOutcomes(this, WriteLine);
 
             //rethrow the first error if any
             return Outcomes.Select(x => x.ExceptionDispatchInfo).FirstOrDefault(x => x != null);
