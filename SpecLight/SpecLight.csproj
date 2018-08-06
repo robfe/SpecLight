@@ -1,76 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp1.1;net45</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
     </PropertyGroup>
 
     <PropertyGroup>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_Core|netcoreapp1.1|AnyCPU'" />
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_Core|netcoreapp1.1|AnyCPU'" />
-
-    <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
-        <Reference Include="System" />
-        <Reference Include="System.Configuration" />
-        <Reference Include="System.Core" />
-        <Reference Include="Microsoft.CSharp" />
-        <Reference Include="System.Web" />
-        <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-            <SpecificVersion>False</SpecificVersion>
-            <HintPath>..\Libraries\System.Web.WebPages.dll</HintPath>
-        </Reference>
+    <ItemGroup>
+        <None Include="Output\images\cross.png" />
+        <None Include="Output\images\error.png" />
+        <None Include="Output\images\pencil.png" />
+        <None Include="Output\images\tick.png" />
+        <EmbeddedResource Include="Output\jquery-1.10.2.min.js" />
+        <None Include="Output\Style.css">
+            <DependentUpon>Style.less</DependentUpon>
+        </None>
+        <EmbeddedResource Include="Output\Style.min.css">
+            <DependentUpon>Style.less</DependentUpon>
+        </EmbeddedResource>
     </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.1'">
-        <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
-        <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
-    </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Output\SinglePageRazorTemplate.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>SinglePageRazorTemplate.generated.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Output\Style.less" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Output\images\cross.png" />
-    <None Include="Output\images\error.png" />
-    <None Include="Output\images\pencil.png" />
-    <None Include="Output\images\tick.png" />
-    <EmbeddedResource Include="Output\jquery-1.10.2.min.js" />
-    <None Include="Output\Style.css">
-      <DependentUpon>Style.less</DependentUpon>
-    </None>
-    <EmbeddedResource Include="Output\Style.min.css">
-      <DependentUpon>Style.less</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
+    <ItemGroup>
         <None Update="Spec.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>Spec.designer.cs</LastGenOutput>
         </None>
     </ItemGroup>
-
-    <ItemGroup>
-        <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Update="Spec.designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Spec.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
 </Project>
