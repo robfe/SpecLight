@@ -246,9 +246,9 @@
 		foreach (var status in HumanOrderedStatuses)
 		{
 			var colour = StatusColours[status];
-			s += string.Format(", {0} {1}%", colour, tp);
+			s += $", {colour} {tp}%";
 			tp += statuses.Count(y => y == status) / (double)statuses.Count() * 100;
-			s += string.Format(", {0} {1}%", colour, tp);
+			s += $", {colour} {tp}%";
 		}
 
 

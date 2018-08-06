@@ -36,8 +36,8 @@ namespace SpecLight.Output
             {
                 return;
             }
-            var helperResult = value as HelperResult;
-            WriteLiteral(helperResult != null ? helperResult.ToHtmlString() : WebUtility.HtmlEncode(Convert.ToString(value, CultureInfo.InvariantCulture)));
+
+            WriteLiteral(value is HelperResult helperResult ? helperResult.ToHtmlString() : WebUtility.HtmlEncode(Convert.ToString(value, CultureInfo.InvariantCulture)));
         }
 
         public string RenderBody()
@@ -68,9 +68,7 @@ namespace SpecLight.Output
 
         public void WriteTo(TextWriter writer, object value)
         {
-            var helperResult = value as HelperResult;
-
-            if (helperResult != null)
+            if (value is HelperResult helperResult)
             {
                 helperResult.WriteTo(writer);
             }
@@ -115,11 +113,7 @@ namespace System.Web.WebPages
 
         public HelperResult(Action<TextWriter> action)
         {
-            if (action == null)
-            {
-                throw new ArgumentNullException("action");
-            }
-            this.action = action;
+            this.action = action ?? throw new ArgumentNullException(nameof(action));
         }
 
         public string ToHtmlString()

@@ -35,7 +35,7 @@ namespace SpecLight.Infrastructure
             foreach (var o in spec.Outcomes)
             {
                 var step = o.Step;
-                var message = String.Format("{0} {1}:", step.FormattedType, step.Description);
+                var message = $"{step.FormattedType} {step.Description}:";
                 var s = o.Status.ToString();
                 if (o.Empty)
                 {

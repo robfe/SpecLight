@@ -24,12 +24,7 @@ namespace SpecLight
         {
             //delete any leading whitespace from each line in description
             Description = Regex.Replace(description.Trim(), @"^\s+", "", RegexOptions.Multiline);
-            Steps = new List<Step>();
-            SpecTags = new List<string>();
-            Fixtures = new List<ISpecFixture>();
-            Outcomes = new List<StepOutcome>();
             WriteLine = writeLine ?? Console.WriteLine;
-
             //this fixture is added to all specs by default:
             WithFixture<PrintCurrentStepFixture>();
         }
@@ -37,7 +32,7 @@ namespace SpecLight
         public string Description { get; private set; }
         public MethodBase CallingMethod { get; set; }
         public string TestMethodNameOverride { get; set; }
-        public List<Step> Steps { get; private set; }
+        public List<Step> Steps { get; private set; } = new List<Step>();
 
         /// <summary>
         /// Set this if you need to control where output is printed to. Default is Console.WriteLine
@@ -55,13 +50,13 @@ namespace SpecLight
         public IDictionary<string, object> DataDictionary => extraData;
 
 
-        internal List<StepOutcome> Outcomes { get; private set; }
-        internal List<string> SpecTags { get; private set; }
-        internal List<ISpecFixture> Fixtures { get; private set; }
+        internal List<StepOutcome> Outcomes { get; private set; } = new List<StepOutcome>();
+        internal List<string> SpecTags { get; private set; } = new List<string>();
+        internal List<ISpecFixture> Fixtures { get; private set; } = new List<ISpecFixture>();
 
         void AddStep(ScenarioBlock block, string text, Func<Task> asyncAction, Action synchronousAction, Delegate originalDelegate, object[] arguments)
         {
-            if (Reflector.NameIsCompilerGenerated(originalDelegate.Method.Name) || Reflector.NameIsCompilerGenerated(originalDelegate.Method.DeclaringType.Name))
+            if (Reflector.NameIsCompilerGenerated(originalDelegate.Method.Name) || Reflector.NameIsCompilerGenerated(originalDelegate.Method.DeclaringType?.Name))
             {
                 throw new ArgumentException(@"Don't call speclight step methods with delegates/lambdas, it can't produce a human-friendly description from those.
 If you want to pass arguments to steps, just call the overloaded methods that take steps:
@@ -139,10 +134,7 @@ becomes
                 RunOutcomes();
             }
             var thrower = CleanupAndGetThrower();
-            if (thrower != null)
-            {
-                thrower.Throw();
-            }
+            thrower?.Throw();
         }
 
         /// <summary>
@@ -161,18 +153,12 @@ becomes
         void ProcessOutcomes(Task t)
         {
             var thrower = CleanupAndGetThrower();
-            if (thrower != null)
-            {
-                thrower.Throw();
-            }
+            thrower?.Throw();
         }
 
         ExceptionDispatchInfo CleanupAndGetThrower()
         {
-            if (finalActions != null)
-            {
-                finalActions();
-            }
+            finalActions?.Invoke();
             SpecReporter.Add(this);
             ConsoleOutcomePrinter.PrintOutcomes(this, WriteLine);
 

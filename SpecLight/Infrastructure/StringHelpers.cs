@@ -102,7 +102,7 @@ are True=are
 
             //special case for `numeric amount`
             if (v != null && param != null && IsNumeric(param.ParameterType) && param.Name.ToLower().Contains("amount")) {
-                return string.Format("{0:C}", v);
+                return $"{v:C}";
             }
 
             if (v != null && v.GetType().IsArray)

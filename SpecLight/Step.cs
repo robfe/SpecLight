@@ -12,14 +12,9 @@ namespace SpecLight
     {
         readonly ExpandoObject extraData = new ExpandoObject();
 
-        public Step()
-        {
-            Tags = new List<string>();
-        }
-
         public ScenarioBlock Type { get; internal set; }
         public string Description { get; internal set; }
-        public List<string> Tags { get; private set; }
+        public List<string> Tags { get; private set; } = new List<string>();
         public object[] Arguments { get; internal set; }
         public Spec Spec { get; internal set; }
         public int Index { get; internal set; }
