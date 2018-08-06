@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using SpecLight.Output;
@@ -13,7 +14,12 @@ namespace SpecLight.Infrastructure
 
         static SpecReporter()
         {
-            AppDomain.CurrentDomain.DomainUnload += (sender, args) => WriteSpecs();
+            AppDomain.CurrentDomain.DomainUnload += OnCurrentDomainUnload;
+        }
+
+        private static void OnCurrentDomainUnload(object sender, EventArgs args)
+        {
+            WriteSpecs();
         }
 
         public static void Add(Spec item)
@@ -23,8 +29,11 @@ namespace SpecLight.Infrastructure
             bag.Add(item);
         }
 
-        static void WriteSpecs()
+        public static IReadOnlyList<string> WriteSpecs()
         {
+            AppDomain.CurrentDomain.DomainUnload -= OnCurrentDomainUnload;
+
+            var results = new List<string>();
             foreach (var kvp in ExecutedSpecs)
             {
                 var template = new SinglePageRazorTemplate
@@ -38,14 +47,17 @@ namespace SpecLight.Infrastructure
                 {
                     Console.Out.WriteLine("Writing SpecLight report to '{0}'", filePath);
                     File.WriteAllText(filePath, template.TransformText());
+                    results.Add(filePath);
                 }
                 catch (Exception e)
                 {
                     Console.Error.WriteLine("Failed to write SpecLight report to '{0}'", filePath);
                     Console.Error.WriteLine(e);
+                    results.Add(e.ToString());
                 }
             }
 
+            return results;
         }
 
         static string GetAssemblyDir(Assembly a)

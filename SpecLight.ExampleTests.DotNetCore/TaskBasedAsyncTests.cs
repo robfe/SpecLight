@@ -10,13 +10,13 @@ namespace SpecLight.ExampleTests.DotNetCore
     [Description(@"
 # Async support
 
-[SpecLight](https://github.com/robfe/speclight) can be used to create async tests. 
+[SpecLight](https://github.com/robfe/speclight) can be used to create async tests.
 
 Calling `(Given/When/Then/And)Async` lets you return a Task from your step method, which SpecLight will wait for before calling the next step
 
 Then you should `ExecuteAsync` the Spec instead of simply calling `Execute`, so that you can pass the parent task up to your test framework.
 ")]
-
+    [Collection(SpecReporterCollectionDefinition.Name)]
     public class TaskBasedAsyncTests
     {
         [Fact]
@@ -31,8 +31,8 @@ SpecLight can be used to execute async methods, chaining the Task awaiting all t
                 .WhenAsync(ICallAnotherAsyncMethodThatWaitsFor_Msec, 15)
                 .Then(ICanStillCallASynchronousMethod)
                 .ExecuteAsync();
-        }        
-        
+        }
+
         [Fact]
         public async Task AwaitableAsync()
         {

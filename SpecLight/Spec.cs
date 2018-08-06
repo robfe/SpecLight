@@ -212,5 +212,10 @@ becomes
             Fixtures.ForEach(x => x.SpecTeardown(this));
         }
 
+        public static IReadOnlyList<string> WriteSpecReports()
+        {
+            return SpecReporter.WriteSpecs();
+        }
+
     }
 }

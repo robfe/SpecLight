@@ -24,6 +24,7 @@ They demonstrate:
 * Fixtures (Aspects that can be attached to Specs by calling WithFixture)
 
 ")]
+    [Collection(SpecReporterCollectionDefinition.Name)]
     public class ExampleTests
     {
         ITestOutputHelper outputHelper;
