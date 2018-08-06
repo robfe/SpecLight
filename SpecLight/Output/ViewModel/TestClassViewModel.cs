@@ -14,11 +14,7 @@ namespace SpecLight.Output.ViewModel
         {
             _type = type;
 
-#if NETCOREAPP1_1
-            var d = type.GetTypeInfo().GetCustomAttribute<DescriptionAttribute>();
-#else
             var d = type.GetCustomAttribute<DescriptionAttribute>();
-#endif
             if (d != null)
             {
                 Description = d.Description;

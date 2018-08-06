@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-#if !NETCOREAPP1_1
-using System.Configuration;
-#endif
 using System.IO;
 using System.Reflection;
 using SpecLight.Output;
@@ -16,22 +13,14 @@ namespace SpecLight.Infrastructure
 
         static SpecReporter()
         {
-#if !NETCOREAPP1_1
-            FileName = Environment.GetEnvironmentVariable("SpeclightReportFile") ?? ConfigurationManager.AppSettings["SpeclightReportFile"] ?? "Speclight.html";
             AppDomain.CurrentDomain.DomainUnload += (sender, args) => WriteSpecs();
-#endif
         }
-
-        public static string FileName { get; set; }
 
         public static void Add(Spec item)
         {
-#if !NETCOREAPP1_1
             var a = item.CallingMethod.DeclaringType.Assembly;
-
             var bag = ExecutedSpecs.GetOrAdd(a, assembly => new ConcurrentBag<Spec>());
             bag.Add(item);
-#endif
         }
 
         static void WriteSpecs()
@@ -43,7 +32,7 @@ namespace SpecLight.Infrastructure
                     TemplateModel = new RootViewModel(kvp.Value)
                 };
 
-                var filePath = Path.Combine(GetAssemblyDir(kvp.Key), kvp.Key.GetName().Name+"."+FileName);
+                var filePath = Path.Combine(GetAssemblyDir(kvp.Key), $"{kvp.Key.GetName().Name}.Speclight.html");
 
                 try
                 {

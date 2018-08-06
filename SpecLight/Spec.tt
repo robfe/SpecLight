@@ -22,9 +22,9 @@
 
     var annotationMembers = from c in new[]
                             {
-                                "IAsyncSpec.{0}", 
+                                "IAsyncSpec.{0}",
                                 "IAsyncSpec.{0}Async",
-                                "Spec.{0}", 
+                                "Spec.{0}",
                                 "Spec.{0}Async",
                                 "Spec.SpecLight#IAsyncSpec#{0}",
                             }
@@ -33,9 +33,9 @@
 
     annotationMembers = annotationMembers.Concat(new[] {"M:SpecLight.IAsyncSpec.ExecuteAsync(System.String)", "M:SpecLight.Spec.ExecuteAsync(System.String)"});
 
-    var doc = new XDocument(new XElement("assembly", 
-        new XAttribute("name", "SpecLight"), 
-        annotationMembers.Select(x => new XElement("member", 
+    var doc = new XDocument(new XElement("assembly",
+        new XAttribute("name", "SpecLight"),
+        annotationMembers.Select(x => new XElement("member",
             new XAttribute("name", x), new XElement("attribute", new XAttribute("ctor", "M:JetBrains.Annotations.PureAttribute.#ctor"))))));
 
     doc.Save(Host.ResolvePath("SpecLight.ExternalAnnotations.xml"));
@@ -63,33 +63,21 @@ namespace SpecLight
 <#=d.Comment#>
         public Spec <#=d.ScenarioBlock #><#=d.TypeDeclaration #>(Action<#=d.TypeDeclaration #> action<#= d.TypedParameters #>)
         {
-#if NETCOREAPP1_1
-            AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{<#=d.ParameterValues#>}), async () => action(<#=d.ParameterValues #>), () => action(<#=d.ParameterValues #>), action, new object[]{<#=d.ParameterValues#>});
-#else
             AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.Method, new object[]{<#=d.ParameterValues#>}), async () => action(<#=d.ParameterValues #>), () => action(<#=d.ParameterValues #>), action, new object[]{<#=d.ParameterValues#>});
-#endif
             return this;
         }
-        
+
 <#=d.Comment#>
         IAsyncSpec IAsyncSpec.<#=d.ScenarioBlock #><#=d.TypeDeclaration #>(Action<#=d.TypeDeclaration #> action<#= d.TypedParameters #>)
         {
-#if NETCOREAPP1_1
-            AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{<#=d.ParameterValues#>}), async () => action(<#=d.ParameterValues #>), () => action(<#=d.ParameterValues #>), action, new object[]{<#=d.ParameterValues#>});
-#else
             AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.Method, new object[]{<#=d.ParameterValues#>}), async () => action(<#=d.ParameterValues #>), () => action(<#=d.ParameterValues #>), action, new object[]{<#=d.ParameterValues#>});
-#endif
             return this;
         }
 
 <#=d.Comment#>
         public IAsyncSpec <#=d.ScenarioBlock #>Async<#=d.TypeDeclaration #>(Func<#=d.AsyncTypeDeclaration #> action<#= d.TypedParameters #>)
         {
-#if NETCOREAPP1_1
-            AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.GetMethodInfo(), new object[]{<#=d.ParameterValues#>}), () => action(<#=d.ParameterValues #>), null, action, new object[]{<#=d.ParameterValues#>});
-#else
             AddStep(ScenarioBlock.<#=d.ScenarioBlock #>, StringHelpers.CreateText(action.Method, new object[]{<#=d.ParameterValues#>}), () => action(<#=d.ParameterValues #>), null, action, new object[]{<#=d.ParameterValues#>});
-#endif
             return this;
         }
 
@@ -129,7 +117,7 @@ namespace SpecLight
     {
         readonly string _description;
         readonly IEnumerable<int> _eachTypeArgument;
-       
+
 
         public StepDeclaration(int typeArguments, string scenarioBlock, string description)
         {
@@ -199,6 +187,6 @@ namespace SpecLight
         }
     }
 
-   
+
 
 #>

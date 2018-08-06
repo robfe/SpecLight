@@ -54,11 +54,7 @@ namespace SpecLight
 
         void AddStep(ScenarioBlock block, string text, Func<Task> asyncAction, Action synchronousAction, Delegate originalDelegate, object[] arguments)
         {
-#if NETCOREAPP1_1
-            if (Reflector.NameIsCompilerGenerated(originalDelegate.GetMethodInfo().Name) || Reflector.NameIsCompilerGenerated(originalDelegate.GetMethodInfo().DeclaringType.Name))
-#else
             if (Reflector.NameIsCompilerGenerated(originalDelegate.Method.Name) || Reflector.NameIsCompilerGenerated(originalDelegate.Method.DeclaringType.Name))
-#endif
             {
                 throw new ArgumentException(@"Don't call speclight step methods with delegates/lambdas, it can't produce a human-friendly description from those.
 If you want to pass arguments to steps, just call the overloaded methods that take steps:

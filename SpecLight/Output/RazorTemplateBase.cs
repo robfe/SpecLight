@@ -99,11 +99,7 @@ namespace SpecLight.Output
             return new HelperResult(writer =>
             {
                 var type = GetType();
-#if NETCOREAPP1_1
-                var stream = type.GetTypeInfo().Assembly.GetManifestResourceStream(type.Namespace + "." + s);
-#else
                 var stream = type.Assembly.GetManifestResourceStream(type.Namespace + "." + s);
-#endif
                 WriteLiteralTo(writer, new StreamReader(stream).ReadToEnd());
             });
         }
@@ -111,7 +107,6 @@ namespace SpecLight.Output
 }
 
 
-#if NETCOREAPP1_1
 namespace System.Web.WebPages
 {
     public class HelperResult
@@ -148,4 +143,3 @@ namespace System.Web.WebPages
     }
 
 }
-#endif
