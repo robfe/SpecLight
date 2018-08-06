@@ -223,10 +223,7 @@ namespace SpecLight.Infrastructure
         /// current version of MarkdownSharp;
         /// see http://code.google.com/p/markdownsharp/ for the latest code or to contribute
         /// </summary>
-        public string Version
-        {
-            get { return version; }
-        }
+        public string Version => version;
 
         /// <summary>
         /// Transforms the provided Markdown-formatted text to HTML;

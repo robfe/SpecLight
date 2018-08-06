@@ -25,8 +25,8 @@ namespace SpecLight.Output.ViewModel
 
         public List<SpecViewModel> Specs { get; set; }
         public string Description { get; set; }
-        public string Name { get { return type.Name; } }
-        public string Namespace { get { return type.Namespace; } }
+        public string Name => type.Name;
+        public string Namespace => type.Namespace;
 
         public void TrySortTestsByClassLayout()
         {

@@ -23,7 +23,6 @@ namespace SpecLight.Infrastructure
         /// <summary>
         /// Should we start skipping steps now?
         /// </summary>
-        public bool CausesSkip { get { return Status == Status.Failed || Status == Status.Pending; } }
-
+        public bool CausesSkip => Status == Status.Failed || Status == Status.Pending;
     }
 }

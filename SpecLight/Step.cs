@@ -29,12 +29,12 @@ namespace SpecLight
         /// <summary>
         /// A bag to attach random stuff to a step. Most likely used by an <see cref="ISpecFixture"/>. Refers to the same datastore as the <see cref="DataDictionary"/>. Any contents of type string will be printed to output.
         /// </summary>
-        public dynamic DataBag { get { return extraData; }}
+        public dynamic DataBag => extraData;
 
         /// <summary>
         /// A dictionary to attach random stuff to a step. Most likely used by an <see cref="ISpecFixture"/>. Refers to the same datastore as the <see cref="DataBag"/>. Any contents of type string will be printed to output.
         /// </summary>
-        public IDictionary<string, object> DataDictionary { get { return extraData; }}
+        public IDictionary<string, object> DataDictionary => extraData;
 
         /// <summary>
         /// Runs this step asynchronously - can't be null
@@ -49,10 +49,7 @@ namespace SpecLight
         internal Delegate OriginalDelegate { get; set; }
 
 
-        internal string FormattedType
-        {
-            get { return Type.ToString().PadLeft(5, ' '); }
-        }
+        internal string FormattedType => Type.ToString().PadLeft(5, ' ');
 
 
         internal Task<StepOutcome> ExecuteAsync()
