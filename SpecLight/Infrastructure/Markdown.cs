@@ -2,25 +2,25 @@
  * MarkdownSharp
  * -------------
  * a C# Markdown processor
- * 
+ *
  * Markdown is a text-to-HTML conversion tool for web writers
  * Copyright (c) 2004 John Gruber
  * http://daringfireball.net/projects/markdown/
- * 
+ *
  * Markdown.NET
  * Copyright (c) 2004-2009 Milan Negovan
  * http://www.aspnetresources.com
  * http://aspnetresources.com/blog/markdown_announced.aspx
- * 
+ *
  * MarkdownSharp
  * Copyright (c) 2009-2011 Jeff Atwood
  * http://stackoverflow.com
  * http://www.codinghorror.com/blog/
  * http://code.google.com/p/markdownsharp/
- * 
+ *
  * History: Milan ported the Markdown processor to C#. He granted license to me so I can open source it
  * and let the community contribute to and improve MarkdownSharp.
- * 
+ *
  */
 
 #region Copyright and license
@@ -30,7 +30,7 @@
 Copyright (c) 2009 - 2010 Jeff Atwood
 
 http://www.opensource.org/licenses/mit-license.php
-  
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -50,7 +50,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 Copyright (c) 2003-2004 John Gruber
-<http://daringfireball.net/>   
+<http://daringfireball.net/>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -92,15 +92,15 @@ using System.Text.RegularExpressions;
 namespace SpecLight.Infrastructure
 {
     /// <summary>
-    /// Markdown is a text-to-HTML conversion tool for web writers. 
-    /// Markdown allows you to write using an easy-to-read, easy-to-write plain text format, 
+    /// Markdown is a text-to-HTML conversion tool for web writers.
+    /// Markdown allows you to write using an easy-to-read, easy-to-write plain text format,
     /// then convert it to structurally valid XHTML (or HTML).
     /// </summary>
     class Markdown
     {
 
         public static readonly Markdown Instance = new Markdown{AutoHyperlink = true, AutoNewLines = true, StrictBoldItalic = true};
-        private const string _version = "1.13";
+        private const string version = "1.13";
 
         #region Constructors and Options
 
@@ -124,13 +124,13 @@ namespace SpecLight.Infrastructure
         public string EmptyElementSuffix { get; set; }
 
         /// <summary>
-        /// when false, email addresses will never be auto-linked  
+        /// when false, email addresses will never be auto-linked
         /// WARNING: this is a significant deviation from the markdown spec
         /// </summary>
         public bool LinkEmails { get; set; }
 
         /// <summary>
-        /// when true, bold and italic require non-word characters on either side  
+        /// when true, bold and italic require non-word characters on either side
         /// WARNING: this is a significant deviation from the markdown spec
         /// </summary>
         public bool StrictBoldItalic { get; set; }
@@ -142,13 +142,13 @@ namespace SpecLight.Infrastructure
         public bool AsteriskIntraWordEmphasis { get; set; }
 
         /// <summary>
-        /// when true, RETURN becomes a literal newline  
+        /// when true, RETURN becomes a literal newline
         /// WARNING: this is a significant deviation from the markdown spec
         /// </summary>
         public bool AutoNewLines { get; set; }
 
         /// <summary>
-        /// when true, (most) bare plain URLs are auto-hyperlinked  
+        /// when true, (most) bare plain URLs are auto-hyperlinked
         /// WARNING: this is a significant deviation from the markdown spec
         /// </summary>
         public bool AutoHyperlink { get; set; }
@@ -171,27 +171,27 @@ namespace SpecLight.Infrastructure
         /// <summary>
         /// maximum nested depth of [] and () supported by the transform; implementation detail
         /// </summary>
-        private const int _nestDepth = 6;
+        private const int NestDepth = 6;
 
         /// <summary>
-        /// Tabs are automatically converted to spaces as part of the transform  
-        /// this constant determines how "wide" those tabs become in spaces  
+        /// Tabs are automatically converted to spaces as part of the transform
+        /// this constant determines how "wide" those tabs become in spaces
         /// </summary>
-        private const int _tabWidth = 4;
+        private const int TabWidth = 4;
 
-        private const string _markerUL = @"[*+-]";
-        private const string _markerOL = @"\d+[.]";
+        private const string MarkerUl = @"[*+-]";
+        private const string MarkerOl = @"\d+[.]";
 
-        private static readonly Dictionary<string, string> _escapeTable;
-        private static readonly Dictionary<string, string> _invertedEscapeTable;
-        private static readonly Dictionary<string, string> _backslashEscapeTable;
+        private static readonly Dictionary<string, string> EscapeTable;
+        private static readonly Dictionary<string, string> InvertedEscapeTable;
+        private static readonly Dictionary<string, string> BackslashEscapeTable;
 
-        private readonly Dictionary<string, string> _urls = new Dictionary<string, string>();
-        private readonly Dictionary<string, string> _titles = new Dictionary<string, string>();
-        private readonly Dictionary<string, string> _htmlBlocks = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> urls = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> titles = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> htmlBlocks = new Dictionary<string, string>();
 
-        private int _listLevel;
-        private static string AutoLinkPreventionMarker = "\x1AP"; // temporarily replaces "://" where auto-linking shouldn't happen
+        private int listLevel;
+        private static string _autoLinkPreventionMarker = "\x1AP"; // temporarily replaces "://" where auto-linking shouldn't happen
 
         /// <summary>
         /// In the static constuctor we'll initialize what stays the same across all transforms.
@@ -199,10 +199,10 @@ namespace SpecLight.Infrastructure
         static Markdown()
         {
             // Table of hash values for escaped characters:
-            _escapeTable = new Dictionary<string, string>();
-            _invertedEscapeTable = new Dictionary<string, string>();
+            EscapeTable = new Dictionary<string, string>();
+            InvertedEscapeTable = new Dictionary<string, string>();
             // Table of hash value for backslash escaped characters:
-            _backslashEscapeTable = new Dictionary<string, string>();
+            BackslashEscapeTable = new Dictionary<string, string>();
 
             string backslashPattern = "";
 
@@ -210,9 +210,9 @@ namespace SpecLight.Infrastructure
             {
                 string key = c.ToString();
                 string hash = GetHashKey(key, isHtmlBlock: false);
-                _escapeTable.Add(key, hash);
-                _invertedEscapeTable.Add(hash, key);
-                _backslashEscapeTable.Add(@"\" + key, hash);
+                EscapeTable.Add(key, hash);
+                InvertedEscapeTable.Add(hash, key);
+                BackslashEscapeTable.Add(@"\" + key, hash);
                 backslashPattern += Regex.Escape(@"\" + key) + "|";
             }
 
@@ -220,16 +220,16 @@ namespace SpecLight.Infrastructure
         }
 
         /// <summary>
-        /// current version of MarkdownSharp;  
+        /// current version of MarkdownSharp;
         /// see http://code.google.com/p/markdownsharp/ for the latest code or to contribute
         /// </summary>
         public string Version
         {
-            get { return _version; }
+            get { return version; }
         }
 
         /// <summary>
-        /// Transforms the provided Markdown-formatted text to HTML;  
+        /// Transforms the provided Markdown-formatted text to HTML;
         /// see http://en.wikipedia.org/wiki/Markdown
         /// </summary>
         /// <remarks>
@@ -246,7 +246,7 @@ namespace SpecLight.Infrastructure
 
             text = Normalize(text);
 
-            text = HashHTMLBlocks(text);
+            text = HashHtmlBlocks(text);
             text = StripLinkDefinitions(text);
             text = RunBlockGamut(text);
             text = Unescape(text);
@@ -272,7 +272,7 @@ namespace SpecLight.Infrastructure
             // was to escape raw HTML in the original Markdown source. This time,
             // we're escaping the markup we've just created, so that we don't wrap
             // <p> tags around block-level tags.
-            text = HashHTMLBlocks(text);
+            text = HashHtmlBlocks(text);
 
             text = FormParagraphs(text, unhash: unhash);
 
@@ -297,7 +297,7 @@ namespace SpecLight.Infrastructure
             // delimiters in inline links like [this](<url>).
             text = DoAutoLinks(text);
 
-            text = text.Replace(AutoLinkPreventionMarker, "://");
+            text = text.Replace(_autoLinkPreventionMarker, "://");
 
             text = EncodeAmpsAndAngles(text);
             text = DoItalicsAndBold(text);
@@ -313,7 +313,7 @@ namespace SpecLight.Infrastructure
         private static Regex _htmlBlockHash = new Regex("\x1AH\\d+H", RegexOptions.Compiled);
 
         /// <summary>
-        /// splits on two or more newlines, to form "paragraphs";    
+        /// splits on two or more newlines, to form "paragraphs";
         /// each paragraph is then unhashed (if it is a hash and unhashing isn't turned off) or wrapped in HTML p tag
         /// </summary>
         private string FormParagraphs(string text, bool unhash = true)
@@ -336,7 +336,7 @@ namespace SpecLight.Infrastructure
                             grafs[i] = _htmlBlockHash.Replace(grafs[i], match =>
                             {
                                 keepGoing = true;
-                                return _htmlBlocks[match.Value];
+                                return htmlBlocks[match.Value];
                             });
                             sanityCheck--;
                         }
@@ -365,10 +365,10 @@ namespace SpecLight.Infrastructure
             // from other articles when generating a page which contains more than
             // one article (e.g. an index page that shows the N most recent
             // articles):
-            _urls.Clear();
-            _titles.Clear();
-            _htmlBlocks.Clear();
-            _listLevel = 0;
+            urls.Clear();
+            titles.Clear();
+            htmlBlocks.Clear();
+            listLevel = 0;
         }
 
         private void Cleanup()
@@ -379,7 +379,7 @@ namespace SpecLight.Infrastructure
         private static string _nestedBracketsPattern;
 
         /// <summary>
-        /// Reusable pattern to match balanced [brackets]. See Friedl's 
+        /// Reusable pattern to match balanced [brackets]. See Friedl's
         /// "Mastering Regular Expressions", 2nd Ed., pp. 328-331.
         /// </summary>
         private static string GetNestedBracketsPattern()
@@ -393,17 +393,17 @@ namespace SpecLight.Infrastructure
                        [^\[\]]+      # Anything other than brackets
                      |
                        \[
-                           ", _nestDepth) + RepeatString(
+                           ", NestDepth) + RepeatString(
                     @" \]
                     )*"
-                    , _nestDepth);
+                    , NestDepth);
             return _nestedBracketsPattern;
         }
 
         private static string _nestedParensPattern;
 
         /// <summary>
-        /// Reusable pattern to match balanced (parens). See Friedl's 
+        /// Reusable pattern to match balanced (parens). See Friedl's
         /// "Mastering Regular Expressions", 2nd Ed., pp. 328-331.
         /// </summary>
         private static string GetNestedParensPattern()
@@ -417,10 +417,10 @@ namespace SpecLight.Infrastructure
                        [^()\s]+      # Anything other than parens or whitespace
                      |
                        \(
-                           ", _nestDepth) + RepeatString(
+                           ", NestDepth) + RepeatString(
                     @" \)
                     )*"
-                    , _nestDepth);
+                    , NestDepth);
             return _nestedParensPattern;
         }
 
@@ -440,7 +440,7 @@ namespace SpecLight.Infrastructure
                             ["")]
                             [ ]*
                         )?                      # title is optional
-                        (?:\n+|\Z)", _tabWidth - 1), RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
+                        (?:\n+|\Z)", TabWidth - 1), RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
 
         /// <summary>
         /// Strips link definitions from text, stores the URLs and titles in hash references.
@@ -455,11 +455,11 @@ namespace SpecLight.Infrastructure
 
         private string LinkEvaluator(Match match)
         {
-            string linkID = match.Groups[1].Value.ToLowerInvariant();
-            _urls[linkID] = EncodeAmpsAndAngles(match.Groups[2].Value);
+            string linkId = match.Groups[1].Value.ToLowerInvariant();
+            urls[linkId] = EncodeAmpsAndAngles(match.Groups[2].Value);
 
             if (match.Groups[3] != null && match.Groups[3].Length > 0)
-                _titles[linkID] = match.Groups[3].Value.Replace("\"", "&quot;");
+                titles[linkId] = match.Groups[3].Value.Replace("\"", "&quot;");
 
             return "";
         }
@@ -482,8 +482,8 @@ namespace SpecLight.Infrastructure
             // hard-coded:
             //
             // *  List "a" is made of tags which can be both inline or block-level.
-            //    These will be treated block-level when the start tag is alone on 
-            //    its line, otherwise they're not matched here and will be taken as 
+            //    These will be treated block-level when the start tag is alone on
+            //    its line, otherwise they're not matched here and will be taken as
             //    inline later.
             // *  List "b" is made of tags which are always block-level;
             //
@@ -503,7 +503,7 @@ namespace SpecLight.Infrastructure
               |
                 '[^']*'﻿                  # text inside single quotes (tolerate >)
               )*
-            )?﻿  
+            )?﻿
             ";
 
             string content = RepeatString(@"
@@ -515,15 +515,15 @@ namespace SpecLight.Infrastructure
                   (?>
                       />
                   |
-                      >", _nestDepth) +   // end of opening tag
+                      >", NestDepth) +   // end of opening tag
                       ".*?" +             // last level nested tag content
             RepeatString(@"
                       </\2\s*>﻿          # closing nested tag
                   )
-                  |﻿  ﻿  ﻿  ﻿  
+                  |﻿  ﻿  ﻿  ﻿
                   <(?!/\2\s*>           # other tags with a different name
                   )
-                )*", _nestDepth);
+                )*", NestDepth);
 
             string content2 = content.Replace(@"\2", @"\3");
 
@@ -547,9 +547,9 @@ namespace SpecLight.Infrastructure
                   )
                   (             # save in $1
 
-                    # Match from `\n<tag>` to `</tag>\n`, handling nested tags 
+                    # Match from `\n<tag>` to `</tag>\n`, handling nested tags
                     # in between.
-                      
+
                         <($block_tags_b_re)   # start tag = $2
                         $attr>                # attributes followed by > and \n
                         $content              # content, support nesting
@@ -565,19 +565,19 @@ namespace SpecLight.Infrastructure
                         </\3>                 # the matching end tag
                         [ ]*                  # trailing spaces
                         (?=\n+|\Z)            # followed by a newline or end of document
-                      
-                  | # Special case just for <hr />. It was easier to make a special 
+
+                  | # Special case just for <hr />. It was easier to make a special
                     # case than to make the other regex more complicated.
-                  
+
                         [ ]{0,$less_than_tab}
                         <hr
                         $attr                 # attributes
                         /?>                   # the matching end tag
                         [ ]*
                         (?=\n{2,}|\Z)         # followed by a blank line or end of document
-                  
+
                   | # Special case for standalone HTML comments:
-                  
+
                       (?<=\n\n|\A)            # preceded by a blank line or start of document
                       [ ]{0,$less_than_tab}
                       (?s:
@@ -585,9 +585,9 @@ namespace SpecLight.Infrastructure
                       )
                       [ ]*
                       (?=\n{2,}|\Z)            # followed by a blank line or end of document
-                  
+
                   | # PHP and ASP-style processor instructions (<? and <%)
-                  
+
                       [ ]{0,$less_than_tab}
                       (?s:
                         <([?%])                # $4
@@ -596,11 +596,11 @@ namespace SpecLight.Infrastructure
                       )
                       [ ]*
                       (?=\n{2,}|\Z)            # followed by a blank line or end of document
-                      
+
                   )
             )";
 
-            pattern = pattern.Replace("$less_than_tab", (_tabWidth - 1).ToString());
+            pattern = pattern.Replace("$less_than_tab", (TabWidth - 1).ToString());
             pattern = pattern.Replace("$block_tags_b_re", blockTagsB);
             pattern = pattern.Replace("$block_tags_a_re", blockTagsA);
             pattern = pattern.Replace("$attr", attr);
@@ -613,7 +613,7 @@ namespace SpecLight.Infrastructure
         /// <summary>
         /// replaces any block-level HTML blocks with hash entries
         /// </summary>
-        private string HashHTMLBlocks(string text)
+        private string HashHtmlBlocks(string text)
         {
             return _blocksHtml.Replace(text, new MatchEvaluator(HtmlEvaluator));
         }
@@ -622,7 +622,7 @@ namespace SpecLight.Infrastructure
         {
             string text = match.Groups[1].Value;
             string key = GetHashKey(text, isHtmlBlock: true);
-            _htmlBlocks[key] = text;
+            htmlBlocks[key] = text;
 
             return string.Concat("\n\n", key, "\n\n");
         }
@@ -636,19 +636,19 @@ namespace SpecLight.Infrastructure
         private static Regex _htmlTokens = new Regex(@"
             (<!--(?:|(?:[^>-]|-[^>])(?:[^-]|-[^-])*)-->)|        # match <!-- foo -->
             (<\?.*?\?>)|                 # match <?foo?> " +
-            RepeatString(@" 
-            (<[A-Za-z\/!$](?:[^<>]|", _nestDepth) + RepeatString(@")*>)", _nestDepth) +
+            RepeatString(@"
+            (<[A-Za-z\/!$](?:[^<>]|", NestDepth) + RepeatString(@")*>)", NestDepth) +
                                        " # match <tag> and </tag>",
             RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
 
         /// <summary>
-        /// returns an array of HTML tokens comprising the input string. Each token is 
-        /// either a tag (possibly with nested, tags contained therein, such 
-        /// as &lt;a href="&lt;MTFoo&gt;"&gt;, or a run of text between tags. Each element of the 
-        /// array is a two-element array; the first is either 'tag' or 'text'; the second is 
+        /// returns an array of HTML tokens comprising the input string. Each token is
+        /// either a tag (possibly with nested, tags contained therein, such
+        /// as &lt;a href="&lt;MTFoo&gt;"&gt;, or a run of text between tags. Each element of the
+        /// array is a two-element array; the first is either 'tag' or 'text'; the second is
         /// the actual value.
         /// </summary>
-        private List<Token> TokenizeHTML(string text)
+        private List<Token> TokenizeHtml(string text)
         {
             int pos = 0;
             int tagStart = 0;
@@ -718,9 +718,9 @@ namespace SpecLight.Infrastructure
         /// Turn Markdown link shortcuts into HTML anchor tags
         /// </summary>
         /// <remarks>
-        /// [link text](url "title") 
-        /// [link text][id] 
-        /// [id] 
+        /// [link text](url "title")
+        /// [link text][id]
+        /// [id]
         /// </remarks>
         private string DoAnchors(string text)
         {
@@ -742,32 +742,32 @@ namespace SpecLight.Infrastructure
 
         private string SaveFromAutoLinking(string s)
         {
-            return s.Replace("://", AutoLinkPreventionMarker);
+            return s.Replace("://", _autoLinkPreventionMarker);
         }
 
         private string AnchorRefEvaluator(Match match)
         {
             string wholeMatch = match.Groups[1].Value;
             string linkText = SaveFromAutoLinking(match.Groups[2].Value);
-            string linkID = match.Groups[3].Value.ToLowerInvariant();
+            string linkId = match.Groups[3].Value.ToLowerInvariant();
 
             string result;
 
             // for shortcut links like [this][].
-            if (linkID == "")
-                linkID = linkText.ToLowerInvariant();
+            if (linkId == "")
+                linkId = linkText.ToLowerInvariant();
 
-            if (_urls.ContainsKey(linkID))
+            if (urls.ContainsKey(linkId))
             {
-                string url = _urls[linkID];
+                string url = urls[linkId];
 
                 url = AttributeSafeUrl(url);
 
                 result = "<a href=\"" + url + "\"";
 
-                if (_titles.ContainsKey(linkID))
+                if (titles.ContainsKey(linkId))
                 {
-                    string title = AttributeEncode(_titles[linkID]);
+                    string title = AttributeEncode(titles[linkId]);
                     title = AttributeEncode(EscapeBoldItalic(title));
                     result += " title=\"" + title + "\"";
                 }
@@ -784,21 +784,21 @@ namespace SpecLight.Infrastructure
         {
             string wholeMatch = match.Groups[1].Value;
             string linkText = SaveFromAutoLinking(match.Groups[2].Value);
-            string linkID = Regex.Replace(linkText.ToLowerInvariant(), @"[ ]*\n[ ]*", " ");  // lower case and remove newlines / extra spaces
+            string linkId = Regex.Replace(linkText.ToLowerInvariant(), @"[ ]*\n[ ]*", " ");  // lower case and remove newlines / extra spaces
 
             string result;
 
-            if (_urls.ContainsKey(linkID))
+            if (urls.ContainsKey(linkId))
             {
-                string url = _urls[linkID];
+                string url = urls[linkId];
 
                 url = AttributeSafeUrl(url);
 
                 result = "<a href=\"" + url + "\"";
 
-                if (_titles.ContainsKey(linkID))
+                if (titles.ContainsKey(linkId))
                 {
-                    string title = AttributeEncode(_titles[linkID]);
+                    string title = AttributeEncode(titles[linkId]);
                     title = EscapeBoldItalic(title);
                     result += " title=\"" + title + "\"";
                 }
@@ -820,7 +820,7 @@ namespace SpecLight.Infrastructure
             string result;
 
             if (url.StartsWith("<") && url.EndsWith(">"))
-                url = url.Substring(1, url.Length - 2); // remove <>'s surrounding URL, if present            
+                url = url.Substring(1, url.Length - 2); // remove <>'s surrounding URL, if present
 
             url = AttributeSafeUrl(url);
 
@@ -873,7 +873,7 @@ namespace SpecLight.Infrastructure
                   RegexOptions.IgnorePatternWhitespace | RegexOptions.Singleline | RegexOptions.Compiled);
 
         /// <summary>
-        /// Turn Markdown image shortcuts into HTML img tags. 
+        /// Turn Markdown image shortcuts into HTML img tags.
         /// </summary>
         /// <remarks>
         /// ![alt text][id]
@@ -900,27 +900,27 @@ namespace SpecLight.Infrastructure
         private string EscapeImageAltText(string s)
         {
             s = EscapeBoldItalic(s);
-            s = Regex.Replace(s, @"[\[\]()]", m => _escapeTable[m.ToString()]);
+            s = Regex.Replace(s, @"[\[\]()]", m => EscapeTable[m.ToString()]);
             return s;
-        }            
+        }
 
         private string ImageReferenceEvaluator(Match match)
         {
             string wholeMatch = match.Groups[1].Value;
             string altText = match.Groups[2].Value;
-            string linkID = match.Groups[3].Value.ToLowerInvariant();
+            string linkId = match.Groups[3].Value.ToLowerInvariant();
 
             // for shortcut links like ![this][].
-            if (linkID == "")
-                linkID = altText.ToLowerInvariant();
+            if (linkId == "")
+                linkId = altText.ToLowerInvariant();
 
-            if (_urls.ContainsKey(linkID))
+            if (urls.ContainsKey(linkId))
             {
-                string url = _urls[linkID];
+                string url = urls[linkId];
                 string title = null;
 
-                if (_titles.ContainsKey(linkID))
-                    title = _titles[linkID];
+                if (titles.ContainsKey(linkId))
+                    title = titles[linkId];
 
                 return ImageTag(url, altText, title);
             }
@@ -979,17 +979,17 @@ namespace SpecLight.Infrastructure
         /// Turn Markdown headers into HTML header tags
         /// </summary>
         /// <remarks>
-        /// Header 1  
-        /// ========  
-        /// 
-        /// Header 2  
-        /// --------  
-        /// 
-        /// # Header 1  
-        /// ## Header 2  
-        /// ## Header 2 with closing hashes ##  
-        /// ...  
-        /// ###### Header 6  
+        /// Header 1
+        /// ========
+        ///
+        /// Header 2
+        /// --------
+        ///
+        /// # Header 1
+        /// ## Header 2
+        /// ## Header 2 with closing hashes ##
+        /// ...
+        /// ###### Header 6
         /// </remarks>
         private string DoHeaders(string text)
         {
@@ -1028,8 +1028,8 @@ namespace SpecLight.Infrastructure
         /// Turn Markdown horizontal rules into HTML hr tags
         /// </summary>
         /// <remarks>
-        /// ***  
-        /// * * *  
+        /// ***
+        /// * * *
         /// ---
         /// - - -
         /// </remarks>
@@ -1056,7 +1056,7 @@ namespace SpecLight.Infrastructure
                     {0}[ ]+
                   )
               )
-            )", string.Format("(?:{0}|{1})", _markerUL, _markerOL), _tabWidth - 1);
+            )", string.Format("(?:{0}|{1})", MarkerUl, MarkerOl), TabWidth - 1);
 
         private static Regex _listNested = new Regex(@"^" + _wholeList,
             RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
@@ -1071,7 +1071,7 @@ namespace SpecLight.Infrastructure
         {
             // We use a different prefix before nested lists than top-level lists.
             // See extended comment in _ProcessListItems().
-            if (_listLevel > 0)
+            if (listLevel > 0)
                 text = _listNested.Replace(text, GetListEvaluator(isInsideParagraphlessListItem));
             else
                 text = _listTopLevel.Replace(text, GetListEvaluator(false));
@@ -1085,7 +1085,7 @@ namespace SpecLight.Infrastructure
                 {
                     string list = match.Groups[1].Value;
                     string marker = match.Groups[3].Value;
-                    string listType = Regex.IsMatch(marker, _markerUL) ? "ul" : "ol";
+                    string listType = Regex.IsMatch(marker, MarkerUl) ? "ul" : "ol";
                     string result;
                     string start = "";
                     if (listType == "ol")
@@ -1095,7 +1095,7 @@ namespace SpecLight.Infrastructure
                             start = " start=\"" + firstNumber + "\"";
                     }
 
-                    result = ProcessListItems(list, listType == "ul" ? _markerUL : _markerOL, isInsideParagraphlessListItem);
+                    result = ProcessListItems(list, listType == "ul" ? MarkerUl : MarkerOl, isInsideParagraphlessListItem);
 
                     result = string.Format("<{0}{1}>\n{2}</{0}>\n", listType, start, result);
                     return result;
@@ -1129,7 +1129,7 @@ namespace SpecLight.Infrastructure
             // change the syntax rules such that sub-lists must start with a
             // starting cardinal number; e.g. "1." or "a.".
 
-            _listLevel++;
+            listLevel++;
 
             // Trim trailing blank lines:
             list = Regex.Replace(list, @"\n{2,}\z", "\n");
@@ -1138,13 +1138,13 @@ namespace SpecLight.Infrastructure
               @"(^[ ]*)                    # leading whitespace = $1
                 ({0}) [ ]+                 # list marker = $2
                 ((?s:.+?)                  # list item text = $3
-                (\n+))      
+                (\n+))
                 (?= (\z | \1 ({0}) [ ]+))", marker);
 
             bool lastItemHadADoubleNewline = false;
 
             // has to be a closure, so subsequent invocations can share the bool
-            MatchEvaluator ListItemEvaluator = (Match match) =>
+            MatchEvaluator listItemEvaluator = (Match match) =>
             {
                 string item = match.Groups[3].Value;
 
@@ -1166,9 +1166,9 @@ namespace SpecLight.Infrastructure
                 return string.Format("<li>{0}</li>\n", item);
             };
 
-            list = Regex.Replace(list, pattern, new MatchEvaluator(ListItemEvaluator),
+            list = Regex.Replace(list, pattern, new MatchEvaluator(listItemEvaluator),
                                   RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline);
-            _listLevel--;
+            listLevel--;
             return list;
         }
 
@@ -1181,7 +1181,7 @@ namespace SpecLight.Infrastructure
                     )+
                     )
                     ((?=^[ ]{{0,{0}}}[^ \t\n])|\Z) # Lookahead for non-space at line-start, or end of doc",
-                    _tabWidth), RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
+                    TabWidth), RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
 
         /// <summary>
         /// /// Turn Markdown 4-space indented code into HTML pre code blocks
@@ -1235,7 +1235,7 @@ namespace SpecLight.Infrastructure
             //
             //        Turns to:
             //
-            //          ... type <code>`bar`</code> ...         
+            //          ... type <code>`bar`</code> ...
             //
 
             return _codeSpan.Replace(text, new MatchEvaluator(CodeSpanEvaluator));
@@ -1342,7 +1342,7 @@ namespace SpecLight.Infrastructure
 
             bq = string.Format("<blockquote>\n{0}\n</blockquote>", bq);
             string key = GetHashKey(bq, isHtmlBlock: true);
-            _htmlBlocks[key] = bq;
+            htmlBlocks[key] = bq;
 
             return "\n\n" + key + "\n\n";
         }
@@ -1352,15 +1352,15 @@ namespace SpecLight.Infrastructure
             return Regex.Replace(match.Groups[1].Value, @"^  ", "", RegexOptions.Multiline);
         }
 
-        private const string _charInsideUrl = @"[-A-Z0-9+&@#/%?=~_|\[\]\(\)!:,\.;" + "\x1a]";
-        private const string _charEndingUrl = "[-A-Z0-9+&@#/%=~_|\\[\\])]";
+        private const string CharInsideUrl = @"[-A-Z0-9+&@#/%?=~_|\[\]\(\)!:,\.;" + "\x1a]";
+        private const string CharEndingUrl = "[-A-Z0-9+&@#/%=~_|\\[\\])]";
 
-        private static Regex _autolinkBare = new Regex(@"(<|="")?\b(https?|ftp)(://" + _charInsideUrl + "*" + _charEndingUrl + ")(?=$|\\W)",
+        private static Regex _autolinkBare = new Regex(@"(<|="")?\b(https?|ftp)(://" + CharInsideUrl + "*" + CharEndingUrl + ")(?=$|\\W)",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        private static Regex _endCharRegex = new Regex(_charEndingUrl, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex _endCharRegex = new Regex(CharEndingUrl, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        private static string handleTrailingParens(Match match)
+        private static string HandleTrailingParens(Match match)
         {
             // The first group is essentially a negative lookbehind -- if there's a < or a =", we don't touch this.
             // We're not using a *real* lookbehind, because of links with in links, like <a href="http://web.archive.org/web/20121130000728/http://www.google.com/">
@@ -1420,7 +1420,7 @@ namespace SpecLight.Infrastructure
                 // fixup arbitrary URLs by adding Markdown < > so they get linked as well
                 // note that at this point, all other URL in the text are already hyperlinked as <a href=""></a>
                 // *except* for the <http://www.foo.com> case
-                text = _autolinkBare.Replace(text, handleTrailingParens);
+                text = _autolinkBare.Replace(text, HandleTrailingParens);
             }
 
             // Hyperlinks: <http://foo.com>
@@ -1471,7 +1471,7 @@ namespace SpecLight.Infrastructure
             //
             email = "mailto:" + email;
 
-            // leave ':' alone (to spot mailto: later) 
+            // leave ':' alone (to spot mailto: later)
             email = EncodeEmailAddress(email);
 
             email = string.Format("<a href=\"{0}\">{0}</a>", email);
@@ -1482,7 +1482,7 @@ namespace SpecLight.Infrastructure
         }
 
 
-        private static Regex _outDent = new Regex(@"^[ ]{1," + _tabWidth + @"}", RegexOptions.Multiline | RegexOptions.Compiled);
+        private static Regex _outDent = new Regex(@"^[ ]{1," + TabWidth + @"}", RegexOptions.Multiline | RegexOptions.Compiled);
 
         /// <summary>
         /// Remove one level of line-leading spaces
@@ -1497,8 +1497,8 @@ namespace SpecLight.Infrastructure
 
 
         /// <summary>
-        /// encodes email address randomly  
-        /// roughly 10% raw, 45% hex, 45% dec 
+        /// encodes email address randomly
+        /// roughly 10% raw, 45% hex, 45% dec
         /// note that @ is always encoded and : never is
         /// </summary>
         private string EncodeEmailAddress(string addr)
@@ -1543,7 +1543,7 @@ namespace SpecLight.Infrastructure
                     return "&gt;";
                 // escape characters that are magic in Markdown
                 default:
-                    return _escapeTable[match.Value];
+                    return EscapeTable[match.Value];
             }
         }
 
@@ -1572,7 +1572,7 @@ namespace SpecLight.Infrastructure
         }
         private string EscapeBackslashesEvaluator(Match match)
         {
-            return _backslashEscapeTable[match.Value];
+            return BackslashEscapeTable[match.Value];
         }
 
         private static Regex _unescapes = new Regex("\x1A" + "E\\d+E", RegexOptions.Compiled);
@@ -1586,7 +1586,7 @@ namespace SpecLight.Infrastructure
         }
         private string UnescapeEvaluator(Match match)
         {
-            return _invertedEscapeTable[match.Value];
+            return InvertedEscapeTable[match.Value];
         }
 
 
@@ -1595,8 +1595,8 @@ namespace SpecLight.Infrastructure
         /// </summary>
         private string EscapeBoldItalic(string s)
         {
-            s = s.Replace("*", _escapeTable["*"]);
-            s = s.Replace("_", _escapeTable["_"]);
+            s = s.Replace("*", EscapeTable["*"]);
+            s = s.Replace("_", EscapeTable["_"]);
             return s;
         }
 
@@ -1609,20 +1609,20 @@ namespace SpecLight.Infrastructure
         {
             s = AttributeEncode(s);
             foreach (var c in "*_:()[]")
-                s = s.Replace(c.ToString(), _escapeTable[c.ToString()]);
+                s = s.Replace(c.ToString(), EscapeTable[c.ToString()]);
             return s;
         }
 
         /// <summary>
-        /// Within tags -- meaning between &lt; and &gt; -- encode [\ ` * _] so they 
-        /// don't conflict with their use in Markdown for code, italics and strong. 
-        /// We're replacing each such character with its corresponding hash 
-        /// value; this is likely overkill, but it should prevent us from colliding 
+        /// Within tags -- meaning between &lt; and &gt; -- encode [\ ` * _] so they
+        /// don't conflict with their use in Markdown for code, italics and strong.
+        /// We're replacing each such character with its corresponding hash
+        /// value; this is likely overkill, but it should prevent us from colliding
         /// with the escape values by accident.
         /// </summary>
         private string EscapeSpecialCharsWithinTagAttributes(string text)
         {
-            var tokens = TokenizeHTML(text);
+            var tokens = TokenizeHtml(text);
 
             // now, rebuild text from the tokens
             var sb = new StringBuilder(text.Length);
@@ -1633,12 +1633,12 @@ namespace SpecLight.Infrastructure
 
                 if (token.Type == TokenType.Tag)
                 {
-                    value = value.Replace(@"\", _escapeTable[@"\"]);
-                    
+                    value = value.Replace(@"\", EscapeTable[@"\"]);
+
                     if (AutoHyperlink && value.StartsWith("<!")) // escape slashes in comments to prevent autolinking there -- http://meta.stackexchange.com/questions/95987/html-comment-containing-url-breaks-if-followed-by-another-html-comment
-                        value = value.Replace("/", _escapeTable["/"]);
-                    
-                    value = Regex.Replace(value, "(?<=.)</?code>(?=.)", _escapeTable[@"`"]);
+                        value = value.Replace("/", EscapeTable["/"]);
+
+                    value = Regex.Replace(value, "(?<=.)</?code>(?=.)", EscapeTable[@"`"]);
                     value = EscapeBoldItalic(value);
                 }
 
@@ -1649,9 +1649,9 @@ namespace SpecLight.Infrastructure
         }
 
         /// <summary>
-        /// convert all tabs to _tabWidth spaces; 
-        /// standardizes line endings from DOS (CR LF) or Mac (CR) to UNIX (LF); 
-        /// makes sure text ends with a couple of newlines; 
+        /// convert all tabs to _tabWidth spaces;
+        /// standardizes line endings from DOS (CR LF) or Mac (CR) to UNIX (LF);
+        /// makes sure text ends with a couple of newlines;
         /// removes any blank lines (only spaces) in the text
         /// </summary>
         private string Normalize(string text)
@@ -1678,7 +1678,7 @@ namespace SpecLight.Infrastructure
                         }
                         break;
                     case '\t':
-                        int width = (_tabWidth - line.Length % _tabWidth);
+                        int width = (TabWidth - line.Length % TabWidth);
                         for (int k = 0; k < width; k++)
                             line.Append(' ');
                         break;

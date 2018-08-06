@@ -8,11 +8,11 @@ namespace SpecLight.Output.ViewModel
 {
     internal class TestClassViewModel
     {
-        readonly Type _type;
+        readonly Type type;
 
         public TestClassViewModel(Type type)
         {
-            _type = type;
+            this.type = type;
 
             var d = type.GetCustomAttribute<DescriptionAttribute>();
             if (d != null)
@@ -25,12 +25,12 @@ namespace SpecLight.Output.ViewModel
 
         public List<SpecViewModel> Specs { get; set; }
         public string Description { get; set; }
-        public string Name { get { return _type.Name; } }
-        public string Namespace { get { return _type.Namespace; } }
+        public string Name { get { return type.Name; } }
+        public string Namespace { get { return type.Namespace; } }
 
         public void TrySortTestsByClassLayout()
         {
-            var correctOrder = _type.GetMethods().Cast<MethodBase>().ToList();
+            var correctOrder = type.GetMethods().Cast<MethodBase>().ToList();
             Specs.Sort((x, y) => correctOrder.IndexOf(x.Spec.CallingMethod).CompareTo(correctOrder.IndexOf(y.Spec.CallingMethod)));
         }
     }

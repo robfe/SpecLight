@@ -12,8 +12,8 @@ namespace SpecLight.Output
 {
     internal class RazorTemplateBase
     {
-        readonly StringBuilder _stringBuilder = new StringBuilder();
-        string _content;
+        readonly StringBuilder stringBuilder = new StringBuilder();
+        string content;
         public RazorTemplateBase Layout { get; set; }
         public RootViewModel TemplateModel { get; set; }
 
@@ -27,7 +27,7 @@ namespace SpecLight.Output
             {
                 return;
             }
-            _stringBuilder.Append(textToAppend);
+            stringBuilder.Append(textToAppend);
         }
 
         public void Write(object value)
@@ -42,7 +42,7 @@ namespace SpecLight.Output
 
         public string RenderBody()
         {
-            return _content;
+            return content;
         }
 
         public string TransformText()
@@ -50,19 +50,19 @@ namespace SpecLight.Output
             Execute();
             if (Layout != null)
             {
-                Layout._content = _stringBuilder.ToString();
+                Layout.content = stringBuilder.ToString();
                 return Layout.TransformText();
             }
-            return _stringBuilder.ToString();
+            return stringBuilder.ToString();
         }
 
         public void Clear()
         {
-            _stringBuilder.Clear();
+            stringBuilder.Clear();
 
             if (Layout != null)
             {
-                Layout._content = "";
+                Layout.content = "";
             }
         }
 
@@ -111,7 +111,7 @@ namespace System.Web.WebPages
 {
     public class HelperResult
     {
-        private readonly Action<TextWriter> _action;
+        private readonly Action<TextWriter> action;
 
         public HelperResult(Action<TextWriter> action)
         {
@@ -119,7 +119,7 @@ namespace System.Web.WebPages
             {
                 throw new ArgumentNullException("action");
             }
-            _action = action;
+            this.action = action;
         }
 
         public string ToHtmlString()
@@ -131,14 +131,14 @@ namespace System.Web.WebPages
         {
             using (var writer = new StringWriter(CultureInfo.InvariantCulture))
             {
-                _action(writer);
+                action(writer);
                 return writer.ToString();
             }
         }
 
         public void WriteTo(TextWriter writer)
         {
-            _action(writer);
+            action(writer);
         }
     }
 
