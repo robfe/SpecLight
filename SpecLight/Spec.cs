@@ -25,8 +25,6 @@ namespace SpecLight
             //delete any leading whitespace from each line in description
             Description = Regex.Replace(description.Trim(), @"^\s+", "", RegexOptions.Multiline);
             WriteLine = writeLine ?? Console.WriteLine;
-            //this fixture is added to all specs by default:
-            WithFixture<PrintCurrentStepFixture>();
         }
 
         public string Description { get; private set; }
