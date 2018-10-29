@@ -76,6 +76,12 @@ are True=are
                 }
             }
 
+            //special case for `string **Quoted`
+            if (param != null && v is string s && param.Name.EndsWith("Quoted"))
+            {
+                return '"' + s + '"';
+            }
+
             //special case for named dates
             if (param != null && (param.ParameterType == typeof (DateTime) || param.ParameterType == typeof (DateTime?)) && v is DateTime dateTime)
             {
