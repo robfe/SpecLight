@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using SpecLight.Infrastructure;
 
@@ -19,6 +20,7 @@ namespace SpecLight
         Action finalActions;
 
         readonly ExpandoObject extraData = new ExpandoObject();
+        Dictionary<Lazy<Exception>, Step> caughtExceptionReferences = new Dictionary<Lazy<Exception>, Step>();
 
         public Spec(string description, Action<string> writeLine = null)
         {
@@ -89,10 +91,15 @@ becomes
             return this;
         }
 
-        public Spec WhichShouldThrow<T>(Func<T, bool> exceptionInspector = null) where T:Exception
+        public Spec Catch(out Lazy<Exception> caughtExceptionReference)
         {
+            Exception caughtException = null;
             var step = Steps.Last();
-            step.WhichShouldThrow(exceptionInspector);
+            step.catchException = e => caughtException = e;
+            caughtExceptionReference = new Lazy<Exception>(() => caughtException);
+
+            caughtExceptionReferences[caughtExceptionReference] = step;
+
             return this;
         }
 
@@ -184,7 +191,25 @@ becomes
                 skip = skip || o.CausesSkip;
                 Fixtures.ForEach(x => x.StepTeardown(step));
             }
+
+            if (!skip)
+            {
+                EnsureAllCatchesWereObserved();
+            }
             Fixtures.ForEach(x => x.SpecTeardown(this));
+        }
+
+        void EnsureAllCatchesWereObserved()
+        {
+            var v = caughtExceptionReferences
+                .Where(x => !x.Key.IsValueCreated)
+                .Select(x => x.Value)
+                .FirstOrDefault();
+
+            if (v != null)
+            {
+                throw new Exception($"Error was thrown by step \'{v.Description}\', but was not inspected");
+            }
         }
 
         void RunOutcomes()
@@ -199,6 +224,11 @@ becomes
                 Outcomes.Add(o);
                 skip = skip || o.CausesSkip;
                 Fixtures.ForEach(x => x.StepTeardown(step));
+            }
+
+            if (!skip)
+            {
+                EnsureAllCatchesWereObserved();
             }
             Fixtures.ForEach(x => x.SpecTeardown(this));
         }

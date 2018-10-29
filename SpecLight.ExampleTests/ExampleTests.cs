@@ -31,6 +31,7 @@ They demonstrate:
         int total;
 
         ITestOutputHelper output;
+        Lazy<Exception> iPressAddException;
         public ExampleTests(ITestOutputHelper output) => this.output = output;
 
         [Fact]
@@ -118,15 +119,39 @@ They demonstrate:
         }
 
         [Fact]
-        public void ExpectedExceptions()
+        public void CatchingExceptions()
         {
             new Spec(@"
-                    TODO", output.WriteLine)
-                .Given(IPressAdd)
-                .WhichShouldThrow<InvalidOperationException>()
-                .When(IEnter_, 2)
-                .WhichShouldThrow<InvalidOperationException>()
+                    Sometimes it's useful to check that a step throws an exception.
+                    Use .Catch to store the exception for later.", output.WriteLine)
+                .Given(IEnterNothing)
+                .When(IPressAdd).Catch(out iPressAddException)
+                .Then(UserShouldSeeAnErrorWithMessage_, "No numbers to sum!")
                 .Execute();
+        }
+
+        [Fact]
+        public void CatchingExceptionsEnsuresExceptionsAreInspected()
+        {
+            new Spec(@"
+                    Sometimes it's useful to check that a step throws an exception.
+                    Unread exceptions will cause the spec to fail,", output.WriteLine)
+                .Given(IEnterNothing)
+                .When(IPressAdd).Catch(out iPressAddException)
+                .Execute(); //throws an exception, because iPressAddException.Value was never read
+        }
+
+        void UserShouldSeeAnErrorWithMessage_(string messageQuoted)
+        {
+            var exception = iPressAddException.Value;
+            Assert.NotNull(exception);
+            Assert.IsType<InvalidOperationException>(exception);
+            Assert.Equal(messageQuoted, exception.Message);
+        }
+
+        void IEnterNothing()
+        {
+            numbers.Clear();
         }
 
 
