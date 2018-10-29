@@ -67,42 +67,50 @@ are True=are
         static string FormatValue(ParameterInfo param, object v)
         {
             //special case for `bool awesomeOrSucks`
-            if (param != null && param.ParameterType == typeof (bool) && v is bool && param.Name.Contains("Or"))
+            if (param != null && param.ParameterType == typeof (bool) && v is bool b && param.Name.Contains("Or"))
             {
                 var options = param.Name.Split(new[] {"Or"}, StringSplitOptions.None);
                 if (options.Length == 2)
                 {
-                    return UnCamel(options[((bool) v) ? 0 : 1]).Trim();
+                    return UnCamel(options[b ? 0 : 1]).Trim();
                 }
             }
 
             //special case for named dates
-            if (param != null && (param.ParameterType == typeof (DateTime) || param.ParameterType == typeof (DateTime?)) && v is DateTime)
+            if (param != null && (param.ParameterType == typeof (DateTime) || param.ParameterType == typeof (DateTime?)) && v is DateTime dateTime)
             {
                 switch (param.Name)
                 {
                     case "date":
-                        return ((DateTime) v).ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern);
+                        return dateTime.ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern);
                     case "time":
-                        return ((DateTime) v).ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern);
+                        return dateTime.ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern);
                     case "day":
-                        return ((DateTime) v).ToString("dddd");
+                        return dateTime.ToString("dddd");
                     case "dayOfMonth":
-                        return ((DateTime) v).ToString("ddd");
+                        return dateTime.ToString("ddd");
                     case "month":
-                        return ((DateTime) v).ToString("MMMM");
+                        return dateTime.ToString("MMMM");
                     case "year":
-                        return ((DateTime) v).ToString("yyyy");
+                        return dateTime.ToString("yyyy");
                     case "hour":
-                        return ((DateTime) v).ToString("hh tt");
+                        return dateTime.ToString("hh tt");
                     case "minute":
-                        return ((DateTime) v).ToString("mm");
+                        return dateTime.ToString("mm");
                 }
             }
 
             //special case for `numeric amount`
-            if (v != null && param != null && IsNumeric(param.ParameterType) && param.Name.ToLower().Contains("amount")) {
-                return $"{v:C}";
+            if (v != null && param != null && IsNumeric(param.ParameterType))
+            {
+                if (param.Name.ToLower().Contains("amount") || param.Name.ToLower().EndsWith("dollars"))
+                {
+                    return $"{v:C}";
+                }
+                if (param.Name.ToLower().EndsWith("percent"))
+                {
+                    return $"{v:P}";
+                }
             }
 
             if (v != null && v.GetType().IsArray)
