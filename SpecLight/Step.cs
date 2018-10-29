@@ -11,6 +11,7 @@ namespace SpecLight
     public class Step
     {
         readonly ExpandoObject extraData = new ExpandoObject();
+        Func<Exception, bool> expectException;
 
         public ScenarioBlock Type { get; internal set; }
         public string Description { get; internal set; }
@@ -46,6 +47,15 @@ namespace SpecLight
 
         internal string FormattedType => Type.ToString().PadLeft(5, ' ');
 
+        public void WhichShouldThrow<T>(Func<T,bool> exceptionInspector = null) where T : Exception
+        {
+            if (this.expectException != null)
+            {
+                throw new ArgumentException("Can't call WhichShouldThrow more than once per step");
+            }
+            Description += ", which should throw an " + typeof(T).Name;
+            expectException = e => e is T ee && (exceptionInspector == null || exceptionInspector(ee));
+        }
 
         internal Task<StepOutcome> ExecuteAsync()
         {
@@ -56,11 +66,11 @@ namespace SpecLight
 
             try
             {
-                return AsyncAction().ContinueWith<StepOutcome>(task => !task.IsFaulted ? Pass() : Error(Unwrap(task.Exception)));
+                return AsyncAction().ContinueWith<StepOutcome>(task => !task.IsFaulted ? PassUnlessExceptionExpected() : ErrorUnlessExceptionExpected(Unwrap(task.Exception)));
             }
             catch (Exception e)
             {
-                return Task.FromResult(Error(e));
+                return Task.FromResult(ErrorUnlessExceptionExpected(e));
             }
         }
 
@@ -79,12 +89,21 @@ namespace SpecLight
             try
             {
                 SynchronousAction();
-                return Pass();
+                return PassUnlessExceptionExpected();
             }
             catch (Exception e)
             {
-                return Error(e);
+                return ErrorUnlessExceptionExpected(e);
             }
+        }
+
+        StepOutcome PassUnlessExceptionExpected()
+        {
+            if (expectException != null)
+            {
+                return Error(new Exception("Expected Exception was not thrown by step"));
+            }
+            return Pass();
         }
 
         StepOutcome Pass()
@@ -104,6 +123,14 @@ namespace SpecLight
             };
         }
 
+        StepOutcome ErrorUnlessExceptionExpected(Exception e)
+        {
+            if (expectException != null && expectException(e))
+            {
+                return Pass();
+            }
+            return Error(e);
+        }
 
         StepOutcome Error(Exception e)
         {
@@ -114,5 +141,6 @@ namespace SpecLight
                 Status = Reflector.PendingExceptionNames.Contains(e.GetType().FullName) ? Status.Pending : Status.Failed
             };
         }
+
     }
 }

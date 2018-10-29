@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using Xunit;
+using Xunit.Abstractions;
 using Xunit.Extensions;
 
 namespace SpecLight.ExampleTests
@@ -28,7 +29,10 @@ They demonstrate:
     {
         List<int> numbers = new List<int>();
         int total;
-            
+
+        ITestOutputHelper output;
+        public ExampleTests(ITestOutputHelper output) => this.output = output;
+
         [Fact]
         public void Pending()
         {
@@ -37,7 +41,7 @@ They demonstrate:
 
                     In order to know how much money I can save
                     As a Math Idiot
-                    I want to add two numbers").Tag("Pending")
+                    I want to add two numbers", output.WriteLine).Tag("Pending")
                 .Given(IEnter_, 5)
                 .And(IEnter_, 6)
                 .When(ICallAMethodThatsNotImplemented).Tag("NotImplemented")
@@ -53,7 +57,7 @@ They demonstrate:
 
                     In order to know how much money I can save
                     As a Math Idiot
-                    I want to add two numbers").Tag("Money")
+                    I want to add two numbers", output.WriteLine).Tag("Money")
                 .Given(IEnter_, 5)
                 .And(IEnter_, 6)
                 .When(IPressAdd)
@@ -66,7 +70,7 @@ They demonstrate:
         {
             new Spec(@"
                     Sometimes you just want to write a step, and have it pass even though it does nothing
-                    SpecLight detects methods that have no code and adds 'empty' to the status of 'passed'")
+                    SpecLight detects methods that have no code and adds 'empty' to the status of 'passed'", output.WriteLine)
                 .Given(EmptyMethodWithArgument_, "x")
                 .And(EmptyMethodWithNoArgument)
                 .Execute();
@@ -83,7 +87,7 @@ They demonstrate:
 
                     In order to know how much money I can save
                     As a Math Idiot
-                    I want to add two numbers").Tag("Money")
+                    I want to add two numbers", output.WriteLine).Tag("Money")
                 .Given(IEnter_, i1)
                 .And(IEnter_, i2)
                 .When(IPressAdd)
@@ -96,11 +100,11 @@ They demonstrate:
         {
             new Spec(@"
                     Here is a spec that should fail. Steps after the failing step are skipped
-                    
+
 
                     In order to know how much money I can save
                     As a Math Idiot
-                    I want to add two numbers")
+                    I want to add two numbers", output.WriteLine)
                 .Tag("DemonstrateFinally")
                 .WithFixture<ExecutionTimer>()
                 .Given(IEnter_, 5)
@@ -113,9 +117,25 @@ They demonstrate:
                 .Execute();
         }
 
+        [Fact]
+        public void ExpectedExceptions()
+        {
+            new Spec(@"
+                    TODO", output.WriteLine)
+                .Given(IPressAdd)
+                .WhichShouldThrow<InvalidOperationException>()
+                .When(IEnter_, 2)
+                .WhichShouldThrow<InvalidOperationException>()
+                .Execute();
+        }
+
 
         void IPressAdd()
         {
+            if (!numbers.Any())
+            {
+                throw new InvalidOperationException("No numbers to sum!");
+            }
             total = numbers.Sum();
         }
 

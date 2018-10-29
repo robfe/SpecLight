@@ -89,6 +89,13 @@ becomes
             return this;
         }
 
+        public Spec WhichShouldThrow<T>(Func<T, bool> exceptionInspector = null) where T:Exception
+        {
+            var step = Steps.Last();
+            step.WhichShouldThrow(exceptionInspector);
+            return this;
+        }
+
         public Spec Finally(IDisposable disposable)
         {
             return Finally(disposable.Dispose);
@@ -200,6 +207,5 @@ becomes
         {
             return SpecReporter.WriteSpecs();
         }
-
     }
 }
