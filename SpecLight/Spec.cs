@@ -91,6 +91,12 @@ becomes
             return this;
         }
 
+        /// <summary>
+        ///     If a step is supposed to throw an exception, you can use Catch to store that exception. If the step would have failed, it will now pass.
+        ///     If the step actually passed but it should have thrown an exception, it will continue to pass. It's up to you to write a subsequent step that inspects
+        ///     the exception stored in the Lazy. Luckily, if you forget, this Spec will fail despite all steps "passing"
+        /// </summary>
+        /// <param name="caughtExceptionReference">A reference to a field you can store the exception in, for reading by other steps</param>
         public Spec Catch(out Lazy<Exception> caughtExceptionReference)
         {
             Exception caughtException = null;
