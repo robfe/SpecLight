@@ -30,8 +30,9 @@ They demonstrate:
         List<int> numbers = new List<int>();
         int total;
 
-        ITestOutputHelper output;
         Lazy<Exception> iPressAddException;
+
+        ITestOutputHelper output;
         public ExampleTests(ITestOutputHelper output) => this.output = output;
 
         [Fact]

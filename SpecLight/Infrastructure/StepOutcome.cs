@@ -21,6 +21,11 @@ namespace SpecLight.Infrastructure
         public bool Empty { get; set; }
 
         /// <summary>
+        /// Did the step throw an exception, but Catch was used to expect it?
+        /// </summary>
+        public bool ExceptionCaught { get; set; }
+
+        /// <summary>
         /// Should we start skipping steps now?
         /// </summary>
         public bool CausesSkip => Status == Status.Failed || Status == Status.Pending;

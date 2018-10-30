@@ -6,6 +6,7 @@ namespace SpecLight.Infrastructure
     static class ConsoleOutcomePrinter
     {
         const string Empty = " (Empty)";
+        const string ExceptionCaught = " (Exception Caught)";
         public static readonly int MaxStepOutcomeNameLength = Enum.GetNames(typeof(Status)).Max(x => x.Length) + Empty.Length;
 
         public static void PrintOutcomes(Spec spec, Action<string> writeLine)
@@ -40,6 +41,10 @@ namespace SpecLight.Infrastructure
                 if (o.Empty)
                 {
                     s += Empty;
+                }
+                if (o.ExceptionCaught)
+                {
+                    s += ExceptionCaught;
                 }
                 var cells = new[]
                 {

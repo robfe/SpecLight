@@ -90,7 +90,6 @@ becomes
             list.AddRange(tags);
             return this;
         }
-
         /// <summary>
         ///     If a step is supposed to throw an exception, you can use Catch to store that exception. If the step would have failed, it will now pass.
         ///     If the step actually passed but it should have thrown an exception, it will continue to pass. It's up to you to write a subsequent step that inspects
@@ -101,9 +100,9 @@ becomes
         {
             Exception caughtException = null;
             var step = Steps.Last();
+
             step.catchException = e => caughtException = e;
             caughtExceptionReference = new Lazy<Exception>(() => caughtException);
-
             caughtExceptionReferences[caughtExceptionReference] = step;
 
             return this;
@@ -150,9 +149,9 @@ becomes
             else
             {
                 RunOutcomes();
+                CleanupAndThrowIfFailed();
             }
-            var thrower = CleanupAndGetThrower();
-            thrower?.Throw();
+
         }
 
         /// <summary>
@@ -161,27 +160,34 @@ becomes
         ///     Be sure to call Execute from your unit test method directly so that it can detect its calling method correctly
         /// </summary>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public Task ExecuteAsync([CallerMemberName] string testMethodNameOverride = null)
+        public async Task ExecuteAsync([CallerMemberName] string testMethodNameOverride = null)
         {
             CallingMethod = CallingMethod ?? Reflector.FindCallingMethod();
             TestMethodNameOverride = testMethodNameOverride;
-            return RunOutcomesAsync().ContinueWith(ProcessOutcomes);
+            await RunOutcomesAsync();
+            CleanupAndThrowIfFailed();
         }
 
-        void ProcessOutcomes(Task t)
-        {
-            var thrower = CleanupAndGetThrower();
-            thrower?.Throw();
-        }
-
-        ExceptionDispatchInfo CleanupAndGetThrower()
+        void CleanupAndThrowIfFailed()
         {
             finalActions?.Invoke();
             SpecReporter.Add(this);
             ConsoleOutcomePrinter.PrintOutcomes(this, WriteLine);
 
             //rethrow the first error if any
-            return Outcomes.Select(x => x.ExceptionDispatchInfo).FirstOrDefault(x => x != null);
+            var thrower = Outcomes.Select(x => x.ExceptionDispatchInfo).FirstOrDefault(x => x != null);
+            thrower?.Throw();
+
+            //check if there were any un-inspected exception references
+            var unInspectedExceptionReference = caughtExceptionReferences
+                .Where(x => !x.Key.IsValueCreated)
+                .Select(x => x.Value)
+                .FirstOrDefault();
+
+            if (unInspectedExceptionReference != null)
+            {
+                throw new Exception($"Error was thrown by step \'{unInspectedExceptionReference.Description}\', but was not inspected");
+            }
         }
 
         async Task RunOutcomesAsync()
@@ -197,25 +203,7 @@ becomes
                 skip = skip || o.CausesSkip;
                 Fixtures.ForEach(x => x.StepTeardown(step));
             }
-
-            if (!skip)
-            {
-                EnsureAllCatchesWereObserved();
-            }
             Fixtures.ForEach(x => x.SpecTeardown(this));
-        }
-
-        void EnsureAllCatchesWereObserved()
-        {
-            var v = caughtExceptionReferences
-                .Where(x => !x.Key.IsValueCreated)
-                .Select(x => x.Value)
-                .FirstOrDefault();
-
-            if (v != null)
-            {
-                throw new Exception($"Error was thrown by step \'{v.Description}\', but was not inspected");
-            }
         }
 
         void RunOutcomes()
@@ -230,11 +218,6 @@ becomes
                 Outcomes.Add(o);
                 skip = skip || o.CausesSkip;
                 Fixtures.ForEach(x => x.StepTeardown(step));
-            }
-
-            if (!skip)
-            {
-                EnsureAllCatchesWereObserved();
             }
             Fixtures.ForEach(x => x.SpecTeardown(this));
         }

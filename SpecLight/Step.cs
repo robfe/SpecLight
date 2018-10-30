@@ -113,7 +113,9 @@ namespace SpecLight
             {
                 //todo: try/catch?
                 catchException(e);
-                return Pass();
+                var outcome = Pass();
+                outcome.ExceptionCaught = true;
+                return outcome;
             }
             return new StepOutcome(this)
             {
