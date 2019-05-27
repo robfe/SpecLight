@@ -38,6 +38,9 @@ namespace SpecLight
         /// </summary>
         Task ExecuteAsync([CallerMemberName] string testMethodNameOverride = null);
 
+        /// <inheritdoc cref="Spec.Catch"/>
+        Spec Catch(out Lazy<Exception> caughtExceptionReference);
+
         /// <summary>
         ///    Because you have used one of the async step methods, you should be awaiting/returning ExecuteAsync instead
         /// </summary>
