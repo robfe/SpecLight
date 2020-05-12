@@ -12,19 +12,19 @@ namespace SpecLight.Infrastructure
         public static void PrintOutcomes(Spec spec, Action<string> writeLine)
         {
             writeLine("> SpecLight results:");
-            Console.WriteLine();
+            writeLine(string.Empty);
             if (spec.SpecTags.Any())
             {
                 writeLine(String.Join(", ", spec.SpecTags.Select(x => "@" + x)));
             }
             writeLine(spec.Description);
-            Console.WriteLine();
+            writeLine(string.Empty);
 
             var specData = spec.DataDictionary.FormatExtraData();
             if (!string.IsNullOrWhiteSpace(specData))
             {
                 writeLine(specData);
-                Console.WriteLine();
+                writeLine(string.Empty);
             }
 
             if (!spec.Outcomes.Any())
